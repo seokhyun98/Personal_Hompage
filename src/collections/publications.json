@@ -1,0 +1,379 @@
+{
+  "tagOrder": [
+    "Haptics",
+    "Locomotion",
+    "AutomotiveUX",
+    "Accessibility",
+    "Conference",
+    "Journal",
+    "Poster&Workshop",
+    "FA",
+    "Award"
+  ],
+  "tagColors": {
+    "Haptics": "#A3E4F2",
+    "Locomotion": "#FFDAB9",
+    "AutomotiveUX": "#A7FAC8",
+    "Accessibility": "#FFD580",
+    "Conference": "#B0E0E6",
+    "Journal": "#CBF3D2",
+    "Poster&Workshop": "#89CFF0",
+    "FA": "#C3B1E1",
+    "Award": "#FFFACD"
+  },
+  "tagColorsDark": {
+    "Haptics": "#3d5c63",
+    "Locomotion": "#5c4a3d",
+    "AutomotiveUX": "#3d5c4a",
+    "Accessibility": "#5c4a3d",
+    "Conference": "#3d5258",
+    "Journal": "#3d5245",
+    "Poster&Workshop": "#3d4d58",
+    "FA": "#4a3d5c",
+    "Award": "#5c5c3d"
+  },
+  "entries": [
+    {
+      "id": "c.15",
+      "group": "publication",
+      "tags": ["Haptics", "Conference"],
+      "title": "A Closed-Loop CPR Training Glove with Integrated Tactile Sensing and Haptic Feedback",
+      "authors": "Moon, J., Ma, M., Yang, Q., Hwang, S., Choi, Y., Kim, K., Burden, B., Luo, Y.",
+      "venue": "2026 IEEE International Conference on Robotics & Automation",
+      "link": "",
+      "status": "Accepted",
+      "media": { "type": "image", "src": "/images/publications/cpr-training-glove.jpeg" }
+    },
+    {
+      "id": "c.14",
+      "group": "publication",
+      "tags": ["AutomotiveUX", "Conference", "FA"],
+      "title": "A Framework for Adapting In-Car Touchscreen Interfaces to Driver Behaviors, Perception, and Cognition",
+      "authors": "Hwang, S., Shen, X., Filipowicz, A., Best, A., Costa, J., Carter, S., Fogarty, J., Wobbrock, J.",
+      "venue": "Proceedings of the 2026 CHI conference on Human Factors in Computing Systems",
+      "link": "https://doi.org/10.1145/3772318.3790434",
+      "media": { "type": "image", "src": "/images/publications/driver-touchscreen.gif" }
+    },
+    {
+      "id": "c.13",
+      "group": "publication",
+      "tags": ["AutomotiveUX", "Conference", "FA"],
+      "title": "Touchscreens in Motion: Quantifying the Impact of Cognitive Load on Distracted Drivers",
+      "authors": "Shen, X.*, Hwang, S.*, Kong, J., Filipowicz, A., Best, A., Costa, J., Carter, S., Fogarty, J., Wobbrock, J.",
+      "venue": "Proceedings of the 2025 ACM Symposium on User Interface Software and Technology",
+      "link": "https://doi.org/10.1145/3746059.3747683",
+      "media": { "type": "image", "src": "/images/publications/touchscreen-cognitive-load.png" }
+    },
+    {
+      "id": "c.12",
+      "group": "publication",
+      "tags": ["AutomotiveUX", "Conference"],
+      "title": "You're the One Whom I'm Talking To: The Role of Contextual External Human-Machine Interfaces in Multi-Road User Conflict Scenarios",
+      "authors": "Kang, Y., Park, J., Hwang, S., Seong, M., Kim, G., Kim, S.",
+      "venue": "Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies, Vol. 9, No.3",
+      "link": "https://doi.org/10.1145/3749473",
+      "media": {
+        "type": "video",
+        "poster": "/images/publications/contextual-ehmi-poster.jpg",
+        "mp4": "/images/publications/contextual-ehmi.mp4"
+      }
+    },
+    {
+      "id": "j.3",
+      "group": "publication",
+      "tags": ["Haptics", "Locomotion", "Journal"],
+      "title": "ReD shoes: actuated footwear for multisensory redirected walking in virtual reality",
+      "authors": "Ataya, A., Elsharkawy, A., Lee, J., Hwang, S., Seong, M., and Kim, S.",
+      "venue": "Virtual Reality 29, 158 (2025)",
+      "link": "https://link.springer.com/article/10.1007/s10055-025-01234-w",
+      "media": { "type": "image", "src": "/images/publications/red-shoes.png" }
+    },
+    {
+      "id": "c.11",
+      "group": "publication",
+      "tags": ["Haptics", "Conference", "FA", "Award"],
+      "title": "TelePulse: Enhancing the Teleoperation Experience through Biomechanical Simulation-Based Electrical Muscle Stimulation in Virtual Reality",
+      "authors": "Hwang, S.*, Kang, S.*, Oh, J.*, Park, J., Shin, S., Luo, Y., DelPreto, J., Lee, S., Lee, K., Matusik, W., Rus, D., Kim, S.",
+      "venue": "Proceedings of the 2025 CHI conference on Human Factors in Computing Systems",
+      "link": "https://doi.org/10.1145/3706598.3713767",
+      "award": "Best Paper",
+      "media": {
+        "type": "video",
+        "poster": "/images/publications/teleoperation-ems-poster.jpg",
+        "mp4": "/images/publications/teleoperation-ems.mp4"
+      }
+    },
+    {
+      "id": "c.10",
+      "group": "publication",
+      "tags": ["Locomotion", "AutomotiveUX", "Conference"],
+      "title": "I Want to Break Free: Enabling User-Applied Active Locomotion in In-Car VR through Contextual Cues",
+      "authors": "Gim, B., Hwang, S., Kang, S., Kim, G., Yeo, D., Kim, S.",
+      "venue": "Proceedings of the 2025 CHI conference on Human Factors in Computing Systems",
+      "link": "https://doi.org/10.1145/3706598.3713373",
+      "media": {
+        "type": "video",
+        "poster": "/images/publications/in-car-vr-locomotion-poster.jpg",
+        "mp4": "/images/publications/in-car-vr-locomotion.mp4"
+      }
+    },
+    {
+      "id": "c.9",
+      "group": "publication",
+      "tags": ["Haptics", "Locomotion", "Accessibility", "Conference"],
+      "title": "Adaptive Walker: User Intention and Environmentally Aware Intelligent Walker with High-resolution Tactile and IMU Sensor",
+      "authors": "Choi, Y., Hwang, S., Moon, J., Lee, H., Yeo, D., Seong, M., Luo, Y., Kim, S., Matusik, W., Rus, D., Kim, K.",
+      "venue": "2025 IEEE International Conference on Robotics & Automation",
+      "link": "https://ieeexplore.ieee.org/abstract/document/11127691",
+      "media": { "type": "image", "src": "/images/publications/adaptive-walker.jpg" }
+    },
+    {
+      "id": "c.8",
+      "group": "publication",
+      "tags": ["Haptics", "Conference"],
+      "title": "Flip-Pelt: Motor-Driven Peltier Elements for Rapid Thermal Stimulation and Congruent Pressure Feedback in Virtual Reality",
+      "authors": "Kang, S., Kim, G., Hwang, S., Park, J., Elsharkawy, A., and Kim, S.",
+      "venue": "Proceedings of the 2024 ACM Symposium on User Interface Software and Technology",
+      "link": "https://doi.org/10.1145/3654777.3676363",
+      "media": {
+        "type": "video",
+        "poster": "/images/publications/peltier-thermal-vr-poster.jpg",
+        "mp4": "/images/publications/peltier-thermal-vr.mp4"
+      }
+    },
+    {
+      "id": "w.4",
+      "group": "publication",
+      "tags": ["Haptics", "Poster&Workshop", "FA"],
+      "title": "Proposal of a Framework for Enhancing Teleoperation Experience with Biomechanical Simulation-Based Electrical Muscle Stimulation in Virtual Reality",
+      "authors": "Hwang, S., Kang, S., Oh, J., Park, J., Shin, S., Luo, Y., DelPreto, J., Matusik, W., Rus, D., Kim, S.",
+      "venue": "UbiComp '24: Companion of the 2024 ACM International Joint Conference on Pervasive and Ubiquitous Computing",
+      "link": "https://doi.org/10.1145/3675094.3678380",
+      "media": { "type": "image", "src": "/images/publications/teleoperation-ems-framework.png" }
+    },
+    {
+      "id": "w.3",
+      "group": "publication",
+      "tags": ["Haptics", "AutomotiveUX", "Poster&Workshop"],
+      "title": "Adaptive In-Vehicle Virtual Reality for Reducing Motion Sickness: Manipulating Passenger Posture During Driving Events",
+      "authors": "Elsharkawy, A., Ataya, A., Yeo, D., Seong, M., Hwang, S., DelPreto, J., Matusik, W., Rus, D., Kim, S.",
+      "venue": "UbiComp '24: Companion of the 2024 ACM International Joint Conference on Pervasive and Ubiquitous Computing",
+      "link": "https://doi.org/10.1145/3675094.3678381",
+      "media": { "type": "image", "src": "/images/publications/in-vehicle-vr-sickness.png" }
+    },
+    {
+      "id": "c.7",
+      "group": "publication",
+      "tags": ["AutomotiveUX", "Conference"],
+      "title": "TimelyTale: A Multimodal Dataset Assessing Passenger's Demands for Explanations in Highly Automated Vehicles",
+      "authors": "Kim, G., Hwang, S., Seong, M., Yeo, D., Rus, D., Kim, S.",
+      "venue": "Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies, Vol. 8, No.3",
+      "link": "https://dl.acm.org/doi/10.1145/3678544",
+      "media": { "type": "image", "src": "/images/publications/timely-tale.png" }
+    },
+    {
+      "id": "w.2",
+      "group": "publication",
+      "tags": ["Haptics", "Accessibility", "Poster&Workshop"],
+      "title": "Intelligence Walker: A Seamless Mobility Assist Device for the Elderly",
+      "authors": "Choi, Y., Yeo, D., Hwang, S., Seong, M., Moon, J., Luo, Y., Matusik, W., Rus, D., Kim, K.",
+      "venue": "2024 IEEE ICRA Workshop on Wearable",
+      "link": "https://sites.google.com/view/icra-2024-wearable-workshop/proceedings",
+      "media": { "type": "image", "src": "/images/publications/intelligent-walker.jpeg" }
+    },
+    {
+      "id": "w.1",
+      "group": "publication",
+      "tags": ["Haptics", "Poster&Workshop"],
+      "title": "Dual-sided Peltier Elements for Rapid Thermal Feedback in Wearables",
+      "authors": "Kang, S., Kim, G., Hwang, S., Park, J., Elsharkawy, A., and Kim, S.",
+      "venue": "2024 IEEE ICRA Workshop on Wearable",
+      "link": "https://arxiv.org/abs/2405.11807",
+      "media": { "type": "image", "src": "/images/publications/peltier-wearable.png" }
+    },
+    {
+      "id": "c.6",
+      "group": "publication",
+      "tags": ["Haptics", "Accessibility", "Conference"],
+      "title": "WatchCap: Improving Scanning Efficiency in People with Low Vision through Compensatory Head Movement Stimulation",
+      "authors": "Jo, T., Yeo, D., Kim, G., Hwang, S., Kim, S.",
+      "venue": "Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies, Vol. 8, No. 2",
+      "link": "https://dl.acm.org/doi/10.1145/3659592",
+      "media": { "type": "image", "src": "/images/publications/watch-cap.png" }
+    },
+    {
+      "id": "c.5",
+      "group": "publication",
+      "tags": ["Haptics", "Conference", "FA", "Award"],
+      "title": "ErgoPulse: Electrifying Your Lower Body With Biomechanical Simulation-based Electrical Muscle Stimulation Haptic System in Virtual Reality",
+      "authors": "Hwang, S., Oh, J., Kang, S., Seong, M., Elsharkawy, A., Kim, S.",
+      "venue": "Proceedings of the 2024 CHI conference on Human Factors in Computing Systems",
+      "link": "https://dl.acm.org/doi/10.1145/3613904.3642008",
+      "award": "Honorable Mention",
+      "media": {
+        "type": "video",
+        "poster": "/images/publications/lower-body-ems-vr-poster.jpg",
+        "mp4": "/images/publications/lower-body-ems-vr.mp4"
+      }
+    },
+    {
+      "id": "c.4",
+      "group": "publication",
+      "tags": ["Haptics", "AutomotiveUX", "Conference", "Award"],
+      "title": "SYNC-VR: Synchronizing Your Senses to Conquer Motion Sickness for Enriching In-Vehicle Virtual Reality",
+      "authors": "Elsharkawy, A., Ataya, A., Yeo, D., An, E., Hwang, S., Kim, S.",
+      "venue": "Proceedings of the 2024 CHI conference on Human Factors in Computing Systems",
+      "link": "https://dl.acm.org/doi/10.1145/3613904.3642941",
+      "award": "Honorable Mention",
+      "media": { "type": "image", "src": "/images/publications/sync-vr.png" }
+    },
+    {
+      "id": "p.4",
+      "group": "publication",
+      "tags": ["Locomotion", "Poster&Workshop"],
+      "title": "GaitWay: Gait Data-Based VR Locomotion Prediction System Robust to Visual Distraction",
+      "authors": "Kim, Y., Hwang, S., Oh, J., Kim, S.",
+      "venue": "Extended Abstracts of the 2024 CHI conference on Human Factors in Computing Systems",
+      "link": "https://dl.acm.org/doi/10.1145/3613905.3651073",
+      "media": {
+        "type": "video",
+        "poster": "/images/publications/gait-way-poster.jpg",
+        "mp4": "/images/publications/gait-way.mp4"
+      }
+    },
+    {
+      "id": "p.3",
+      "group": "publication",
+      "tags": ["Locomotion", "AutomotiveUX", "Poster&Workshop"],
+      "title": "Curving the Virtual Route: Applying Redirected Steering Gains for Active Locomotion in In-Car VR",
+      "authors": "Gim, B., Kang, S., Kim, G., Yeo, D., Hwang, S., Kim, S.",
+      "venue": "Extended Abstracts of the 2024 CHI conference on Human Factors in Computing Systems",
+      "link": "https://dl.acm.org/doi/10.1145/3613905.3650746",
+      "media": {
+        "type": "video",
+        "poster": "/images/publications/redirected-steering-incar-poster.jpg",
+        "mp4": "/images/publications/redirected-steering-incar.mp4"
+      }
+    },
+    {
+      "id": "j.2",
+      "group": "publication",
+      "tags": ["Haptics", "Locomotion", "Journal"],
+      "title": "Evaluation of Visual, Auditory, and Olfactory Stimulus-Based Attractors for Intermittent Reorientation in Virtual Reality Locomotion",
+      "authors": "Lee, J., Hwang, S., Kim, K., and Kim, S.",
+      "venue": "Virtual Reality 28, 104 (2024)",
+      "link": "https://doi.org/10.1007/s10055-024-00997-y",
+      "media": { "type": "image", "src": "/images/publications/multisensory-attractors-rdw.jpeg" }
+    },
+    {
+      "id": "j.1",
+      "group": "publication",
+      "tags": ["Locomotion", "Journal"],
+      "title": "Effect of Optical Flow and User VR Familiarity on Curvature Gain Thresholds for Redirected Walking",
+      "authors": "Lee, J., Hwang, S., Ataya, A., and Kim, S.",
+      "venue": "Virtual Reality 28, 35 (2024)",
+      "link": "https://doi.org/10.1007/s10055-023-00935-4",
+      "media": { "type": "image", "src": "/images/publications/optical-flow-curvature.jpeg" }
+    },
+    {
+      "id": "c.3",
+      "group": "publication",
+      "tags": ["Haptics", "Locomotion", "Conference", "FA", "Award"],
+      "title": "Enhancing Seamless Walking in Virtual Reality: Application of Bone-Conduction Vibration in Redirected Walking",
+      "authors": "Hwang, S., Kim, Y., Seo, Y., Kim, S.",
+      "venue": "2023 IEEE International Symposium on Mixed and Augmented Reality (ISMAR)",
+      "link": "https://www.computer.org/csdl/proceedings-article/ismar/2023/283800b181/1SBIOSZTWlG",
+      "award": "Honorable Mention",
+      "media": {
+        "type": "video",
+        "poster": "/images/publications/bone-conduction-rdw-poster.jpg",
+        "mp4": "/images/publications/bone-conduction-rdw.mp4"
+      }
+    },
+    {
+      "id": "c.2",
+      "group": "publication",
+      "tags": ["AutomotiveUX", "Conference", "Award"],
+      "title": "Designing Virtual Agent Human-Machine Interfaces Depending on the Communication and Anthropomorphism Levels in Augmented Reality",
+      "authors": "Kang, Y., Choi, S., An, E., Hwang, S., Kim, S.",
+      "venue": "Proceedings of the 2023 International Conference on Automotive UI",
+      "link": "https://dl.acm.org/doi/10.1145/3580585.3606460",
+      "award": "Honorable Mention",
+      "media": { "type": "image", "src": "/images/publications/virtual-agent-hmi-ar.png" }
+    },
+    {
+      "id": "c.1",
+      "group": "publication",
+      "tags": ["Haptics", "Locomotion", "Conference", "FA"],
+      "title": "Electrical, Vibrational, and Cooling Stimuli-Based Redirected Walking: Comparison of Various Vestibular Stimulation-Based Redirected Walking Systems",
+      "authors": "Hwang, S., Lee, J., Kim, Y., Seo, Y., Kim, S.",
+      "venue": "Proceedings of the 2023 CHI conference on Human Factors in Computing Systems",
+      "link": "https://dl.acm.org/doi/10.1145/3544548.3580862",
+      "media": {
+        "type": "video",
+        "poster": "/images/publications/vestibular-comparison-poster.jpg",
+        "mp4": "/images/publications/vestibular-comparison.mp4"
+      }
+    },
+    {
+      "id": "p.2",
+      "group": "publication",
+      "tags": ["Haptics", "Locomotion", "Poster&Workshop", "FA"],
+      "title": "REVES: Redirection Enhancement Using Four-Pole Vestibular Electrode Stimulation",
+      "authors": "Hwang, S., Lee, J., Kim, Y., Kim, S.",
+      "venue": "Extended Abstracts of the 2022 CHI conference on Human Factors in Computing Systems",
+      "link": "https://dl.acm.org/doi/10.1145/3491101.3519626",
+      "media": {
+        "type": "video",
+        "poster": "/images/publications/vestibular-electrode-poster.jpg",
+        "mp4": "/images/publications/vestibular-electrode.mp4"
+      }
+    },
+    {
+      "id": "p.1",
+      "group": "publication",
+      "tags": ["Haptics", "Locomotion", "Poster&Workshop"],
+      "title": "Auditory and Olfactory Stimuli-Based Attractors to Induce Reorientation in Virtual Reality Forward Redirected Walking",
+      "authors": "Lee, J., Hwang, S., Kim, K., Kim, S.",
+      "venue": "Extended Abstracts of the 2022 CHI conference on Human Factors in Computing Systems",
+      "link": "https://dl.acm.org/doi/10.1145/3491101.3519719",
+      "media": { "type": "image", "src": "/images/publications/auditory-olfactory-attractors.jpeg" }
+    },
+    {
+      "id": "pa.2",
+      "group": "patent",
+      "tags": [],
+      "title": "Haptic wearable devices for tactile experiences",
+      "authors": "Kim, S., Kang, S., Kim, G., Hwang, S., Park, J., Elsharkawy, A.",
+      "venue": "KR Patent App. KR102541073",
+      "link": ""
+    },
+    {
+      "id": "pa.1",
+      "group": "patent",
+      "tags": [],
+      "title": "Method and System for Supporting Walking in Virtual Environment",
+      "authors": "Hwang, S., Lee, J., Kim, Y., Seo, Y., Kim, S.",
+      "venue": "US Patent App. US20250159408A1 | KR Patent App. KR20250069327A",
+      "link": ""
+    },
+    {
+      "id": "cc.2",
+      "group": "copyright",
+      "tags": [],
+      "title": "Mobility-Linked Virtual Reality-Based Underwater Exploration Immersive Content Game Software (Underwater Exploration & Ocean Trash Collection Game)",
+      "authors": "Kim, S., Kang, S., Kang, Y., Kim, K., Seong, M., An, E., Yang, H., Yeo, D., Oh, J., Jeon, H., Jo, T., Hwang, S.",
+      "venue": "Copyright for Computer Program Works C-2022-050134",
+      "link": ""
+    },
+    {
+      "id": "cc.1",
+      "group": "copyright",
+      "tags": [],
+      "title": "Mobility-Linked Virtual Reality-Based Underwater Exploration Immersive Content Game Software (Underwater Exploration & Underwater Gem Collection Game)",
+      "authors": "Kim, S., Kang, S., Kang, Y., Kim, K., Seong, M., An, E., Yang, H., Yeo, D., Oh, J., Jeon, H., Jo, T., Hwang, S.",
+      "venue": "Copyright for Computer Program Works C-2022-050133",
+      "link": ""
+    }
+  ]
+}

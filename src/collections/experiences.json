@@ -1,0 +1,79 @@
+{
+  "researchExperience": [
+    {
+      "organization": "University of Washington & Toyota Research Institute",
+      "role": "Research Assistant",
+      "dates": "Jan 2025 - Present"
+    },
+    {
+      "organization": "Toyota Research Institute, Los Altos",
+      "role": "Research Intern (Mentors: Alexandre Filipowicz, Scott Carter)",
+      "dates": "Jun 2025 - Sep 2025",
+      "detail": "Human-Centered AI Division"
+    },
+    {
+      "organization": "ACE Lab, University of Washington",
+      "role": "Ph.D. Student (Advisor: Jacob O. Wobbrock)",
+      "dates": "Sep 2024 - Present"
+    },
+    {
+      "organization": "DRL Lab & CDFG Lab, MIT",
+      "role": "Visiting Researcher (Advisors: Daniela Rus, Wojciech Matusik)",
+      "dates": "Sep 2023 - Oct 2023"
+    },
+    {
+      "organization": "Human-Centered Intelligence Systems Lab, GIST",
+      "role": "Research Associate",
+      "dates": "Sep 2023 - Aug 2024"
+    },
+    {
+      "organization": "Human-Centered Intelligence Systems Lab, GIST",
+      "role": "M.S. Student (Advisor: SeungJun Kim)",
+      "dates": "Sep 2021 - Aug 2023",
+      "detail": "Intelligent Robotics, School of Integrated Technology"
+    },
+    {
+      "organization": "Human-Centered Intelligence Systems Lab, GIST",
+      "role": "Research Intern (Advisor: SeungJun Kim)",
+      "dates": "Jan 2021 - Aug 2021",
+      "detail": "School of Integrated Technology internship and undergraduate research internship program"
+    },
+    {
+      "organization": "Intelligent Medical Robotics Lab, GIST",
+      "role": "Research Intern (Advisor: Jungwon Yoon)",
+      "dates": "Jun 2020 - Dec 2020"
+    },
+    {
+      "organization": "BA Energy Lab, Korea",
+      "role": "Industrial-Academic Intern",
+      "dates": "Dec 2019 - Feb 2020"
+    }
+  ],
+  "teachingExperience": [
+    {
+      "organization": "University of Washington",
+      "role": "Teaching Practicum, HCID 520: User Interface Software & Technology",
+      "dates": "Jan 2026 - Present"
+    },
+    {
+      "organization": "University of Washington",
+      "role": "Teaching Assistant, INFO360: Design Methods",
+      "dates": "Sep 2024 - Dec 2024"
+    },
+    {
+      "organization": "Gwangju Institute of Science and Technology",
+      "role": "Teaching Assistant, RT6304: XR Project Class",
+      "dates": "2022 Fall - 2023 Spring"
+    },
+    {
+      "organization": "National University of Laos & Khon Kaen University",
+      "role": "Experiment Instructor (Educational Volunteer), 2019 GIST Global Science Camp in Laos",
+      "dates": "Jul 2019"
+    },
+    {
+      "organization": "Gwangju Institute of Science and Technology",
+      "role": "Experiment and Design Team Leader (Educational Volunteer), 2019 GIST Science Camp",
+      "dates": "Jan 2019"
+    }
+  ]
+}

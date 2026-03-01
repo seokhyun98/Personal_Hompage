@@ -1,0 +1,30 @@
+---
+import experiences from "../../collections/experiences.json";
+---
+
+<section id="experiences" class="relative z-20 w-full max-w-5xl mx-auto mt-14 px-7 xl:px-0">
+  <h2 class="text-2xl font-bold text-neutral-900 dark:text-white">Experiences</h2>
+
+  <h3 class="mt-6 text-xl font-bold text-neutral-900 dark:text-white">Research Experience</h3>
+  <ul class="mt-3 list-disc space-y-3 pl-5 text-sm text-neutral-700 dark:text-neutral-300">
+    {
+      experiences.researchExperience.map((item) => (
+        <li>
+          <strong>{item.organization}</strong> - {item.role} ({item.dates})
+          {item.detail ? <div>{item.detail}</div> : null}
+        </li>
+      ))
+    }
+  </ul>
+
+  <h3 class="mt-8 text-xl font-bold text-neutral-900 dark:text-white">Teaching Experience</h3>
+  <ul class="mt-3 list-disc space-y-3 pl-5 text-sm text-neutral-700 dark:text-neutral-300">
+    {
+      experiences.teachingExperience.map((item) => (
+        <li>
+          <strong>{item.organization}</strong> - {item.role} ({item.dates})
+        </li>
+      ))
+    }
+  </ul>
+</section>

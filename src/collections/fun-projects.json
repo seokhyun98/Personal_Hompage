@@ -1,0 +1,22 @@
+[
+  {
+    "title": "Natural User Interface-Based Interactive XR System for In-Car Environments",
+    "image": "/images/fun-projects/car-xr.gif",
+    "description": "An in-car AR/XR system that combines marker tracking, stereo depth sensing, and hand-gesture interaction for immersive and safe in-vehicle experiences."
+  },
+  {
+    "title": "Sheet Music Recognition Robot for Automatic Accompaniment",
+    "image": "/images/fun-projects/piano-robot.gif",
+    "description": "A dual-manipulator robot that reads sheet music with OCR, extracts chords and tempo, and performs autonomous accompaniment on a keyboard."
+  },
+  {
+    "title": "Automated Drone Design for Kiwi Pollination",
+    "image": "/images/fun-projects/kiwi-drone.jpeg",
+    "description": "An agricultural drone that identifies kiwi flowers and applies a pollen-charcoal mixture using airflow-assisted delivery for efficient pollination."
+  },
+  {
+    "title": "Vision-Driven Autonomous Table Tennis System",
+    "image": "/images/fun-projects/table-tennis.gif",
+    "description": "A vision-based robotic table tennis system that tracks ball trajectory in 3D, predicts landing points, and performs autonomous returns with adaptive swings."
+  }
+]

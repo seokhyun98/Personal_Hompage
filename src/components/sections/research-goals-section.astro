@@ -1,0 +1,20 @@
+---
+import about from "../../collections/about.json";
+---
+
+<section class="relative z-20 w-full max-w-5xl mx-auto mt-12 px-7 xl:px-0">
+  <h2 class="text-2xl font-bold text-neutral-900 dark:text-white">Research Goals</h2>
+  <p class="mt-3 text-lg font-semibold text-neutral-800 dark:text-neutral-200">
+    "Bringing Fun to Those Who Seek It and Hope to Those in Need"
+  </p>
+  <ol class="mt-3 list-decimal space-y-2 pl-6 text-sm leading-7 text-neutral-700 dark:text-neutral-300 md:text-base">
+    {about.researchGoals.map((goal) => <li>{goal}</li>)}
+  </ol>
+  <img
+    src="/images/research/overview.png"
+    alt="Research overview diagram"
+    loading="lazy"
+    decoding="async"
+    class="mt-6 w-full rounded-xl border border-dashed border-neutral-300 dark:border-neutral-700"
+  />
+</section>

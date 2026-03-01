@@ -1,0 +1,77 @@
+---
+const GRID_ROWS = 6;
+const GRID_COLS = 9;
+const cells = Array.from({ length: GRID_ROWS * GRID_COLS });
+---
+
+<div class="absolute w-full h-auto" style="z-index:-1">
+  <div
+    class="absolute top-0 left-0 w-1/2 h-auto bg-neutral-100 dark:bg-neutral-800"
+  >
+    <div
+      class="absolute inset-0 z-30 w-full h-full pointer-events-none bg-gradient-to-tl from-white dark:from-neutral-900 from-50% via-90% to-100% via-transparent to-transparent"
+    >
+    </div>
+    <div
+      class="grid-grid-left grid w-full border-t border-l border-neutral-300 dark:border-neutral-900"
+      style="grid-template-columns: repeat(9, minmax(0, 1fr)); grid-template-rows: repeat(6, minmax(0, 1fr));"
+    >
+      {
+        cells.map(() => (
+          <div class="grid-cell min-w-0 border-b border-r border-dashed border-neutral-300 dark:border-neutral-700">
+            <div class="w-full h-full min-h-0 bg-white dark:bg-neutral-900" />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <div
+    class="absolute top-0 right-0 w-1/2 h-auto bg-neutral-100 dark:bg-neutral-800"
+  >
+    <div
+      class="absolute inset-0 z-30 w-full h-full pointer-events-none bg-gradient-to-tr from-white dark:from-neutral-900 from-50% via-90% to-100% via-transparent to-transparent"
+    >
+    </div>
+    <div
+      class="grid-grid-right grid w-full border-t border-l border-neutral-300 dark:border-neutral-900"
+      style="grid-template-columns: repeat(9, minmax(0, 1fr)); grid-template-rows: repeat(6, minmax(0, 1fr));"
+    >
+      {
+        cells.map(() => (
+          <div class="grid-cell min-w-0 border-b border-r border-dashed border-neutral-300 dark:border-neutral-700">
+            <div class="w-full h-full min-h-0 bg-white dark:bg-neutral-900" />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<style>
+  .grid-grid-left,
+  .grid-grid-right {
+    min-height: 180px;
+  }
+  @media (min-width: 640px) {
+    .grid-grid-left,
+    .grid-grid-right {
+      min-height: 270px;
+    }
+  }
+  @media (min-width: 768px) {
+    .grid-grid-left,
+    .grid-grid-right {
+      min-height: 360px;
+    }
+  }
+  @media (min-width: 1280px) {
+    .grid-grid-left,
+    .grid-grid-right {
+      min-height: 528px;
+    }
+  }
+  .grid-cell {
+    min-width: 0;
+  }
+</style>

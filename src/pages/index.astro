@@ -1,0 +1,41 @@
+---
+import AboutSection from "../components/sections/about-section.astro";
+import ExtrasSection from "../components/sections/extras-section.astro";
+import FunProjectsSection from "../components/sections/fun-projects-section.astro";
+import HeroSection from "../components/sections/hero-section.astro";
+import PublicationsSection from "../components/sections/publications-section.astro";
+import ResearchGoalsSection from "../components/sections/research-goals-section.astro";
+import about from "../collections/about.json";
+import Layout from "../layouts/main.astro";
+
+const personLd = {
+	"@context": "https://schema.org",
+	"@type": "Person",
+	name: about.name,
+	alternateName: "Seokhyun Shawn Hwang",
+	url: "https://www.seokhyunhwang.com",
+	image: "https://www.seokhyunhwang.com/images/profile/profile.jpg",
+	jobTitle: "Ph.D. Student, Information Science",
+	email: `mailto:${about.email}`,
+	worksFor: {
+		"@type": "Organization",
+		name: "University of Washington",
+		url: "https://www.washington.edu/",
+	},
+	affiliation: {
+		"@type": "Organization",
+		name: "University of Washington",
+	},
+	sameAs: about.socialLinks.map((item) => item.url),
+};
+---
+
+<Layout title="Seokhyun Hwang">
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(personLd)} />
+  <HeroSection />
+  <ResearchGoalsSection />
+  <PublicationsSection />
+  <AboutSection />
+  <ExtrasSection />
+  <FunProjectsSection />
+</Layout>

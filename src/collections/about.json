@@ -1,0 +1,245 @@
+{
+  "name": "Seokhyun (Shawn) Hwang",
+  "headline": "Ph.D. Student in Information Science at the University of Washington",
+  "email": "seokhyun@uw.edu",
+  "website": "https://www.seokhyunhwang.com",
+  "cvLink": "/Docs/CV_Seokhyun Hwang_FEB2026_LETTER.pdf",
+  "profileImage": "/images/profile/profile.jpg",
+  "bio": "Hi there! My name is Seokhyun (Shawn) Hwang, and I am a Ph.D. student in Information Science at the University of Washington in the ACE Lab (Advisor: Jacob O. Wobbrock). I completed my Master's degree in Intelligent Robotics at GIST HCIS Lab (Advisor: SeungJun Kim). I work on Human-Computer Interaction, VR/AR, haptics, and wearable systems.",
+  "socialLinks": [
+    {
+      "label": "Google Scholar",
+      "url": "https://scholar.google.co.kr/citations?user=75v__NEAAAAJ&hl"
+    },
+    {
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/in/seokhyun-hwang-262632229/"
+    },
+    {
+      "label": "UW Profile",
+      "url": "https://ischool.uw.edu/people/phd/profile/seokhyun"
+    },
+    {
+      "label": "ResearchGate",
+      "url": "https://www.researchgate.net/profile/Seokhyun-Hwang"
+    },
+    {
+      "label": "ORCID",
+      "url": "https://orcid.org/0000-0001-5244-017X"
+    },
+    {
+      "label": "ACM DL",
+      "url": "https://dl.acm.org/profile/99660234042"
+    },
+    {
+      "label": "IEEE Xplore",
+      "url": "https://ieeexplore.ieee.org/author/37086039280"
+    }
+  ],
+  "researchGoals": [
+    "Crafting intuitive systems for unique sensory experiences.",
+    "Merging virtual reality and human sensation with cutting-edge haptic innovations.",
+    "Creating value through the fusion of virtual environments and human interaction, from enjoyment to practical applications."
+  ],
+  "education": [
+    {
+      "school": "University of Washington, United States",
+      "degree": "Doctor of Philosophy (Ph.D.), Information Science, Information School",
+      "dates": "Sep 2024 - Present (Expected)",
+      "advisor": "Jacob O. Wobbrock"
+    },
+    {
+      "school": "Gwangju Institute of Science and Technology, Korea",
+      "degree": "Master of Science (M.S.), Intelligent Robotics, School of Integrated Technology",
+      "dates": "Sep 2021 - Aug 2023",
+      "advisor": "SeungJun Kim"
+    },
+    {
+      "school": "Gwangju Institute of Science and Technology, Korea",
+      "degree": "Bachelor of Science (B.S.), Department of Mechanical Engineering",
+      "dates": "Mar 2017 - Aug 2021"
+    },
+    {
+      "school": "Boston University, United States",
+      "degree": "Exchange Student",
+      "dates": "Jun 2018 - Aug 2018"
+    }
+  ],
+  "technicalStrengths": {
+    "modelingAndDesigning": [
+      "Autodesk Inventor",
+      "Fusion 360",
+      "Blender",
+      "KiCad"
+    ],
+    "softwareAndTools": [
+      "Unity",
+      "CARLA",
+      "MyoSuite",
+      "MATLAB",
+      "LABVIEW",
+      "COMSOL Multiphysics",
+      "Cubase",
+      "Adobe Premiere Pro",
+      "Final Cut Pro"
+    ],
+    "programmingLanguages": [
+      "C",
+      "C#",
+      "R",
+      "MATLAB",
+      "Python",
+      "Java"
+    ]
+  },
+  "awardsAndHonors": [
+    {
+      "title": "University Research Partnership, Toyota Research Institute",
+      "date": "Jan 2025 - Present"
+    },
+    {
+      "title": "Best Paper, CHI 2025",
+      "date": "May 2025",
+      "detail": "Top 1% of conference papers [c.11]"
+    },
+    {
+      "title": "Special Recognitions, ACM TEI",
+      "date": "Sep 2025",
+      "detail": "Outstanding reviews in 2025 TEI"
+    },
+    {
+      "title": "Seed for Science, De Luca Foundation",
+      "date": "Feb 2025"
+    },
+    {
+      "title": "Gell Mason Endowed Fellowship, University of Washington",
+      "date": "Sep 2024"
+    },
+    {
+      "title": "Provost-Funded Fellow, University of Washington",
+      "date": "Sep 2024"
+    },
+    {
+      "title": "Startup Funding, University of Washington",
+      "date": "Sep 2024"
+    },
+    {
+      "title": "Special Recognitions, ACM IMWUT",
+      "date": "Aug 2024",
+      "detail": "Outstanding reviews in 2024 IMWUT"
+    },
+    {
+      "title": "Honorable Mention, CHI 2024",
+      "date": "May 2024",
+      "detail": "Top 5% of conference papers [c.5]"
+    },
+    {
+      "title": "Honorable Mention, CHI 2024",
+      "date": "May 2024",
+      "detail": "Top 5% of conference papers [c.4]"
+    },
+    {
+      "title": "Honorable Mention, IEEE ISMAR",
+      "date": "Oct 2023",
+      "detail": "2nd Prize of conference papers [c.3]"
+    },
+    {
+      "title": "Honorable Mention, ACM AutomotiveUI",
+      "date": "Sep 2023",
+      "detail": "Top 5% of conference papers [c.2]"
+    },
+    {
+      "title": "Special Recognitions, ACM UIST",
+      "date": "May 2023",
+      "detail": "Outstanding reviews in 2023 UIST"
+    },
+    {
+      "title": "Government-Sponsored Scholarship, Korea",
+      "date": "Sep 2021 - Aug 2023",
+      "detail": "Master's degree government scholarship"
+    },
+    {
+      "title": "President Award, GIST",
+      "date": "Aug 2020",
+      "detail": "1st Prize in table tennis robot at the 4th GIST Creative Convergence Competition"
+    },
+    {
+      "title": "Scholarship for Academic Excellence",
+      "date": "Sep 2020 - Dec 2020"
+    },
+    {
+      "title": "Industry-Academic Cooperation Scholarship",
+      "date": "Dec 2019 - Feb 2020"
+    },
+    {
+      "title": "Scholarship for Overseas Summer Semester Exchange Students",
+      "date": "Jun 2018 - Aug 2018",
+      "detail": "Boston University exchange student scholarship"
+    },
+    {
+      "title": "Government-Sponsored Scholarship, Korea",
+      "date": "Mar 2017 - Aug 2021",
+      "detail": "Bachelor's degree government scholarship"
+    }
+  ],
+  "invitedTalks": [
+    {
+      "organization": "Toyota Research Institute",
+      "date": "Aug 2025",
+      "detail": "Invited presentation (hosted by Alexandre Filipowicz)"
+    },
+    {
+      "organization": "University of Chicago, Human Computer Integration Lab",
+      "date": "Jan 2024",
+      "detail": "Invited presentation (hosted by Pedro Lopes)"
+    },
+    {
+      "organization": "HCI Korea 2024, ACM SIGCHI",
+      "date": "Jan 2024",
+      "detail": "Invited presentation on Vestibular Stimuli-Based Redirected Walking (hosted by Inseok Hwang)"
+    }
+  ],
+  "academicService": [
+    "Associate Chair: UbiComp/ISWC 2024 Workshop on AI-infused Physical Systems (I4U), service recognition for AC contributions.",
+    "Conference Reviewer: CHI, CHI LBW, TEI, VRST, UIST, EuroHaptics.",
+    "Journal Reviewer: International Journal of Human-Computer Interaction."
+  ],
+  "mediaCoverage": [
+    {
+      "title": "UW study finds touch screens in cars create a multitasking problem that impacts driving.",
+      "date": "Dec 2025"
+    },
+    {
+      "title": "Expanding virtual space by 43%: Developing technology that overcomes VR walking limitations.",
+      "date": "Dec 2025"
+    },
+    {
+      "title": "Grandma, you no longer have to push a stroller: AI-equipped walking robot for older adults.",
+      "date": "Jun 2025"
+    },
+    {
+      "title": "Shaken car? No problem: Enjoy VR without motion sickness while riding.",
+      "date": "May 2025"
+    },
+    {
+      "title": "Robot's received force transmitted directly to human arm: Joint development by GIST and MIT.",
+      "date": "May 2025"
+    },
+    {
+      "title": "Autonomous driving safety information displayed at the right moment: GIST-MIT paper receives top 1% award.",
+      "date": "Oct 2024"
+    },
+    {
+      "title": "Wearable hat helps low-vision users by turning their heads more: WatchCap developed.",
+      "date": "Sep 2024"
+    },
+    {
+      "title": "GIST research team receives two Honorable Mention awards at ACM CHI 2024 for VR interface work.",
+      "date": "May 2024"
+    },
+    {
+      "title": "GIST virtual-reality interface research wins best-paper awards at IEEE ISMAR 2023.",
+      "date": "Nov 2023"
+    }
+  ]
+}
