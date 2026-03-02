@@ -303,6 +303,20 @@ const visibleConnections = connections.filter((c) => {
               labelX = xLeft + centerInset;
               anchor = "middle";
             }
+
+            // Ensure wrap-around labels stay away from the central card column
+            // only when cards have shrunk in the responsive layout.
+            if (avgCardW < 200) {
+              const stackCenterX = (sensory.centerX + behavior.centerX) / 2;
+              const minOffsetFromCenter = avgCardW * 0.95; // > half button width
+              const currentOffset = labelX - stackCenterX;
+              if (Math.abs(currentOffset) < minOffsetFromCenter) {
+                const adjust = (minOffsetFromCenter - Math.abs(currentOffset)) + 10;
+                labelX += currentOffset >= 0 ? adjust : -adjust;
+              }
+            }
+            labelX = clamp(16, labelX, w - 16);
+
             setGroup(group, d, labelX, labelY, anchor, baseline);
           }
           return;
@@ -955,10 +969,6 @@ const visibleConnections = connections.filter((c) => {
     .detail-card {
       max-height: 280px;
     }
-
-    .flow-label {
-      display: none;
-    }
   }
 
   @media (max-width: 768px) {
@@ -966,6 +976,10 @@ const visibleConnections = connections.filter((c) => {
       margin-left: -1rem;
       margin-right: -1rem;
       width: calc(100% + 2rem);
+    }
+
+    .flow-label {
+      display: none;
     }
   }
 
