@@ -190,6 +190,15 @@ const copyrightEntries = publicationsData.entries.filter((item) => item.group ==
     const buttons = document.querySelectorAll(".tag-filter-btn");
     const publications = document.querySelectorAll(".publication-container");
     const tags = document.querySelectorAll(".publication-tag");
+    let currentTagFilter = "all";
+
+    function updateVisibility() {
+      publications.forEach((pub) => {
+        const tagText = pub.getAttribute("data-tags") || "";
+        const hasTag = currentTagFilter === "all" || tagText.split(" ").includes(currentTagFilter);
+        pub.classList.toggle("hidden", !hasTag);
+      });
+    }
 
     tags.forEach((tag) => { tag.style.fontWeight = "bold"; });
     buttons.forEach((btn) => { btn.style.fontWeight = "bold"; });
@@ -203,11 +212,8 @@ const copyrightEntries = publicationsData.entries.filter((item) => item.group ==
       btn.addEventListener("click", () => {
         buttons.forEach((item) => item.classList.remove("active"));
         btn.classList.add("active");
-        publications.forEach((pub) => {
-          const tagText = pub.getAttribute("data-tags") || "";
-          const hasTag = filter === "all" || tagText.split(" ").includes(filter);
-          pub.classList.toggle("hidden", !hasTag);
-        });
+        currentTagFilter = filter || "all";
+        updateVisibility();
       });
     });
   });

@@ -3,7 +3,11 @@ import Footer from "../components/footer.astro";
 import Header from "../components/header.astro";
 import SquareLines from "../components/square-lines.astro";
 import "../assets/css/main.css";
-const { title } = Astro.props;
+
+const { title, description = "Seokhyun (Shawn) Hwang - Ph.D. Student in Information Science at the University of Washington. Research in Human-Computer Interaction, VR/AR, haptics, and wearable systems." } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname || "/", Astro.site);
+const siteUrl = Astro.site?.toString() ?? "https://www.seokhyunhwang.com";
+const ogImage = new URL("/images/profile/profile.jpg", siteUrl);
 ---
 
 <!doctype html>
@@ -11,6 +15,32 @@ const { title } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#171717" media="(prefers-color-scheme: dark)" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Seokhyun Hwang" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Sitemap discovery for crawlers -->
+    <link rel="sitemap" href="/sitemap-index.xml" type="application/xml" />
+
     <title>{title}</title>
 
     <!-- Used to add dark mode right away, adding here prevents any flicker -->
@@ -31,6 +61,16 @@ const { title } = Astro.props;
       }
     </style>
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+    <!-- Google Analytics (gtag.js) -->
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-VDRQEK89J1"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-VDRQEK89J1');
+    </script>
+
     <Fragment set:html={import.meta.env.HEADER_INJECT} />
   </head>
   <body class="antialiased overflow-x-hidden bg-white dark:bg-neutral-900">

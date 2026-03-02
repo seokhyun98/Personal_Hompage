@@ -1,0 +1,50 @@
+{
+  "thesis": "Adaptive systems for human state variation",
+  "problemStatement": "Fixed systems fail. When human states vary (e.g., cognitive load, sensory conflict, uneven terrain), static XR, vehicles, and wearables degrade task performance and safety.",
+  "approachStatement": "We build closed-loop systems that (1) measure human state, (2) adapt interface parameters, and (3) optimize explicit objectives under constraints.",
+  "adaptationFlow": ["Measure Signals (S)", "Update System Components (X)", "Optimize Objectives (J) under Constraints (C)"],
+  "handoff1to2": "Sensory limits constrain Motor output (e.g., preventing motion sickness).",
+  "handoff1to2Elements": ["DT", "Discomfort limits", "Perceptual envelope"],
+  "handoff2to3": "Motor capabilities actuate Behavior tasks (e.g., real-time guidance).",
+  "handoff2to3Elements": ["EMS", "Tactile feedback", "Assistive control"],
+  "connections": [
+    { "from": "sensory", "to": "motor", "side": "right", "elements": ["DT", "Discomfort limits"] },
+    { "from": "motor", "to": "sensory", "side": "left", "elements": ["Feedback policy"] },
+    { "from": "motor", "to": "behavior", "side": "right", "elements": ["EMS", "Tactile", "Assistive control"] },
+    { "from": "behavior", "to": "motor", "side": "left", "elements": ["Simplified patterns"] },
+    { "from": "sensory", "to": "behavior", "side": "right", "elements": ["Perceptual envelope"] },
+    { "from": "behavior", "to": "sensory", "side": "left", "elements": ["Timing & attention"] }
+  ],
+  "layers": [
+    {
+      "id": "sensory",
+      "name": "SENSORY MODELS",
+      "sublabel": "Input",
+      "goal": "Expand user perceptual limits without breaking immersion.",
+      "signals": ["Detection Thresholds (DT)", "VR familiarity", "Visual scanning behaviors"],
+      "systemAdapted": ["Vestibular stimulation", "Auditory/olfactory attractors", "Actuated footwear"],
+      "keyImpact": "Mitigating visual-vestibular conflict and expanding operational bounds.",
+      "paperIds": ["c.1", "c.3", "j.1", "j.2", "j.3", "c.6"]
+    },
+    {
+      "id": "motor",
+      "name": "MOTOR MODELS",
+      "sublabel": "Output",
+      "goal": "Map digital actuation directly to human biomechanics and physical intent.",
+      "signals": ["High-res tactile contact", "EMG", "Terrain angle", "Remote force"],
+      "systemAdapted": ["Biomechanical simulation parameters", "EMS mapping", "Physical stability controllers"],
+      "keyImpact": "Converting sensed forces into highly accurate wearable actuation (e.g., EMS).",
+      "paperIds": ["c.11", "c.5", "c.9", "c.8"]
+    },
+    {
+      "id": "behavior",
+      "name": "BEHAVIOR MODELS",
+      "sublabel": "Closed-Loop Task",
+      "goal": "Optimize perception-action loops in real-world tasks under cognitive/safety constraints.",
+      "signals": ["Cognitive load (pupil/EDA)", "Driving metrics", "Task performance"],
+      "systemAdapted": ["In-car UI layouts", "Contextual eHMIs", "Explanation timing", "Haptic guidance"],
+      "keyImpact": "Balancing usability vs. safety dynamically (e.g., simplifying UI under heavy load).",
+      "paperIds": ["c.13", "c.14", "c.15", "c.4", "c.7", "c.12", "c.10"]
+    }
+  ]
+}

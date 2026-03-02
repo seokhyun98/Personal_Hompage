@@ -8,13 +8,15 @@ import ResearchGoalsSection from "../components/sections/research-goals-section.
 import about from "../collections/about.json";
 import Layout from "../layouts/main.astro";
 
+const siteUrl = "https://www.seokhyunhwang.com";
+
 const personLd = {
 	"@context": "https://schema.org",
 	"@type": "Person",
 	name: about.name,
 	alternateName: "Seokhyun Shawn Hwang",
-	url: "https://www.seokhyunhwang.com",
-	image: "https://www.seokhyunhwang.com/images/profile/profile.jpg",
+	url: siteUrl,
+	image: `${siteUrl}/images/profile/profile.jpg`,
 	jobTitle: "Ph.D. Student, Information Science",
 	email: `mailto:${about.email}`,
 	worksFor: {
@@ -28,12 +30,23 @@ const personLd = {
 	},
 	sameAs: about.socialLinks.map((item) => item.url),
 };
+
+const websiteLd = {
+	"@context": "https://schema.org",
+	"@type": "WebSite",
+	name: "Seokhyun Hwang",
+	url: siteUrl,
+	description:
+		"Ph.D. Student in Information Science at University of Washington. Research in HCI, VR/AR, haptics, and wearable systems.",
+	author: { "@type": "Person", name: about.name, url: siteUrl },
+};
 ---
 
-<Layout title="Seokhyun Hwang">
+<Layout title="Seokhyun Hwang - Ph.D. Student in HCI, VR/AR, Haptics">
   <script is:inline type="application/ld+json" set:html={JSON.stringify(personLd)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(websiteLd)} />
   <HeroSection />
-  <ResearchGoalsSection />
+  <!-- <ResearchGoalsSection /> -->
   <PublicationsSection />
   <AboutSection />
   <ExtrasSection />

@@ -1,20 +1,589 @@
 ---
-import about from "../../collections/about.json";
+import researchLayersData from "../../collections/research-layers.json";
+
+const layers = researchLayersData.layers;
+const sensory = layers[0];
+const motor = layers[1];
+const behavior = layers[2];
 ---
 
-<section class="relative z-20 w-full max-w-5xl mx-auto mt-12 px-7 xl:px-0">
+<section id="research-goals" class="relative z-20 mx-auto mt-12 w-full max-w-6xl px-7 xl:px-0">
   <h2 class="text-2xl font-bold text-neutral-900 dark:text-white">Research Goals</h2>
-  <p class="mt-3 text-lg font-semibold text-neutral-800 dark:text-neutral-200">
-    "Bringing Fun to Those Who Seek It and Hope to Those in Need"
-  </p>
-  <ol class="mt-3 list-decimal space-y-2 pl-6 text-sm leading-7 text-neutral-700 dark:text-neutral-300 md:text-base">
-    {about.researchGoals.map((goal) => <li>{goal}</li>)}
-  </ol>
-  <img
-    src="/images/research/overview.png"
-    alt="Research overview diagram"
-    loading="lazy"
-    decoding="async"
-    class="mt-6 w-full rounded-xl border border-dashed border-neutral-300 dark:border-neutral-700"
-  />
+  <p class="mt-2 text-base font-semibold text-neutral-800 dark:text-neutral-200">{researchLayersData.thesis}</p>
+
+  <!-- Problem & Approach (above the infographic) -->
+  <div class="problem-approach mt-4 rounded-lg border border-dashed border-neutral-300 p-4 dark:border-neutral-600">
+    <h3 class="text-xs font-bold uppercase tracking-widest text-neutral-500 dark:text-neutral-400">Problem & Approach</h3>
+    <p class="sidebar-label mt-2">Problem</p>
+    <p class="sidebar-text">{researchLayersData.problemStatement}</p>
+    <p class="sidebar-label mt-4">Our Approach</p>
+    <p class="sidebar-text">{researchLayersData.approachStatement}</p>
+  </div>
+
+  <div class="research-infographic mt-5" data-active-layer="">
+    <div class="infographic-grid">
+      <header class="infographic-header">
+        <h3 class="header-title">HOW WE ADAPT</h3>
+        <div class="adaptation-flow">
+          {
+            researchLayersData.adaptationFlow.map((step, i) => (
+              <>
+                <span class="flow-step">{step}</span>
+                {i < researchLayersData.adaptationFlow.length - 1 && <span class="flow-arrow" aria-hidden="true">→</span>}
+              </>
+            ))
+          }
+        </div>
+      </header>
+
+      <!-- C. Center Column: 3-Layer Stack with ㄷ-shaped Bidirectional Arrows -->
+      <div class="infographic-center">
+        <div class="layer-diagram">
+          <div class="arrow-zone arrow-zone-left">
+            <svg class="arrow-svg" viewBox="0 0 90 400" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+              <defs>
+                <marker id="m-left-1" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="rgb(125 211 252)" /></marker>
+                <marker id="m-left-2" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="rgb(196 181 253)" /></marker>
+                <marker id="m-left-3" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="rgb(167 139 250)" /></marker>
+              </defs>
+              <!-- M→S: lane x=65 -->
+              <path d="M90 138 L65 138 L65 84 L90 130" fill="none" stroke="rgb(125 211 252)" stroke-width="2" stroke-dasharray="8 8" stroke-linecap="round" marker-end="url(#m-left-1)" class="flow-dash" />
+              <!-- B→M: lane x=40 -->
+              <path d="M90 268 L40 268 L40 234 L90 260" fill="none" stroke="rgb(196 181 253)" stroke-width="2" stroke-dasharray="8 8" stroke-linecap="round" marker-end="url(#m-left-2)" class="flow-dash" />
+              <!-- B→S: lane x=15 -->
+              <path d="M90 268 L15 268 L15 84 L90 130" fill="none" stroke="rgb(167 139 250)" stroke-width="2" stroke-dasharray="8 8" stroke-linecap="round" marker-end="url(#m-left-3)" class="flow-dash" />
+            </svg>
+          </div>
+
+          <div class="layer-stack" data-layer-stack>
+            <button type="button" class="layer-plane layer-sensory" data-layer-btn data-layer-id="sensory" aria-pressed="false">
+              <span class="layer-name">{sensory.name}</span>
+              <span class="layer-sublabel">({sensory.sublabel})</span>
+            </button>
+            <div class="mobile-connector" aria-hidden="true">
+              <svg viewBox="0 0 24 36" class="mobile-arrow">
+                <defs><marker id="m-mobile-sm" markerWidth="6" markerHeight="5" refX="5" refY="2.5" orient="auto"><polygon points="0 0, 6 2.5, 0 5" fill="rgb(125 211 252)" /></marker></defs>
+                <line x1="12" y1="0" x2="12" y2="32" stroke="rgb(125 211 252)" stroke-width="2" stroke-dasharray="6 6" stroke-linecap="round" marker-end="url(#m-mobile-sm)" class="flow-dash" />
+              </svg>
+            </div>
+            <button type="button" class="layer-plane layer-motor" data-layer-btn data-layer-id="motor" aria-pressed="false">
+              <span class="layer-name">{motor.name}</span>
+              <span class="layer-sublabel">({motor.sublabel})</span>
+            </button>
+            <div class="mobile-connector" aria-hidden="true">
+              <svg viewBox="0 0 24 36" class="mobile-arrow">
+                <defs><marker id="m-mobile-mb" markerWidth="6" markerHeight="5" refX="5" refY="2.5" orient="auto"><polygon points="0 0, 6 2.5, 0 5" fill="rgb(196 181 253)" /></marker></defs>
+                <line x1="12" y1="0" x2="12" y2="32" stroke="rgb(196 181 253)" stroke-width="2" stroke-dasharray="6 6" stroke-linecap="round" marker-end="url(#m-mobile-mb)" class="flow-dash" />
+              </svg>
+            </div>
+            <button type="button" class="layer-plane layer-behavior" data-layer-btn data-layer-id="behavior" aria-pressed="false">
+              <span class="layer-name">{behavior.name}</span>
+              <span class="layer-sublabel">({behavior.sublabel})</span>
+            </button>
+          </div>
+
+          <div class="arrow-zone arrow-zone-right">
+            <svg class="arrow-svg" viewBox="0 0 90 400" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+              <defs>
+                <marker id="m-right-1" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="rgb(253 224 71)" /></marker>
+                <marker id="m-right-2" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="rgb(125 211 252)" /></marker>
+                <marker id="m-right-3" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="rgb(217 119 6)" /></marker>
+              </defs>
+              <!-- S→M: vertical lane at x=25 -->
+              <path d="M0 130 L25 130 L25 184 L0 138" fill="none" stroke="rgb(253 224 71)" stroke-width="2" stroke-dasharray="8 8" stroke-linecap="round" marker-end="url(#m-right-1)" class="flow-dash" />
+              <!-- M→B: vertical lane at x=50 -->
+              <path d="M0 260 L50 260 L50 326 L0 268" fill="none" stroke="rgb(125 211 252)" stroke-width="2" stroke-dasharray="8 8" stroke-linecap="round" marker-end="url(#m-right-2)" class="flow-dash" />
+              <!-- S→B: vertical lane at x=75 -->
+              <path d="M0 130 L75 130 L75 326 L0 268" fill="none" stroke="rgb(217 119 6)" stroke-width="2" stroke-dasharray="8 8" stroke-linecap="round" marker-end="url(#m-right-3)" class="flow-dash" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- D. Right Panel: Dynamic Data -->
+      <div class="infographic-right">
+        <div class="dynamic-panel" data-dynamic-panel>
+          <div class="panel-default" data-panel-default>
+            <p class="panel-placeholder">Select a layer to explore the adaptation parameters, signals, and research publications.</p>
+          </div>
+          {
+            layers.map((layer) => (
+              <div class="panel-content" data-panel-content data-layer-id={layer.id} aria-hidden="true">
+                <p class="panel-label">Goal</p>
+                <p class="panel-goal">{layer.goal}</p>
+                <p class="panel-label">Signals Analyzed</p>
+                <div class="panel-badges">
+                  {layer.signals.map((s) => <span class="data-badge">{s}</span>)}
+                </div>
+                <p class="panel-label">System Adapted</p>
+                <div class="panel-badges">
+                  {layer.systemAdapted.map((s) => <span class="data-badge">{s}</span>)}
+                </div>
+                <p class="panel-label">Key Impact</p>
+                <p class="panel-impact">{layer.keyImpact}</p>
+                <p class="panel-label">Papers</p>
+                <div class="panel-badges panel-papers">
+                  {layer.paperIds.map((id) => <span class="paper-badge">{id}</span>)}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
+
+<script is:inline define:vars={{ layersData: JSON.stringify(layers) }}>
+  document.addEventListener("DOMContentLoaded", () => {
+    const wrapper = document.querySelector(".research-infographic");
+    const layerBtns = document.querySelectorAll("[data-layer-btn]");
+    const panelDefault = document.querySelector("[data-panel-default]");
+    const panelContents = document.querySelectorAll("[data-panel-content]");
+    let activeLayerId = "";
+
+    function setActive(layerId) {
+      activeLayerId = layerId;
+      wrapper?.setAttribute("data-active-layer", layerId || "");
+
+      layerBtns.forEach((btn) => {
+        const id = btn.getAttribute("data-layer-id");
+        btn.setAttribute("aria-pressed", id === layerId ? "true" : "false");
+      });
+
+      if (layerId) {
+        panelDefault?.setAttribute("aria-hidden", "true");
+        panelContents.forEach((panel) => {
+          const id = panel.getAttribute("data-layer-id");
+          panel.setAttribute("aria-hidden", id !== layerId ? "true" : "false");
+        });
+      } else {
+        panelDefault?.setAttribute("aria-hidden", "false");
+        panelContents.forEach((p) => p.setAttribute("aria-hidden", "true"));
+      }
+    }
+
+    layerBtns.forEach((btn) => {
+      const layerId = btn.getAttribute("data-layer-id") || "";
+      btn.addEventListener("click", () => setActive(activeLayerId === layerId ? "" : layerId));
+      btn.addEventListener("mouseenter", () => {
+        wrapper?.setAttribute("data-hover-layer", layerId);
+      });
+      btn.addEventListener("mouseleave", () => {
+        wrapper?.setAttribute("data-hover-layer", "");
+      });
+    });
+
+    wrapper?.addEventListener("mouseleave", () => {
+      wrapper.setAttribute("data-hover-layer", "");
+    });
+  });
+</script>
+
+<style>
+  .research-infographic {
+    border-radius: 1rem;
+    border: 1px dashed rgb(212 212 212);
+    background: linear-gradient(180deg, rgb(252 252 252), rgb(248 248 248));
+    overflow: hidden;
+  }
+
+  .dark .research-infographic {
+    border-color: rgb(64 64 64);
+    background: linear-gradient(180deg, rgb(30 30 30), rgb(23 23 23));
+  }
+
+  .infographic-grid {
+    display: grid;
+    grid-template-columns: 45% 55%;
+    grid-template-rows: auto 1fr;
+    min-height: 420px;
+  }
+
+  .problem-approach .sidebar-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: rgb(82 82 82);
+  }
+
+  .dark .problem-approach .sidebar-label {
+    color: rgb(163 163 163);
+  }
+
+  .problem-approach .sidebar-text {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: rgb(64 64 64);
+    margin-top: 0.25rem;
+  }
+
+  .dark .problem-approach .sidebar-text {
+    color: rgb(212 212 212);
+  }
+
+  .sidebar-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: rgb(82 82 82);
+  }
+
+  .dark .sidebar-label {
+    color: rgb(163 163 163);
+  }
+
+  .sidebar-text {
+    font-size: 0.78rem;
+    line-height: 1.45;
+    color: rgb(64 64 64);
+    margin-top: 0.25rem;
+  }
+
+  .dark .sidebar-text {
+    color: rgb(212 212 212);
+  }
+
+  .infographic-header {
+    grid-column: 1 / -1;
+    padding: 0.85rem 1.25rem;
+    border-bottom: 1px solid rgb(229 229 229);
+    background: rgb(255 255 255 / 0.6);
+  }
+
+  .dark .infographic-header {
+    border-bottom-color: rgb(64 64 64);
+    background: rgb(38 38 38 / 0.5);
+  }
+
+  .header-title {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: rgb(115 115 115);
+    margin-bottom: 0.5rem;
+  }
+
+  .dark .header-title {
+    color: rgb(163 163 163);
+  }
+
+  .adaptation-flow {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.25rem;
+    font-size: 0.9rem;
+  }
+
+  .flow-step {
+    padding: 0.25rem 0.5rem;
+    background: rgb(255 251 235);
+    border-radius: 0.35rem;
+    font-weight: 600;
+    color: rgb(120 53 15);
+  }
+
+  .dark .flow-step {
+    background: rgb(69 26 3 / 0.4);
+    color: rgb(253 230 138);
+  }
+
+  .flow-arrow {
+    color: rgb(163 163 163);
+    font-weight: 700;
+  }
+
+  .infographic-center {
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .layer-diagram {
+    display: grid;
+    grid-template-columns: 1fr minmax(200px, 280px) 1fr;
+    align-items: stretch;
+    gap: 0;
+    width: 100%;
+    max-width: 480px;
+    min-height: 400px;
+  }
+
+  .arrow-zone {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    min-width: 0;
+  }
+
+  .arrow-svg {
+    width: 100%;
+    max-width: 90px;
+    height: 100%;
+    min-height: 400px;
+  }
+
+  .flow-dash {
+    animation: dash-flow 1.2s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .flow-dash {
+      animation: none;
+    }
+  }
+
+  @keyframes dash-flow {
+    from { stroke-dashoffset: 0; }
+    to { stroke-dashoffset: 16; }
+  }
+
+  .layer-stack {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    align-items: stretch;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+    min-height: 400px;
+  }
+
+
+  .mobile-connector {
+    display: none;
+    justify-content: center;
+    padding: 0.15rem 0;
+  }
+
+  .mobile-arrow {
+    width: 20px;
+    height: 28px;
+  }
+
+  .layer-plane {
+    padding: 0.75rem 1rem;
+    border-radius: 0.6rem;
+    border: 2px solid rgb(229 229 229);
+    background: rgb(255 255 255);
+    text-align: left;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease, border-color 0.2s ease;
+  }
+
+  .layer-plane:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .research-infographic[data-hover-layer="sensory"] .layer-plane:not(.layer-sensory) {
+    opacity: 0.5;
+  }
+
+  .research-infographic[data-hover-layer="motor"] .layer-plane:not(.layer-motor) {
+    opacity: 0.5;
+  }
+
+  .research-infographic[data-hover-layer="behavior"] .layer-plane:not(.layer-behavior) {
+    opacity: 0.5;
+  }
+
+  .layer-plane[aria-pressed="true"] {
+    border-color: rgb(245 158 11);
+    box-shadow: 0 0 0 2px rgb(245 158 11 / 0.3);
+  }
+
+  .layer-sensory {
+    background: linear-gradient(135deg, rgb(255 251 235), rgb(254 243 199));
+    border-color: rgb(253 224 71);
+  }
+
+  .dark .layer-sensory {
+    background: linear-gradient(135deg, rgb(69 26 3 / 0.3), rgb(120 53 15 / 0.2));
+    border-color: rgb(180 83 9);
+  }
+
+  .layer-motor {
+    background: linear-gradient(135deg, rgb(240 249 255), rgb(224 242 254));
+    border-color: rgb(125 211 252);
+  }
+
+  .dark .layer-motor {
+    background: linear-gradient(135deg, rgb(7 89 133 / 0.2), rgb(14 165 233 / 0.15));
+    border-color: rgb(56 189 248);
+  }
+
+  .layer-behavior {
+    background: linear-gradient(135deg, rgb(245 243 255), rgb(237 233 254));
+    border-color: rgb(196 181 253);
+  }
+
+  .dark .layer-behavior {
+    background: linear-gradient(135deg, rgb(76 29 149 / 0.2), rgb(139 92 246 / 0.15));
+    border-color: rgb(167 139 250);
+  }
+
+  .layer-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: rgb(23 23 23);
+  }
+
+  .dark .layer-name {
+    color: rgb(250 250 250);
+  }
+
+  .layer-sublabel {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgb(82 82 82);
+  }
+
+  .dark .layer-sublabel {
+    color: rgb(212 212 212);
+  }
+
+  .infographic-right {
+    padding: 1rem 1.25rem;
+    border-left: 1px solid rgb(229 229 229);
+    overflow-y: auto;
+  }
+
+  .dark .infographic-right {
+    border-left-color: rgb(64 64 64);
+  }
+
+  .dynamic-panel {
+    position: relative;
+    min-height: 200px;
+  }
+
+  .panel-default,
+  .panel-content {
+    transition: opacity 0.25s ease;
+  }
+
+  .panel-default[aria-hidden="true"],
+  .panel-content[aria-hidden="true"] {
+    display: none;
+  }
+
+  .panel-placeholder {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: rgb(115 115 115);
+  }
+
+  .dark .panel-placeholder {
+    color: rgb(163 163 163);
+  }
+
+  .panel-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: rgb(115 115 115);
+    margin-top: 0.75rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .panel-label:first-of-type {
+    margin-top: 0;
+  }
+
+  .dark .panel-label {
+    color: rgb(163 163 163);
+  }
+
+  .panel-goal,
+  .panel-impact {
+    font-size: 0.88rem;
+    font-weight: 600;
+    line-height: 1.45;
+    color: rgb(23 23 23);
+  }
+
+  .dark .panel-goal,
+  .dark .panel-impact {
+    color: rgb(250 250 250);
+  }
+
+  .panel-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .data-badge {
+    font-size: 0.72rem;
+    padding: 0.2rem 0.45rem;
+    background: rgb(229 229 229);
+    border-radius: 0.35rem;
+    font-weight: 600;
+    color: rgb(64 64 64);
+  }
+
+  .dark .data-badge {
+    background: rgb(64 64 64);
+    color: rgb(212 212 212);
+  }
+
+  .paper-badge {
+    font-size: 0.7rem;
+    padding: 0.18rem 0.4rem;
+    background: rgb(255 251 235);
+    border: 1px solid rgb(253 224 71);
+    border-radius: 0.35rem;
+    font-weight: 600;
+    color: rgb(120 53 15);
+  }
+
+  .dark .paper-badge {
+    background: rgb(69 26 3 / 0.4);
+    border-color: rgb(180 83 9);
+    color: rgb(253 230 138);
+  }
+
+  .dark .arrow-zone-left path.flow-dash:nth-of-type(1) { stroke: rgb(56 189 248); }
+  .dark .arrow-zone-left path.flow-dash:nth-of-type(2) { stroke: rgb(167 139 250); }
+  .dark .arrow-zone-left path.flow-dash:nth-of-type(3) { stroke: rgb(196 181 253); }
+  .dark .arrow-zone-right path.flow-dash:nth-of-type(1) { stroke: rgb(253 224 71); }
+  .dark .arrow-zone-right path.flow-dash:nth-of-type(2) { stroke: rgb(56 189 248); }
+  .dark .arrow-zone-right path.flow-dash:nth-of-type(3) { stroke: rgb(251 191 36); }
+
+  @media (max-width: 1024px) {
+    .infographic-grid {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    .infographic-header {
+      grid-column: 1;
+    }
+
+    .layer-diagram {
+      grid-template-columns: 1fr;
+      max-width: 280px;
+    }
+
+    .arrow-zone {
+      display: none;
+    }
+
+    .mobile-connector {
+      display: flex;
+    }
+
+    .layer-stack {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 0.5rem;
+      min-height: auto;
+    }
+  }
+</style>
