@@ -30,10 +30,6 @@
     {
       "label": "ACM DL",
       "url": "https://dl.acm.org/profile/99660234042"
-    },
-    {
-      "label": "IEEE Xplore",
-      "url": "https://ieeexplore.ieee.org/author/37086039280"
     }
   ],
   "researchGoals": [
@@ -65,33 +61,6 @@
       "dates": "Jun 2018 - Aug 2018"
     }
   ],
-  "technicalStrengths": {
-    "modelingAndDesigning": [
-      "Autodesk Inventor",
-      "Fusion 360",
-      "Blender",
-      "KiCad"
-    ],
-    "softwareAndTools": [
-      "Unity",
-      "CARLA",
-      "MyoSuite",
-      "MATLAB",
-      "LABVIEW",
-      "COMSOL Multiphysics",
-      "Cubase",
-      "Adobe Premiere Pro",
-      "Final Cut Pro"
-    ],
-    "programmingLanguages": [
-      "C",
-      "C#",
-      "R",
-      "MATLAB",
-      "Python",
-      "Java"
-    ]
-  },
   "awardsAndHonors": [
     {
       "title": "University Research Partnership, Toyota Research Institute",
@@ -200,46 +169,144 @@
     }
   ],
   "academicService": [
-    "Associate Chair: UbiComp/ISWC 2024 Workshop on AI-infused Physical Systems (I4U), service recognition for AC contributions.",
-    "Conference Reviewer: CHI, CHI LBW, TEI, VRST, UIST, EuroHaptics.",
-    "Journal Reviewer: International Journal of Human-Computer Interaction."
+    {
+      "label": "Associate Chair",
+      "items": [
+        "UbiComp/ISWC 2024 Workshop on AI-infused Physical Systems (I4U) Service recognition for AC contributions"
+      ]
+    },
+    {
+      "label": "Conference Reviewer",
+      "items": [
+        "CHI (4 in 2026, 4 in 2025); CHI LBW (1 in 2026, 2 in 2024, 1 in 2023); TEI (1 in 2025 Recognition for an outstanding review); VRST (1 in 2024); UIST (1 in 2023 Recognition for an outstanding review); EuroHaptics (2 in 2026)"
+      ]
+    },
+    {
+      "label": "Journal Reviewer",
+      "items": [
+        "International Journal of Human–Computer Interaction (3 in 2024, 5 in 2025, 2 in 2026; incl. multi-round reviews)"
+      ]
+    }
   ],
   "mediaCoverage": [
     {
       "title": "UW study finds touch screens in cars create a multitasking problem that impacts driving.",
-      "date": "Dec 2025"
+      "date": "Dec 2025",
+      "outlets": [
+        { "name": "UW News", "url": "https://www.washington.edu/news/2025/12/16/video-drivers-struggle-to-multitask-when-using-dashboard-touch-screens-study-finds/" },
+        { "name": "GeekWire", "url": "https://www.geekwire.com/2025/uw-study-finds-touch-screens-in-cars-create-a-multitasking-problem-that-impacts-driving/" },
+        { "name": "KIRO Seattle's morning News", "url": "https://www.youtube.com/watch?v=97j9em3dOfQ" },
+        { "name": "KOMO News", "url": "https://komonews.com/news/local/built-in-vehicle-touch-screen-touchscreen-distractions-university-of-washington-toyota-research-distracted-driving-ability-safety-issues-simulator-car-functions?mkt_tok=MTMxLUFRTy0yMjUAAAGgM90ZyXecQ1UlwdEmY8kCFqwufH-sxBvnf6O1mooJIALjijZrCmYs8kxwks2Ff498eBoedmXwyRh65Is071_mVOXlg2CljWBdKok_fhcIGj2Xtyc" },
+        { "name": "Spotlight on America", "url": "https://thenationaldesk.com/news/spotlight-on-america/vehicle-touchscreen-frustration-and-safety-concerns-dashboard-automakers-blackouts-frozen-screens-software-glitches#" }
+      ]
+    },
+    {
+      "title": "Development of communication technology that informs road users of who, when, and where autonomous vehicles will stop.",
+      "date": "Dec 2025",
+      "outlets": [
+        { "name": "Veritas Alpha", "url": "https://www.veritas-a.com/news/articleView.html?idxno=589418" },
+        { "name": "Kyosu Shinmun", "url": "https://www.kyosu.net/news/articleView.html?idxno=152224" },
+        { "name": "AI Times", "url": "https://www.aitimes.kr/news/articleView.html?idxno=37699" }
+      ]
     },
     {
       "title": "Expanding virtual space by 43%: Developing technology that overcomes VR walking limitations.",
-      "date": "Dec 2025"
+      "date": "Dec 2025",
+      "outlets": [
+        { "name": "HelloDD", "url": "https://www.hellodd.com/news/articleView.html?idxno=110114" },
+        { "name": "Veritas Alpha", "url": "https://www.veritas-a.com/news/articleView.html?idxno=586689" },
+        { "name": "Herald Business", "url": "https://biz.heraldcorp.com/article/10627898?ref=naver" },
+        { "name": "News1 Korea", "url": "https://www.news1.kr/local/gwangju-jeonnam/5994958" },
+        { "name": "Newsworker", "url": "https://www.newsworker.co.kr/news/articleView.html?idxno=405049" }
+      ]
     },
     {
       "title": "Grandma, you no longer have to push a stroller: AI-equipped walking robot for older adults.",
-      "date": "Jun 2025"
+      "date": "Jun 2025",
+      "outlets": [
+        { "name": "The Robot News", "url": "https://www.irobotnews.com/news/articleView.html?idxno=40468" },
+        { "name": "E-News Today", "url": "https://www.enewstoday.co.kr/news/articleView.html?idxno=2288595" },
+        { "name": "E-Dong-A", "url": "https://edu.donga.com/news/articleView.html?idxno=89692" },
+        { "name": "Newsworker", "url": "https://www.newsworker.co.kr/news/articleView.html?idxno=382259" },
+        { "name": "NEWSIS", "url": "https://www.newsis.com/view/NISX20250611_0003208534" },
+        { "name": "AI Times", "url": "https://www.aitimes.kr/news/articleView.html?idxno=35205" },
+        { "name": "Seoul Economic Daily", "url": "https://www.sedaily.com/article/14077163" },
+        { "name": "Veritas Alpha", "url": "https://www.veritas-a.com/news/articleView.html?idxno=557931" }
+      ]
     },
     {
-      "title": "Shaken car? No problem: Enjoy VR without motion sickness while riding.",
-      "date": "May 2025"
+      "title": "Shaken car? No problem – Enjoy VR without motion-sickness even while riding.",
+      "date": "May 2025",
+      "outlets": [
+        { "name": "Veritas Alpha", "url": "https://www.veritas-a.com/news/articleView.html?idxno=553090" },
+        { "name": "OhmyNews", "url": "https://www.ohmynews.com/NWS_Web/View/at_pg.aspx?CNTN_CD=A0003127746&CMPT_CD=P0010&utm_source=naver&utm_medium=newsearch&utm_campaign=naver_news" },
+        { "name": "Namdo Ilbo", "url": "https://www.namdonews.com/news/articleView.html?idxno=819389" },
+        { "name": "Herald Business", "url": "https://biz.heraldcorp.com/article/10484819?ref=naver" },
+        { "name": "Web Economy", "url": "https://www.webeconomy.co.kr/news/articleView.html?idxno=1200896" }
+      ]
     },
     {
       "title": "Robot's received force transmitted directly to human arm: Joint development by GIST and MIT.",
-      "date": "May 2025"
+      "date": "May 2025",
+      "outlets": [
+        { "name": "Digital Chosun Ilbo", "url": "https://digitalchosun.dizzo.com/site/data/html_dir/2025/05/07/2025050780227.html" },
+        { "name": "AI Times", "url": "https://www.aitimes.com/news/articleView.html?idxno=170231" },
+        { "name": "Yonhap News Agency", "url": "https://www.yna.co.kr/view/AKR20250507134800054?input=1195m" },
+        { "name": "EBN", "url": "https://www.ebn.co.kr/news/articleView.html?idxno=1661757" },
+        { "name": "News1 Korea", "url": "https://www.news1.kr/local/gwangju-jeonnam/5774991" },
+        { "name": "Newsworker", "url": "https://www.newsworker.co.kr/news/articleView.html?idxno=377951" },
+        { "name": "Veritas Alpha", "url": "https://www.veritas-a.com/news/articleView.html?idxno=552416" }
+      ]
     },
     {
       "title": "Autonomous driving safety information displayed at the right moment: GIST-MIT paper receives top 1% award.",
-      "date": "Oct 2024"
+      "date": "Oct 2024",
+      "outlets": [
+        { "name": "NEWSIS", "url": "https://www.newsis.com/view/NISX20241022_0002929074" },
+        { "name": "The University Journal", "url": "https://dhnews.co.kr/news/view/1065573202766405" },
+        { "name": "Newsworker", "url": "https://www.newsworker.co.kr/news/articleView.html?idxno=352467" },
+        { "name": "E-News Today", "url": "https://www.enewstoday.co.kr/news/articleView.html?idxno=2189687" },
+        { "name": "Veritas Alpha", "url": "https://www.veritas-a.com/news/articleView.html?idxno=524929" }
+      ]
     },
     {
       "title": "Wearable hat helps low-vision users by turning their heads more: WatchCap developed.",
-      "date": "Sep 2024"
+      "date": "Sep 2024",
+      "outlets": [
+        { "name": "Brain Media", "url": "https://www.brainmedia.co.kr/Trend/24361" },
+        { "name": "Medical News", "url": "http://www.bosa.co.kr/news/articleView.html?idxno=2232074" },
+        { "name": "ITDaily", "url": "http://www.itdaily.kr/news/articleView.html?idxno=227427" },
+        { "name": "Dong-A Science", "url": "https://www.dongascience.com/news/view/67683" },
+        { "name": "Wide Economy", "url": "https://www.widedaily.com/news/articleView.html?idxno=246493" },
+        { "name": "NEWSIS", "url": "https://www.newsis.com/view/NISX20240930_0002904139" },
+        { "name": "The University Journal", "url": "https://dhnews.co.kr/news/view/1065573465012546" },
+        { "name": "News1 Korea", "url": "https://www.news1.kr/local/gwangju-jeonnam/5554946" },
+        { "name": "Newsworker", "url": "https://www.newsworker.co.kr/news/articleView.html?idxno=349799" },
+        { "name": "iNews24", "url": "https://www.inews24.com/view/1767163" }
+      ]
     },
     {
       "title": "GIST research team receives two Honorable Mention awards at ACM CHI 2024 for VR interface work.",
-      "date": "May 2024"
+      "date": "May 2024",
+      "outlets": [
+        { "name": "Namdo Ilbo", "url": "https://www.namdonews.com/news/articleView.html?idxno=771795" },
+        { "name": "AI Times", "url": "https://www.aitimes.com/news/articleView.html?idxno=159797" },
+        { "name": "ITDaily", "url": "http://www.itdaily.kr/news/articleView.html?idxno=223276" }
+      ]
     },
     {
       "title": "GIST virtual-reality interface research wins best-paper awards at IEEE ISMAR 2023.",
-      "date": "Nov 2023"
+      "date": "Nov 2023",
+      "outlets": [
+        { "name": "BoanNews", "url": "https://www.boannews.com/media/view.asp?idx=123261&kind=" },
+        { "name": "AI Times", "url": "https://www.aitimes.com/news/articleView.html?idxno=154796" },
+        { "name": "NEWSIS", "url": "https://www.newsis.com/view/?id=NISX20231031_0002502853&cID=10809&pID=10800" },
+        { "name": "News1 Korea", "url": "https://www.news1.kr/local/gwangju-jeonnam/5215827" },
+        { "name": "AVING News", "url": "https://kr.aving.net/news/articleView.html?idxno=1785622" },
+        { "name": "Veritas Alpha", "url": "https://www.veritas-a.com/news/articleView.html?idxno=478676" },
+        { "name": "Newsworker", "url": "https://www.newsworker.co.kr/news/articleView.html?idxno=304265" },
+        { "name": "Newspim", "url": "https://www.newspim.com/news/view/20231031000032" }
+      ]
     }
   ]
 }

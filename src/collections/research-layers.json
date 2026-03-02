@@ -1,50 +1,134 @@
 {
-  "thesis": "Adaptive systems for human state variation",
-  "problemStatement": "Fixed systems fail. When human states vary (e.g., cognitive load, sensory conflict, uneven terrain), static XR, vehicles, and wearables degrade task performance and safety.",
-  "approachStatement": "We build closed-loop systems that (1) measure human state, (2) adapt interface parameters, and (3) optimize explicit objectives under constraints.",
-  "adaptationFlow": ["Measure Signals (S)", "Update System Components (X)", "Optimize Objectives (J) under Constraints (C)"],
-  "handoff1to2": "Sensory limits constrain Motor output (e.g., preventing motion sickness).",
-  "handoff1to2Elements": ["DT", "Discomfort limits", "Perceptual envelope"],
-  "handoff2to3": "Motor capabilities actuate Behavior tasks (e.g., real-time guidance).",
-  "handoff2to3Elements": ["EMS", "Tactile feedback", "Assistive control"],
+  "thesis": "Closed-loop adaptive systems for human state + context variation",
+  "problemStatement": "Human perception, biomechanics, and cognition change across people and situations. Fixed XR/vehicle/wearable systems can reduce safety, comfort, and performance.",
+  "approachStatement": "Sense user+context → infer state/intent → adapt multimodal feedback/control → optimize metrics (safety, comfort, performance, presence, trust).",
+  "adaptationFlow": [
+    "Measure (S): user + environment signals",
+    "Infer & Adapt (X): models + policies",
+    "Optimize (J) under Constraints (C)"
+  ],
+  "handoff1to2": "Perception + attention limits bound what actuation/feedback is effective and comfortable.",
+  "handoff1to2Elements": [
+    "Thresholds (DT/JND)",
+    "Sensory congruency (visual–vestibular–proprioceptive)",
+    "Comfort bounds (MS/strain/thermal safety)",
+    "Distraction budget (glance/attention)"
+  ],
+  "handoff2to3": "Motor-level sensing/actuation enables task adaptation; tasks constrain timing, complexity, and safety.",
+  "handoff2to3Elements": [
+    "Biomechanics-consistent actuation (EMS/pressure/thermal/vibration)",
+    "Intent & performance inference (tactile/IMU/gait/forces)",
+    "Low-latency closed loop (real-time guidance)",
+    "Stability + safety controllers",
+    "Pattern simplification for reliability"
+  ],
   "connections": [
-    { "from": "sensory", "to": "motor", "side": "right", "elements": ["DT", "Discomfort limits"] },
-    { "from": "motor", "to": "sensory", "side": "left", "elements": ["Feedback policy"] },
-    { "from": "motor", "to": "behavior", "side": "right", "elements": ["EMS", "Tactile", "Assistive control"] },
-    { "from": "behavior", "to": "motor", "side": "left", "elements": ["Simplified patterns"] },
-    { "from": "sensory", "to": "behavior", "side": "right", "elements": ["Perceptual envelope"] },
-    { "from": "behavior", "to": "sensory", "side": "left", "elements": ["Timing & attention"] }
+    {
+      "from": "sensory",
+      "to": "motor",
+      "side": "right",
+      "elements": ["DT/JND", "congruency", "comfort bounds", "distraction budget"]
+    },
+    {
+      "from": "motor",
+      "to": "sensory",
+      "side": "left",
+      "elements": ["salience calibration", "cue congruency tuning", "safe stimulus limits"]
+    },
+    {
+      "from": "motor",
+      "to": "behavior",
+      "side": "right",
+      "elements": ["wearable guidance", "assistive mobility", "teleop force feedback", "XR contact rendering"]
+    },
+    {
+      "from": "behavior",
+      "to": "motor",
+      "side": "left",
+      "elements": ["task timing", "safety constraints", "feedback complexity limits"]
+    },
+    {
+      "from": "sensory",
+      "to": "behavior",
+      "side": "right",
+      "elements": ["attention allocation", "presence/comfort", "clarity/trust"]
+    },
+    {
+      "from": "behavior",
+      "to": "sensory",
+      "side": "left",
+      "elements": ["cognitive load", "motion/traffic dynamics", "training/impairment context"]
+    }
   ],
   "layers": [
     {
       "id": "sensory",
       "name": "SENSORY MODELS",
       "sublabel": "Input",
-      "goal": "Expand user perceptual limits without breaking immersion.",
-      "signals": ["Detection Thresholds (DT)", "VR familiarity", "Visual scanning behaviors"],
-      "systemAdapted": ["Vestibular stimulation", "Auditory/olfactory attractors", "Actuated footwear"],
-      "keyImpact": "Mitigating visual-vestibular conflict and expanding operational bounds.",
-      "paperIds": ["c.1", "c.3", "j.1", "j.2", "j.3", "c.6"]
+      "goal": "Model multisensory perception + attention; expand usable envelope without discomfort.",
+      "signals": [
+        "DT/JND (redirection, cue detectability)",
+        "Sensory conflict & MS indicators",
+        "Reorientation dynamics (turning, success rate)",
+        "Visual scanning & head movement features",
+        "Self-motion cues (optic flow, vestibular, proprioception)",
+        "Individual differences (experience, low vision)"
+      ],
+      "systemAdapted": [
+        "Vestibular stimulation (GVS/BCV/caloric)",
+        "Optic-flow / vection cues",
+        "Visual + auditory + olfactory attractors",
+        "Foot-based haptic redirection cues",
+        "Gait-based locomotion prediction (robust to visual distraction)",
+        "Scanning-contingent head-movement stimulation"
+      ],
+      "keyImpact": "More reliable XR locomotion/reorientation and improved accessibility with preserved presence/comfort.",
+      "paperIds": ["c.1", "c.3", "p.2", "j.1", "j.2", "p.1", "j.3", "c.6", "p.4"]
     },
     {
       "id": "motor",
       "name": "MOTOR MODELS",
       "sublabel": "Output",
-      "goal": "Map digital actuation directly to human biomechanics and physical intent.",
-      "signals": ["High-res tactile contact", "EMG", "Terrain angle", "Remote force"],
-      "systemAdapted": ["Biomechanical simulation parameters", "EMS mapping", "Physical stability controllers"],
-      "keyImpact": "Converting sensed forces into highly accurate wearable actuation (e.g., EMS).",
-      "paperIds": ["c.11", "c.5", "c.9", "c.8"]
+      "goal": "Infer physical intent and deliver biomechanically grounded wearable actuation/assistance.",
+      "signals": [
+        "High-resolution tactile contact/pressure",
+        "IMU + kinematics (gait/posture/terrain)",
+        "Remote interaction forces (teleoperation)",
+        "EMG for validation/calibration",
+        "Thermal/contact properties (heat/cold, stiffness cues)"
+      ],
+      "systemAdapted": [
+        "Biomechanical simulation → torque/force targets",
+        "EMS mapping (upper/lower body) for kinesthetic feedback",
+        "Closed-loop skill coaching via wearable sensing/feedback",
+        "Assistive walker speed + terrain leveling control",
+        "Rapid thermal + congruent pressure feedback"
+      ],
+      "keyImpact": "Accurate, wearable force/thermal/tactile feedback and intent-aware assistance for training, teleop, mobility, and XR touch.",
+      "paperIds": ["c.5", "c.11", "w.4", "c.15", "c.9", "w.2", "c.8", "w.1"]
     },
     {
       "id": "behavior",
       "name": "BEHAVIOR MODELS",
       "sublabel": "Closed-Loop Task",
-      "goal": "Optimize perception-action loops in real-world tasks under cognitive/safety constraints.",
-      "signals": ["Cognitive load (pupil/EDA)", "Driving metrics", "Task performance"],
-      "systemAdapted": ["In-car UI layouts", "Contextual eHMIs", "Explanation timing", "Haptic guidance"],
-      "keyImpact": "Balancing usability vs. safety dynamically (e.g., simplifying UI under heavy load).",
-      "paperIds": ["c.13", "c.14", "c.15", "c.4", "c.7", "c.12", "c.10"]
+      "goal": "Adaptive interaction in driving/AV and in-vehicle XR under cognitive + motion constraints.",
+      "signals": [
+        "Cognitive load (pupil/EDA/NASA-TLX)",
+        "Glance behavior + attention shifts",
+        "Driving + touchscreen performance (Fitts’ throughput, deviation)",
+        "Passenger explanation-demand signals (context + physiology)",
+        "Road-user decision/crossing outcomes",
+        "Motion sickness + posture stability during driving events"
+      ],
+      "systemAdapted": [
+        "Profile-State Adaptive in-car touchscreens + time–cost model",
+        "Contextual eHMI + AR virtual-agent communication",
+        "Timing-aware in-vehicle explanations (dataset + predictors)",
+        "In-car VR active locomotion + contextual cues",
+        "Synchronized multisensory cues + posture-adaptive VR tasks"
+      ],
+      "keyImpact": "Maintains safety/usability/trust in mobility contexts while enabling comfortable passenger XR and clearer AV communication.",
+      "paperIds": ["c.13", "c.14", "c.7", "c.12", "c.2", "c.10", "p.3", "c.4", "w.3"]
     }
   ]
 }
