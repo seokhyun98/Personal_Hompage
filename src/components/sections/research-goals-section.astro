@@ -3,63 +3,103 @@ import researchLayersData from "../../collections/research-layers.json";
 
 const layers = researchLayersData.layers;
 const layerById = Object.fromEntries(layers.map((layer) => [layer.id, layer]));
+
 const connections = researchLayersData.connections.map((connection, idx) => ({
   ...connection,
   id: `conn-${idx}`,
   label: (connection as { label?: string }).label ?? connection.elements.join(", "),
 }));
 
-const connectionLayouts = {
-  "sensory-motor": { path: "M302 66 L318 66", labelX: 310, labelY: 54 },
-  "motor-sensory": { path: "M318 86 L302 86", labelX: 310, labelY: 104 },
-  "sensory-behavior": { path: "M187 132 L120 132 L120 158 L187 158", labelX: 76, labelY: 148 },
-  "behavior-sensory": { path: "M170 158 L92 158 L92 116 L170 116", labelX: 48, labelY: 126 },
-  "motor-behavior": { path: "M433 132 L500 132 L500 158 L433 158", labelX: 544, labelY: 148 },
-  "behavior-motor": { path: "M450 158 L528 158 L528 116 L450 116", labelX: 572, labelY: 126 },
-};
+// Show vertical adjacent connections + wrap-around (top-bottom) connections.
+const verticalConnectionKeys = new Set([
+  "sensory-motor",
+  "motor-sensory",
+  "motor-behavior",
+  "behavior-motor",
+]);
+
+const wrapAroundKeys = new Set(["sensory-behavior", "behavior-sensory"]);
+
+const visibleConnections = connections.filter((c) => {
+  const key = `${c.from}-${c.to}`;
+  return verticalConnectionKeys.has(key) || wrapAroundKeys.has(key);
+});
 ---
 
 <section id="research-goals" class="relative z-20 mx-auto mt-12 w-full max-w-5xl px-7 xl:px-0">
-  <h2 class="text-2xl font-bold text-neutral-900 dark:text-white">Research Goals</h2>
-  <p class="mt-2 text-base font-semibold text-neutral-800 dark:text-neutral-200">{researchLayersData.thesis}</p>
+  <h2 class="flex flex-wrap items-baseline gap-x-2 text-2xl font-bold text-neutral-900 dark:text-white">
+    Research Goals : <span class="intro-thesis">{researchLayersData.thesis}</span>
+  </h2>
 
-  <div class="problem-approach mt-4 rounded-lg border border-dashed border-neutral-300 p-4 dark:border-neutral-600">
-    <h3 class="text-xs font-bold uppercase tracking-widest text-neutral-500 dark:text-neutral-400">Problem & Approach</h3>
-    <p class="sidebar-label mt-2">Problem</p>
-    <p class="sidebar-text">{researchLayersData.problemStatement}</p>
-    <p class="sidebar-label mt-4">Our Approach</p>
-    <p class="sidebar-text">{researchLayersData.approachStatement}</p>
+  <div class="intro-block mt-2">
+    <p class="intro-label">Problem</p>
+    <p class="intro-text">{researchLayersData.problemStatement}</p>
+    <p class="intro-label">Our Approach</p>
+    <p class="intro-text">{researchLayersData.approachStatement}</p>
   </div>
 
   <div class="research-infographic mt-5" data-active-layer="">
     <div class="research-stage">
       <div class="diagram-shell">
         <div class="diagram-canvas">
-          <svg class="connection-svg" viewBox="0 0 620 360" preserveAspectRatio="none" aria-hidden="true">
+          <svg class="connection-svg" viewBox="0 0 620 275" preserveAspectRatio="none" aria-hidden="true">
             <defs>
-              <marker id="arrow-sensory" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
-                <polygon points="0 0, 8 3, 0 6" fill="rgb(217 119 6)" />
+              <marker
+                id="arrow-sensory"
+                markerWidth="10"
+                markerHeight="10"
+                refX="10"
+                refY="5"
+                orient="auto"
+                markerUnits="userSpaceOnUse"
+              >
+                <path d="M0 0 L10 5 L0 10 Z" fill="rgb(217 119 6)" />
               </marker>
-              <marker id="arrow-motor" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
-                <polygon points="0 0, 8 3, 0 6" fill="rgb(14 165 233)" />
+
+              <marker
+                id="arrow-motor"
+                markerWidth="10"
+                markerHeight="10"
+                refX="10"
+                refY="5"
+                orient="auto"
+                markerUnits="userSpaceOnUse"
+              >
+                <path d="M0 0 L10 5 L0 10 Z" fill="rgb(14 165 233)" />
               </marker>
-              <marker id="arrow-behavior" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
-                <polygon points="0 0, 8 3, 0 6" fill="rgb(139 92 246)" />
+
+              <marker
+                id="arrow-behavior"
+                markerWidth="10"
+                markerHeight="10"
+                refX="10"
+                refY="5"
+                orient="auto"
+                markerUnits="userSpaceOnUse"
+              >
+                <path d="M0 0 L10 5 L0 10 Z" fill="rgb(139 92 246)" />
               </marker>
             </defs>
+
             {
-              connections.map((connection) => {
+              visibleConnections.map((connection) => {
                 const key = `${connection.from}-${connection.to}`;
-                const layout = connectionLayouts[key];
-                if (!layout) return null;
+                const isWrapAround = wrapAroundKeys.has(key);
                 return (
-                  <g class="connection" data-from={connection.from} data-to={connection.to}>
+                  <g
+                    class="connection"
+                    data-from={connection.from}
+                    data-to={connection.to}
+                    data-conn-id={connection.id}
+                    data-wrap-around={isWrapAround ? "true" : undefined}
+                  >
                     <path
-                      d={layout.path}
+                      data-flow-path
+                      d="M0 0 L0 0"
                       class={`flow-path flow-${connection.from}`}
                       marker-end={`url(#arrow-${connection.from})`}
                     />
-                    <text x={layout.labelX} y={layout.labelY} class="flow-label">
+                    <text data-flow-label x="0" y="0" class="flow-label">
                       {connection.label}
                     </text>
                   </g>
@@ -68,44 +108,56 @@ const connectionLayouts = {
             }
           </svg>
 
-          <div class="cards-grid">
+          <div class="cards-stack">
             <button type="button" class="layer-card card-sensory" data-layer-btn data-layer-id="sensory" aria-pressed="false">
               <span class="layer-name">{layerById.sensory.name}</span>
-              <span class="layer-sublabel">({layerById.sensory.sublabel})</span>
             </button>
+
             <button type="button" class="layer-card card-motor" data-layer-btn data-layer-id="motor" aria-pressed="false">
               <span class="layer-name">{layerById.motor.name}</span>
-              <span class="layer-sublabel">({layerById.motor.sublabel})</span>
             </button>
+
             <button type="button" class="layer-card card-behavior" data-layer-btn data-layer-id="behavior" aria-pressed="false">
               <span class="layer-name">{layerById.behavior.name}</span>
-              <span class="layer-sublabel">({layerById.behavior.sublabel})</span>
             </button>
           </div>
         </div>
       </div>
 
-      <aside class="detail-panel">
-        <div class="panel-default" data-panel-default>
-          <p class="panel-placeholder">Select a layer to explore the adaptation parameters, signals, and research publications.</p>
+      <div class="detail-area">
+        <div class="detail-placeholder" data-panel-default>
+          <p class="panel-placeholder">Select a layer to explore the adaptation parameters and signals.</p>
         </div>
+
         {
           layers.map((layer) => (
-            <div class="panel-content" data-panel-content data-layer-id={layer.id} aria-hidden="true">
-              <p class="panel-label">Goal</p>
-              <p class="panel-goal">{layer.goal}</p>
-              <p class="panel-label">Signals Analyzed</p>
-              <div class="panel-badges">{layer.signals.map((s) => <span class="data-badge">{s}</span>)}</div>
-              <p class="panel-label">System Adapted</p>
-              <div class="panel-badges">{layer.systemAdapted.map((s) => <span class="data-badge">{s}</span>)}</div>
-              <p class="panel-label">Key Impact</p>
-              <p class="panel-impact">{layer.keyImpact}</p>
-              <p class="panel-label">Papers</p>
-              <div class="panel-badges panel-papers">{layer.paperIds.map((id) => <span class="paper-badge">{id}</span>)}</div>
+            <div
+              class={`detail-card detail-card-${layer.id}`}
+              data-panel-content
+              data-layer-id={layer.id}
+              aria-hidden="true"
+            >
+              <div class="detail-card-header">
+                <span class="detail-card-name">{layer.name}</span>
+                <span class="detail-card-sublabel">({layer.sublabel})</span>
+              </div>
+              <div class="detail-card-body">
+                <p class="panel-label">Goal</p>
+                <p class="panel-goal">{layer.goal}</p>
+
+                <p class="panel-label">Signals Analyzed</p>
+                <div class="panel-badges">{layer.signals.map((s) => <span class="data-badge">{s}</span>)}</div>
+
+                <p class="panel-label">System Adapted</p>
+                <div class="panel-badges">{layer.systemAdapted.map((s) => <span class="data-badge">{s}</span>)}</div>
+
+                <p class="panel-label">Key Impact</p>
+                <p class="panel-impact">{layer.keyImpact}</p>
+              </div>
             </div>
           ))
         }
-      </aside>
+      </div>
     </div>
   </div>
 </section>
@@ -115,10 +167,33 @@ const connectionLayouts = {
     const wrapper = document.querySelector(".research-infographic");
     if (!wrapper) return;
 
+    const canvas = wrapper.querySelector(".diagram-canvas");
+    const svg = wrapper.querySelector(".connection-svg");
+    const connectionGroups = wrapper.querySelectorAll(".connection-svg .connection");
+
     const layerBtns = wrapper.querySelectorAll("[data-layer-btn]");
     const panelDefault = wrapper.querySelector("[data-panel-default]");
     const panelContents = wrapper.querySelectorAll("[data-panel-content]");
+
     let activeLayerId = "";
+
+    const clamp = (min, v, max) => Math.max(min, Math.min(v, max));
+
+    function getBox(el, canvasRect) {
+      const r = el.getBoundingClientRect();
+      const x = r.left - canvasRect.left;
+      const y = r.top - canvasRect.top;
+      return {
+        left: x,
+        top: y,
+        right: x + r.width,
+        bottom: y + r.height,
+        width: r.width,
+        height: r.height,
+        centerX: x + r.width / 2,
+        centerY: y + r.height / 2,
+      };
+    }
 
     function setActive(layerId) {
       activeLayerId = layerId;
@@ -139,18 +214,166 @@ const connectionLayouts = {
         panelDefault?.setAttribute("aria-hidden", "false");
         panelContents.forEach((panel) => panel.setAttribute("aria-hidden", "true"));
       }
+
+      // Track the diagram shift/scale + panel reveal so arrows stay glued.
+      scheduleRecalc(460);
+    }
+
+    function recalcConnections() {
+      if (!canvas || !svg) return;
+
+      const canvasRect = canvas.getBoundingClientRect();
+      const w = canvasRect.width;
+      const h = canvasRect.height;
+      if (!w || !h) return;
+
+      // Use pixel-aligned SVG coordinates for precise attachment.
+      svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
+
+      const boxes = {};
+      layerBtns.forEach((btn) => {
+        const id = btn.getAttribute("data-layer-id");
+        if (!id) return;
+        boxes[id] = getBox(btn, canvasRect);
+      });
+
+      const sensory = boxes.sensory;
+      const motor = boxes.motor;
+      const behavior = boxes.behavior;
+      if (!sensory || !motor || !behavior) return;
+
+      const avgCardW = (sensory.width + motor.width + behavior.width) / 3;
+      const laneOffset = clamp(8, avgCardW * 0.045, 14);
+      const labelGap = clamp(16, avgCardW * 0.07, 28);
+
+      function setGroup(group, d, labelX, labelY, anchor, baseline) {
+        const path = group.querySelector("[data-flow-path]");
+        const text = group.querySelector("[data-flow-label]");
+        if (path) path.setAttribute("d", d);
+        if (text) {
+          text.setAttribute("x", `${labelX}`);
+          text.setAttribute("y", `${labelY}`);
+          text.setAttribute("text-anchor", anchor);
+          if (baseline) text.setAttribute("dominant-baseline", baseline);
+        }
+      }
+
+      // For wrap-around: arrows route closer to cards on narrow screens; wide screens slightly more detour.
+      const isNarrow = w < 700;
+      const wrapGutter = isNarrow
+        ? Math.max(80, w * 0.18)
+        : Math.max(70, w * (w < 850 ? 0.20 : 0.16));
+      const xRight = w - wrapGutter;
+      const xLeft = wrapGutter;
+
+      connectionGroups.forEach((group) => {
+        const from = group.getAttribute("data-from") || "";
+        const to = group.getAttribute("data-to") || "";
+        const isWrapAround = group.getAttribute("data-wrap-around") === "true";
+
+        const a = boxes[from];
+        const b = boxes[to];
+        if (!a || !b) return;
+
+        let d, labelX, labelY, anchor;
+
+        if (isWrapAround) {
+          const isDown = b.centerY > a.centerY;
+          if (isDown) {
+            d = `M${a.right} ${a.centerY} L${xRight} ${a.centerY} L${xRight} ${b.centerY} L${b.right} ${b.centerY}`;
+          } else {
+            d = `M${a.left} ${a.centerY} L${xLeft} ${a.centerY} L${xLeft} ${b.centerY} L${b.left} ${b.centerY}`;
+          }
+          const path = group.querySelector("[data-flow-path]");
+          if (path) path.setAttribute("d", d);
+          if (activeLayerId === "sensory" || activeLayerId === "behavior") {
+            const centerInset = 88;
+            let labelX, labelY, anchor, baseline;
+            if (activeLayerId === "sensory") {
+              labelY = behavior.bottom - 4;
+              baseline = "hanging";
+            } else {
+              labelY = sensory.top + 4;
+              baseline = "text-after-edge";
+            }
+            if (isDown) {
+              labelX = xRight - centerInset;
+              anchor = "middle";
+            } else {
+              labelX = xLeft + centerInset;
+              anchor = "middle";
+            }
+            setGroup(group, d, labelX, labelY, anchor, baseline);
+          }
+          return;
+        } else {
+          // Straight vertical arrows between adjacent card edges.
+          const isDown = b.centerY > a.centerY;
+
+          const xBase = (a.centerX + b.centerX) / 2;
+          const x = xBase + (isDown ? laneOffset : -laneOffset);
+
+          const yStart = isDown ? a.bottom : a.top;
+          const yEnd = isDown ? b.top : b.bottom;
+
+          d = `M${x} ${yStart} L${x} ${yEnd}`;
+
+          labelY = (yStart + yEnd) / 2;
+          labelX = isDown ? (x + labelGap) : (x - labelGap);
+          anchor = isDown ? "start" : "end";
+        }
+
+        setGroup(group, d, labelX, labelY, anchor);
+      });
+    }
+
+    let rafId = 0;
+    function scheduleRecalc(durationMs = 0) {
+      if (durationMs <= 0) {
+        recalcConnections();
+        return;
+      }
+      if (rafId) cancelAnimationFrame(rafId);
+
+      const start = performance.now();
+      const tick = () => {
+        recalcConnections();
+        if (performance.now() - start < durationMs) {
+          rafId = requestAnimationFrame(tick);
+        }
+      };
+      rafId = requestAnimationFrame(tick);
     }
 
     layerBtns.forEach((btn) => {
       const layerId = btn.getAttribute("data-layer-id") || "";
+
       btn.addEventListener("click", () => setActive(activeLayerId === layerId ? "" : layerId));
-      btn.addEventListener("mouseenter", () => wrapper.setAttribute("data-hover-layer", layerId));
-      btn.addEventListener("mouseleave", () => wrapper.setAttribute("data-hover-layer", ""));
+
+      btn.addEventListener("mouseenter", () => {
+        wrapper.setAttribute("data-hover-layer", layerId);
+        scheduleRecalc(180);
+      });
+
+      btn.addEventListener("mouseleave", () => {
+        wrapper.setAttribute("data-hover-layer", "");
+        scheduleRecalc(180);
+      });
     });
 
     wrapper.addEventListener("mouseleave", () => {
       wrapper.setAttribute("data-hover-layer", "");
+      scheduleRecalc(180);
     });
+
+    if ("ResizeObserver" in window && canvas) {
+      const ro = new ResizeObserver(() => scheduleRecalc(0));
+      ro.observe(canvas);
+    } else {
+      window.addEventListener("resize", () => scheduleRecalc(0), { passive: true });
+    }
+
+    scheduleRecalc(0);
   });
 </script>
 
@@ -158,54 +381,65 @@ const connectionLayouts = {
   .research-infographic {
     border-radius: 1rem;
     border: 1px dashed rgb(212 212 212);
-    background: linear-gradient(180deg, rgb(252 252 252), rgb(248 248 248));
+    background: rgb(250 250 250);
     overflow: hidden;
   }
 
-  .dark .research-infographic {
+  html.dark .research-infographic {
     border-color: rgb(64 64 64);
-    background: linear-gradient(180deg, rgb(30 30 30), rgb(23 23 23));
+    background: rgba(23 23 23 / 0.5);
   }
 
-  .problem-approach .sidebar-label {
+  .intro-thesis {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5;
+    color: rgb(38 38 38);
+  }
+
+  .intro-label {
     font-size: 0.7rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: rgb(82 82 82);
+    margin-top: 1rem;
+    margin-bottom: 0.25rem;
   }
 
-  .problem-approach .sidebar-text {
+  .intro-text {
     font-size: 0.875rem;
     line-height: 1.5;
     color: rgb(64 64 64);
-    margin-top: 0.25rem;
   }
 
-  .dark .problem-approach .sidebar-label {
+  html.dark .intro-thesis {
+    color: rgb(250 250 250);
+  }
+
+  html.dark .intro-label {
     color: rgb(163 163 163);
   }
 
-  .dark .problem-approach .sidebar-text {
+  html.dark .intro-text {
     color: rgb(212 212 212);
   }
 
   .research-stage {
-    display: grid;
-    grid-template-columns: 1fr 0fr;
-    transition: grid-template-columns 320ms ease;
-    min-height: 360px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
   }
 
   .diagram-shell {
-    padding: 1rem 1rem 1.25rem;
-    transition: transform 320ms ease;
+    padding: 1rem 0.5rem 0;
   }
 
   .diagram-canvas {
     position: relative;
-    height: 360px;
-    max-width: 620px;
+    height: 275px;
+    width: 100%;
+    max-width: 960px;
     margin: 0 auto;
   }
 
@@ -217,38 +451,42 @@ const connectionLayouts = {
     z-index: 1;
   }
 
-  .cards-grid {
+  /* Reserve horizontal gutters; ensure min card width, arrows adapt to remaining space */
+  .cards-stack {
     position: absolute;
-    inset: 18px 72px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 112px 140px;
-    gap: 26px 16px;
+    inset: 18px min(calc((100% + 300px) / 4), calc((100% - 240px) / 2));
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
     z-index: 2;
   }
 
-  .card-behavior {
-    grid-column: 1 / -1;
-  }
-
   .layer-card {
-    border-radius: 0.8rem;
+    --card-scale: 1;
+    --card-ty: 0px;
+    min-width: 220px;
+
+    border-radius: 0.9rem;
     border: 2px solid rgb(229 229 229);
     background: rgb(255 255 255);
-    text-align: left;
-    padding: 0.85rem 1rem;
+    text-align: center;
+    padding: 0.5rem 1rem;
+    min-height: 56px;
+
     cursor: pointer;
-    transition: transform 280ms ease, box-shadow 280ms ease, opacity 240ms ease, border-color 280ms ease;
+
+    transform: translateY(var(--card-ty)) scale(var(--card-scale));
+    transition: transform 280ms ease, box-shadow 280ms ease, opacity 240ms ease, border-color 280ms ease, filter 240ms ease;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
   }
 
   .layer-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+    --card-ty: -2px;
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.10);
   }
 
   .layer-name {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 700;
     letter-spacing: 0.04em;
     color: rgb(23 23 23);
@@ -256,11 +494,11 @@ const connectionLayouts = {
   }
 
   .layer-sublabel {
-    font-size: 0.76rem;
+    font-size: 0.7rem;
     font-weight: 600;
     color: rgb(82 82 82);
     display: block;
-    margin-top: 0.2rem;
+    margin-top: 0.1rem;
   }
 
   .card-sensory {
@@ -278,14 +516,31 @@ const connectionLayouts = {
     border-color: rgb(196 181 253);
   }
 
+  /* Dashed arrows; animate dash offset when active. */
   .flow-path {
     fill: none;
     stroke-width: 2.25;
-    stroke-dasharray: 8 8;
     stroke-linecap: round;
-    animation: dash-flow 1.1s linear infinite;
-    opacity: 0.26;
-    transition: opacity 220ms ease, stroke-width 220ms ease;
+    stroke-linejoin: round;
+    stroke-dasharray: 8 6;
+    stroke-dashoffset: 0;
+    opacity: 0.34;
+    transition: opacity 220ms ease, stroke-width 220ms ease, filter 220ms ease;
+  }
+
+  .research-infographic[data-active-layer="sensory"] .connection[data-from="sensory"] .flow-path,
+  .research-infographic[data-active-layer="sensory"] .connection[data-to="sensory"] .flow-path,
+  .research-infographic[data-active-layer="motor"] .connection[data-from="motor"] .flow-path,
+  .research-infographic[data-active-layer="motor"] .connection[data-to="motor"] .flow-path,
+  .research-infographic[data-active-layer="behavior"] .connection[data-from="behavior"] .flow-path,
+  .research-infographic[data-active-layer="behavior"] .connection[data-to="behavior"] .flow-path {
+    animation: flow-dash-move 0.6s linear infinite;
+  }
+
+  @keyframes flow-dash-move {
+    to {
+      stroke-dashoffset: -14;
+    }
   }
 
   .flow-sensory {
@@ -301,37 +556,120 @@ const connectionLayouts = {
   }
 
   .flow-label {
-    font-size: 10px;
-    font-weight: 700;
+    font-size: 11.5px;
+    font-weight: 500;
     fill: rgb(82 82 82);
     opacity: 0;
     transition: opacity 180ms ease;
-    text-anchor: middle;
+    dominant-baseline: middle;
     pointer-events: none;
+
+    /* Improves readability over gradients without needing bent arrows. */
+    paint-order: stroke;
+    stroke: rgba(255, 255, 255, 0.92);
+    stroke-width: 3.25;
+    stroke-linejoin: round;
   }
 
-  .detail-panel {
-    padding: 1rem 1.25rem;
-    border-left: 1px solid rgb(229 229 229);
-    opacity: 0;
-    transform: translateX(14px);
-    pointer-events: none;
-    transition: opacity 280ms ease, transform 280ms ease;
-    overflow: hidden;
+  .detail-area {
+    padding: 0 0.5rem 1.25rem;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 960px;
   }
 
-  .panel-default[aria-hidden="true"],
-  .panel-content[aria-hidden="true"] {
+  .detail-placeholder[aria-hidden="true"],
+  .detail-card[aria-hidden="true"] {
     display: none;
+  }
+
+  .detail-placeholder {
+    padding: 1rem 1.25rem;
   }
 
   .panel-placeholder {
     font-size: 0.85rem;
     line-height: 1.5;
     color: rgb(115 115 115);
+    text-align: center;
   }
 
-  .panel-label {
+  /* Detail card: matches layer card style for visual connection */
+  .detail-card {
+    border-radius: 0.9rem;
+    border: 2px solid rgb(229 229 229);
+    overflow: hidden;
+    max-height: 320px;
+    display: flex;
+    flex-direction: column;
+    animation: detail-card-appear 280ms ease;
+  }
+
+  @keyframes detail-card-appear {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .detail-card-header {
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.35rem;
+  }
+
+  .detail-card-name {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: rgb(23 23 23);
+  }
+
+  .detail-card-sublabel {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: rgb(82 82 82);
+  }
+
+  .detail-card-body {
+    padding: 0 1rem 1rem 1rem;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(115 115 115 / 0.5) transparent;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .detail-card-body::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .detail-card-body::-webkit-scrollbar-thumb {
+    background: rgba(115 115 115 / 0.4);
+    border-radius: 3px;
+  }
+
+  .detail-card-sensory {
+    background: linear-gradient(135deg, rgb(255 251 235), rgb(254 243 199));
+    border-color: rgb(253 224 71);
+  }
+
+  .detail-card-motor {
+    background: linear-gradient(135deg, rgb(240 249 255), rgb(224 242 254));
+    border-color: rgb(125 211 252);
+  }
+
+  .detail-card-behavior {
+    background: linear-gradient(135deg, rgb(245 243 255), rgb(237 233 254));
+    border-color: rgb(196 181 253);
+  }
+
+  .detail-card-body .panel-label {
     font-size: 0.7rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -339,6 +677,10 @@ const connectionLayouts = {
     color: rgb(115 115 115);
     margin-top: 0.75rem;
     margin-bottom: 0.35rem;
+  }
+
+  .detail-card-body .panel-label:first-child {
+    margin-top: 0.35rem;
   }
 
   .panel-goal,
@@ -364,6 +706,21 @@ const connectionLayouts = {
     color: rgb(64 64 64);
   }
 
+  .detail-card-sensory .data-badge {
+    background: rgb(253 224 71 / 0.45);
+    color: rgb(92 56 0);
+  }
+
+  .detail-card-motor .data-badge {
+    background: rgb(125 211 252 / 0.45);
+    color: rgb(8 51 82);
+  }
+
+  .detail-card-behavior .data-badge {
+    background: rgb(196 181 253 / 0.45);
+    color: rgb(49 36 91);
+  }
+
   .paper-badge {
     font-size: 0.7rem;
     padding: 0.18rem 0.4rem;
@@ -374,41 +731,51 @@ const connectionLayouts = {
     color: rgb(120 53 15);
   }
 
-  .research-infographic[data-hover-layer="sensory"] .layer-card:not(.card-sensory),
-  .research-infographic[data-hover-layer="motor"] .layer-card:not(.card-motor),
-  .research-infographic[data-hover-layer="behavior"] .layer-card:not(.card-behavior) {
-    opacity: 0.62;
+  /* Hover: lightly emphasize related arrows without opening the panel. */
+  .research-infographic[data-hover-layer="sensory"] .connection[data-from="sensory"] .flow-path,
+  .research-infographic[data-hover-layer="sensory"] .connection[data-to="sensory"] .flow-path,
+  .research-infographic[data-hover-layer="motor"] .connection[data-from="motor"] .flow-path,
+  .research-infographic[data-hover-layer="motor"] .connection[data-to="motor"] .flow-path,
+  .research-infographic[data-hover-layer="behavior"] .connection[data-from="behavior"] .flow-path,
+  .research-infographic[data-hover-layer="behavior"] .connection[data-to="behavior"] .flow-path {
+    opacity: 0.7;
+    stroke-width: 2.8;
   }
 
-  .research-infographic[data-active-layer="sensory"] .research-stage,
-  .research-infographic[data-active-layer="motor"] .research-stage,
-  .research-infographic[data-active-layer="behavior"] .research-stage {
-    grid-template-columns: 58% 42%;
+  /* De-emphasize non-selected cards. */
+  .research-infographic[data-active-layer="sensory"] .layer-card:not(.card-sensory),
+  .research-infographic[data-active-layer="motor"] .layer-card:not(.card-motor),
+  .research-infographic[data-active-layer="behavior"] .layer-card:not(.card-behavior) {
+    opacity: 0.52;
+    filter: saturate(0.88);
+    --card-scale: 0.94;
+    --card-ty: 0px;
   }
 
-  .research-infographic[data-active-layer="sensory"] .diagram-shell,
-  .research-infographic[data-active-layer="motor"] .diagram-shell,
-  .research-infographic[data-active-layer="behavior"] .diagram-shell {
-    transform: translateX(-22px);
-  }
-
-  .research-infographic[data-active-layer="sensory"] .detail-panel,
-  .research-infographic[data-active-layer="motor"] .detail-panel,
-  .research-infographic[data-active-layer="behavior"] .detail-panel {
-    opacity: 1;
-    transform: translateX(0);
-    pointer-events: auto;
-  }
-
-  .research-infographic[data-active-layer="sensory"] .card-sensory,
-  .research-infographic[data-active-layer="motor"] .card-motor,
-  .research-infographic[data-active-layer="behavior"] .card-behavior {
-    transform: scale(1.06);
+  /* Selected card: slightly larger and more prominent. */
+  .research-infographic[data-active-layer="sensory"] .card-sensory {
+    --card-scale: 1.05;
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.14);
     border-color: rgb(245 158 11);
-    box-shadow: 0 14px 26px rgba(0, 0, 0, 0.14);
     z-index: 3;
   }
 
+  .research-infographic[data-active-layer="motor"] .card-motor {
+    --card-scale: 1.05;
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.14);
+    border-color: rgb(56 189 248);
+    z-index: 3;
+  }
+
+  .research-infographic[data-active-layer="behavior"] .card-behavior {
+    --card-scale: 1.05;
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.14);
+    border-color: rgb(167 139 250);
+    z-index: 3;
+  }
+
+  /* Active: highlight arrows connected to the selected layer and reveal labels.
+     Labels already sit left (up arrows) / right (down arrows) based on path direction. */
   .research-infographic[data-active-layer="sensory"] .connection[data-from="sensory"] .flow-path,
   .research-infographic[data-active-layer="sensory"] .connection[data-to="sensory"] .flow-path,
   .research-infographic[data-active-layer="motor"] .connection[data-from="motor"] .flow-path,
@@ -416,7 +783,8 @@ const connectionLayouts = {
   .research-infographic[data-active-layer="behavior"] .connection[data-from="behavior"] .flow-path,
   .research-infographic[data-active-layer="behavior"] .connection[data-to="behavior"] .flow-path {
     opacity: 1;
-    stroke-width: 2.7;
+    stroke-width: 3.1;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.14));
   }
 
   .research-infographic[data-active-layer="sensory"] .connection[data-from="sensory"] .flow-label,
@@ -428,87 +796,184 @@ const connectionLayouts = {
     opacity: 1;
   }
 
-  .dark .layer-name,
-  .dark .panel-goal,
-  .dark .panel-impact {
+  /* Hide wrap-around labels instantly when motor active to prevent flicker */
+  .research-infographic[data-active-layer="motor"] .connection[data-wrap-around="true"] .flow-label,
+  .research-infographic[data-active-layer=""] .connection[data-wrap-around="true"] .flow-label {
+    opacity: 0;
+    transition: none;
+  }
+
+  html.dark .layer-name,
+  html.dark .panel-goal,
+  html.dark .panel-impact {
     color: rgb(250 250 250);
   }
 
-  .dark .layer-sublabel,
-  .dark .panel-label,
-  .dark .panel-placeholder {
+  html.dark .layer-sublabel,
+  html.dark .panel-label,
+  html.dark .panel-placeholder {
     color: rgb(163 163 163);
   }
 
-  .dark .card-sensory {
+  html.dark .card-sensory {
     background: linear-gradient(135deg, rgb(69 26 3 / 0.3), rgb(120 53 15 / 0.2));
     border-color: rgb(180 83 9);
   }
 
-  .dark .card-motor {
+  html.dark .card-motor {
     background: linear-gradient(135deg, rgb(7 89 133 / 0.2), rgb(14 165 233 / 0.15));
     border-color: rgb(56 189 248);
   }
 
-  .dark .card-behavior {
+  html.dark .card-behavior {
     background: linear-gradient(135deg, rgb(76 29 149 / 0.2), rgb(139 92 246 / 0.15));
     border-color: rgb(167 139 250);
   }
 
-  .dark .detail-panel {
-    border-left-color: rgb(64 64 64);
+  html.dark .detail-card-sensory {
+    background: linear-gradient(135deg, rgb(69 26 3 / 0.3), rgb(120 53 15 / 0.2));
+    border-color: rgb(180 83 9);
   }
 
-  .dark .data-badge {
+  html.dark .detail-card-motor {
+    background: linear-gradient(135deg, rgb(7 89 133 / 0.2), rgb(14 165 233 / 0.15));
+    border-color: rgb(56 189 248);
+  }
+
+  html.dark .detail-card-behavior {
+    background: linear-gradient(135deg, rgb(76 29 149 / 0.2), rgb(139 92 246 / 0.15));
+    border-color: rgb(167 139 250);
+  }
+
+  html.dark .detail-card-name {
+    color: rgb(250 250 250);
+  }
+
+  html.dark .detail-card-sublabel {
+    color: rgb(163 163 163);
+  }
+
+  html.dark .detail-card {
+    border-color: rgb(64 64 64);
+  }
+
+  html.dark .detail-card-body::-webkit-scrollbar-thumb {
+    background: rgba(163 163 163 / 0.5);
+  }
+
+  html.dark .detail-card-body {
+    scrollbar-color: rgba(163 163 163 / 0.5) transparent;
+  }
+
+  html.dark .layer-card {
+    border-color: rgb(64 64 64);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  html.dark .layer-card:hover {
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.25);
+  }
+
+  html.dark .data-badge {
     background: rgb(64 64 64);
     color: rgb(212 212 212);
   }
 
-  .dark .paper-badge {
+  html.dark .detail-card-sensory .data-badge {
+    background: rgb(180 83 9 / 0.4);
+    color: rgb(253 230 138);
+  }
+
+  html.dark .detail-card-motor .data-badge {
+    background: rgb(56 189 248 / 0.25);
+    color: rgb(186 230 253);
+  }
+
+  html.dark .detail-card-behavior .data-badge {
+    background: rgb(139 92 246 / 0.3);
+    color: rgb(233 213 255);
+  }
+
+  html.dark .paper-badge {
     background: rgb(69 26 3 / 0.4);
     border-color: rgb(180 83 9);
     color: rgb(253 230 138);
   }
 
-  .dark .flow-label {
+  html.dark .flow-label {
     fill: rgb(229 229 229);
-  }
-
-  @keyframes dash-flow {
-    from { stroke-dashoffset: 0; }
-    to { stroke-dashoffset: 16; }
+    stroke: rgba(23, 23, 23, 0.88);
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .diagram-shell,
+    .research-stage,
+    .layer-card,
+    .flow-path,
+    .flow-label,
+    .detail-card {
+      transition: none !important;
+    }
+    .detail-card {
+      animation: none !important;
+    }
     .flow-path {
-      animation: none;
+      animation: none !important;
     }
   }
 
   @media (max-width: 1024px) {
-    .research-stage {
-      grid-template-columns: 1fr;
+    .research-infographic {
+      margin-left: -0.5rem;
+      margin-right: -0.5rem;
+      width: calc(100% + 1rem);
     }
 
     .diagram-shell {
-      transform: none !important;
-    }
-
-    .detail-panel {
-      border-left: none;
-      border-top: 1px solid rgb(229 229 229);
-      opacity: 1;
-      transform: none;
-      pointer-events: auto;
+      padding-left: 0;
+      padding-right: 0;
+      padding-bottom: 0.75rem;
     }
 
     .diagram-canvas {
-      height: 320px;
+      height: 240px;
     }
 
-    .cards-grid {
-      inset: 14px 20px;
-      grid-template-rows: 100px 120px;
+    .cards-stack {
+      inset: 14px calc((100% - 180px) / 2);
+    }
+
+    .layer-card {
+      min-width: 160px;
+    }
+
+    .detail-area {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+
+    .detail-card {
+      max-height: 280px;
+    }
+
+    .flow-label {
+      display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .research-infographic {
+      margin-left: -1rem;
+      margin-right: -1rem;
+      width: calc(100% + 2rem);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .research-infographic {
+      margin-left: -1.5rem;
+      margin-right: -1.5rem;
+      width: calc(100% + 3rem);
     }
   }
 </style>

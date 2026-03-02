@@ -1,134 +1,123 @@
 {
-  "thesis": "Closed-loop adaptive systems for human state + context variation",
-  "problemStatement": "Human perception, biomechanics, and cognition change across people and situations. Fixed XR/vehicle/wearable systems can reduce safety, comfort, and performance.",
-  "approachStatement": "Sense user+context → infer state/intent → adapt multimodal feedback/control → optimize metrics (safety, comfort, performance, presence, trust).",
-  "adaptationFlow": [
-    "Measure (S): user + environment signals",
-    "Infer & Adapt (X): models + policies",
-    "Optimize (J) under Constraints (C)"
-  ],
-  "handoff1to2": "Perception + attention limits bound what actuation/feedback is effective and comfortable.",
-  "handoff1to2Elements": [
-    "Thresholds (DT/JND)",
-    "Sensory congruency (visual–vestibular–proprioceptive)",
-    "Comfort bounds (MS/strain/thermal safety)",
-    "Distraction budget (glance/attention)"
-  ],
-  "handoff2to3": "Motor-level sensing/actuation enables task adaptation; tasks constrain timing, complexity, and safety.",
-  "handoff2to3Elements": [
-    "Biomechanics-consistent actuation (EMS/pressure/thermal/vibration)",
-    "Intent & performance inference (tactile/IMU/gait/forces)",
-    "Low-latency closed loop (real-time guidance)",
-    "Stability + safety controllers",
-    "Pattern simplification for reliability"
-  ],
+  "intendedUse": "infographic",
+  "thesis": "Closed-loop adaptive interaction for dynamic human state + context",
+  "problemStatement": "Perception, biomechanics, and cognition vary across people and situations. Static XR/vehicle/wearable/robot systems can reduce safety, comfort, and performance.",
+  "approachStatement": "Sense → Infer State/Intent → Adapt Feedback/Control/UI → Optimize (Safety, Comfort, Performance, Presence, Trust).",
+  "adaptationFlow": ["Sense (S)", "Adapt (X)", "Optimize (J|C)"],
+  "handoff1to2": "Perception and attention bound usable actuation.",
+  "handoff1to2Elements": ["Thresholds", "Congruency", "Comfort", "Attention"],
+  "handoff2to3": "Actuation enables task-level adaptation under safety/timing limits.",
+  "handoff2to3Elements": ["Actuation", "Intent", "Latency", "Stability", "Simplicity"],
   "connections": [
     {
       "from": "sensory",
       "to": "motor",
       "side": "right",
-      "elements": ["DT/JND", "congruency", "comfort bounds", "distraction budget"]
+      "elements": ["Thresholds", "Tolerance", "Attention"]
     },
     {
       "from": "motor",
       "to": "sensory",
       "side": "left",
-      "elements": ["salience calibration", "cue congruency tuning", "safe stimulus limits"]
+      "elements": ["Salience", "Calibration", "Alignment"]
     },
     {
       "from": "motor",
       "to": "behavior",
       "side": "right",
-      "elements": ["wearable guidance", "assistive mobility", "teleop force feedback", "XR contact rendering"]
+      "elements": ["Haptics", "Guidance", "Assistance"]
     },
     {
       "from": "behavior",
       "to": "motor",
       "side": "left",
-      "elements": ["task timing", "safety constraints", "feedback complexity limits"]
+      "elements": ["Timing", "Simplicity", "Safety"]
     },
     {
       "from": "sensory",
       "to": "behavior",
       "side": "right",
-      "elements": ["attention allocation", "presence/comfort", "clarity/trust"]
+      "elements": ["Presence", "Trust", "Engagement"]
     },
     {
       "from": "behavior",
       "to": "sensory",
       "side": "left",
-      "elements": ["cognitive load", "motion/traffic dynamics", "training/impairment context"]
+      "elements": ["Workload", "Motion", "Context"]
     }
   ],
   "layers": [
     {
       "id": "sensory",
-      "name": "SENSORY MODELS",
+      "name": "SENSORY LAYER",
       "sublabel": "Input",
-      "goal": "Model multisensory perception + attention; expand usable envelope without discomfort.",
+      "goal": "Model multisensory perception + attention to expand the usable envelope without discomfort.",
       "signals": [
-        "DT/JND (redirection, cue detectability)",
-        "Sensory conflict & MS indicators",
-        "Reorientation dynamics (turning, success rate)",
-        "Visual scanning & head movement features",
-        "Self-motion cues (optic flow, vestibular, proprioception)",
-        "Individual differences (experience, low vision)"
+        "Detection Threshold",
+        "Just Noticeable Difference",
+        "Sensory Conflict",
+        "Attention",
+        "Visual Scanning",
+        "Self-Motion",
+        "Individual Differences"
       ],
       "systemAdapted": [
-        "Vestibular stimulation (GVS/BCV/caloric)",
-        "Optic-flow / vection cues",
-        "Visual + auditory + olfactory attractors",
-        "Foot-based haptic redirection cues",
-        "Gait-based locomotion prediction (robust to visual distraction)",
-        "Scanning-contingent head-movement stimulation"
+        "Vestibular Cues",
+        "Optic Flow",
+        "Multisensory Attractors",
+        "Haptic Footwear",
+        "Gait Prediction",
+        "Scan Stimulation"
       ],
-      "keyImpact": "More reliable XR locomotion/reorientation and improved accessibility with preserved presence/comfort.",
+      "keyImpact": "More robust XR locomotion/reorientation and improved accessibility with preserved comfort/presence.",
       "paperIds": ["c.1", "c.3", "p.2", "j.1", "j.2", "p.1", "j.3", "c.6", "p.4"]
     },
     {
       "id": "motor",
-      "name": "MOTOR MODELS",
+      "name": "MOTOR LAYER",
       "sublabel": "Output",
-      "goal": "Infer physical intent and deliver biomechanically grounded wearable actuation/assistance.",
+      "goal": "Infer physical intent and deliver biomechanics-grounded wearable actuation/assistance.",
       "signals": [
-        "High-resolution tactile contact/pressure",
-        "IMU + kinematics (gait/posture/terrain)",
-        "Remote interaction forces (teleoperation)",
-        "EMG for validation/calibration",
-        "Thermal/contact properties (heat/cold, stiffness cues)"
+        "Tactile Pressure",
+        "IMU Kinematics",
+        "Remote Forces",
+        "EMG Validation",
+        "Thermal Contact"
       ],
       "systemAdapted": [
-        "Biomechanical simulation → torque/force targets",
-        "EMS mapping (upper/lower body) for kinesthetic feedback",
-        "Closed-loop skill coaching via wearable sensing/feedback",
-        "Assistive walker speed + terrain leveling control",
-        "Rapid thermal + congruent pressure feedback"
+        "Biomech Simulation",
+        "EMS Mapping",
+        "Thermal Pressure",
+        "Stability Control",
+        "Skill Coaching"
       ],
-      "keyImpact": "Accurate, wearable force/thermal/tactile feedback and intent-aware assistance for training, teleop, mobility, and XR touch.",
+      "keyImpact": "Accurate wearable haptics and intent-aware assistance for teleop, training, mobility, and XR touch.",
       "paperIds": ["c.5", "c.11", "w.4", "c.15", "c.9", "w.2", "c.8", "w.1"]
     },
     {
       "id": "behavior",
-      "name": "BEHAVIOR MODELS",
+      "name": "BEHAVIOR LAYER",
       "sublabel": "Closed-Loop Task",
-      "goal": "Adaptive interaction in driving/AV and in-vehicle XR under cognitive + motion constraints.",
+      "goal": "Optimize user actions across XR, robotics, training, mobility, and driving/AV contexts under cognitive/safety constraints.",
       "signals": [
-        "Cognitive load (pupil/EDA/NASA-TLX)",
-        "Glance behavior + attention shifts",
-        "Driving + touchscreen performance (Fitts’ throughput, deviation)",
-        "Passenger explanation-demand signals (context + physiology)",
-        "Road-user decision/crossing outcomes",
-        "Motion sickness + posture stability during driving events"
+        "Workload",
+        "Glances",
+        "Task Performance",
+        "Intent",
+        "Trust",
+        "Sickness"
       ],
       "systemAdapted": [
-        "Profile-State Adaptive in-car touchscreens + time–cost model",
-        "Contextual eHMI + AR virtual-agent communication",
-        "Timing-aware in-vehicle explanations (dataset + predictors)",
-        "In-car VR active locomotion + contextual cues",
-        "Synchronized multisensory cues + posture-adaptive VR tasks"
+        "Adaptive UI",
+        "Context Cues",
+        "Teleop Feedback",
+        "CPR Guidance",
+        "Mobility Assistance",
+        "Road Communication",
+        "Explanation Timing"
       ],
-      "keyImpact": "Maintains safety/usability/trust in mobility contexts while enabling comfortable passenger XR and clearer AV communication.",
-      "paperIds": ["c.13", "c.14", "c.7", "c.12", "c.2", "c.10", "p.3", "c.4", "w.3"]
+      "keyImpact": "Better task outcomes with lower risk and higher comfort across real-world, mobile, and immersive scenarios.",
+      "paperIds": ["c.13", "c.14", "c.12", "c.2", "c.7", "c.10", "c.4", "w.3", "c.11", "c.15", "c.9", "c.6", "p.4"]
     }
   ]
 }

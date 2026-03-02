@@ -50,7 +50,7 @@ import experiences from "../../collections/experiences.json";
         </div>
       </div>
     </div>
-    <div class="flex h-full min-h-0 md:justify-end">
+    <div class="flex h-full min-h-0 justify-center md:justify-end">
       <img
         src={about.profileImage}
         alt="Seokhyun Hwang portrait"
@@ -120,10 +120,17 @@ import experiences from "../../collections/experiences.json";
 
   <style>
     .experience-more-item {
-      display: none;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      margin-top: 0;
+      margin-bottom: 0;
+      transition: max-height 0.15s ease-out, opacity 0.1s ease-out;
     }
     .experience-card-experiences.expanded .experience-more-item {
-      display: block;
+      max-height: 120px;
+      opacity: 1;
+      margin-top: 0.5rem;
     }
     .experience-list {
       overflow: hidden;
@@ -165,6 +172,7 @@ import experiences from "../../collections/experiences.json";
         const card = btn.closest(".experience-card-experiences");
         const isExpanded = card.classList.toggle("expanded");
         btn.textContent = isExpanded ? "Less" : "More";
+        btn.setAttribute("aria-label", isExpanded ? "Show less" : "Show more");
       });
     });
   </script>
