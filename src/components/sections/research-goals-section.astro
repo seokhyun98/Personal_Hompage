@@ -307,8 +307,19 @@ const visibleConnections = connections.filter((c) => {
       const wrapGutter = isNarrow
         ? Math.max(80, w * 0.18)
         : Math.max(70, w * (w < 850 ? 0.20 : 0.16));
-      const xRight = w - wrapGutter;
-      const xLeft = wrapGutter;
+      let xRight = w - wrapGutter;
+      let xLeft = wrapGutter;
+
+      // On narrow screens, ensure wrap-around path stays outside the cards (never goes inside buttons)
+      if (isNarrow && sensory && behavior) {
+        const cardRight = Math.max(sensory.right, behavior.right);
+        const cardLeft = Math.min(sensory.left, behavior.left);
+        const margin = 16;
+        xRight = Math.max(xRight, cardRight + margin);
+        xLeft = Math.min(xLeft, cardLeft - margin);
+        xRight = Math.min(xRight, w - 8);
+        xLeft = Math.max(xLeft, 8);
+      }
 
       const pathGroups = svgPaths.querySelectorAll(".connection");
 
