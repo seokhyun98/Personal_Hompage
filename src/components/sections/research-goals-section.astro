@@ -42,7 +42,7 @@ const visibleConnections = connections.filter((c) => {
     <div class="research-stage">
       <div class="diagram-shell">
         <div class="diagram-canvas">
-          <svg class="connection-svg" viewBox="0 0 620 275" preserveAspectRatio="none" aria-hidden="true">
+          <svg class="connection-svg connection-svg-paths" viewBox="0 0 620 275" preserveAspectRatio="none" aria-hidden="true">
             <defs>
               <marker
                 id="arrow-sensory"
@@ -99,7 +99,36 @@ const visibleConnections = connections.filter((c) => {
                       class={`flow-path flow-${connection.from}`}
                       marker-end={`url(#arrow-${connection.from})`}
                     />
-                    <text data-flow-label x="0" y="0" class="flow-label">
+                  </g>
+                );
+              })
+            }
+          </svg>
+
+          <svg class="connection-svg connection-svg-labels" viewBox="0 0 620 275" preserveAspectRatio="none" aria-hidden="true">
+            {
+              visibleConnections.map((connection) => {
+                const key = `${connection.from}-${connection.to}`;
+                const isWrapAround = wrapAroundKeys.has(key);
+                return (
+                  <g
+                    class="connection"
+                    data-from={connection.from}
+                    data-to={connection.to}
+                    data-conn-id={connection.id}
+                    data-wrap-around={isWrapAround ? "true" : undefined}
+                  >
+                    <rect
+                      data-flow-label-bg
+                      x="0"
+                      y="0"
+                      width="0"
+                      height="0"
+                      rx="6"
+                      ry="6"
+                      class={`flow-label-bg flow-label-bg-${connection.from}`}
+                    />
+                    <text data-flow-label x="0" y="0" class={`flow-label flow-label-${connection.from}`}>
                       {connection.label}
                     </text>
                   </g>
@@ -126,7 +155,7 @@ const visibleConnections = connections.filter((c) => {
 
       <div class="detail-area">
         <div class="detail-placeholder" data-panel-default>
-          <p class="panel-placeholder">Select a layer to explore the adaptation parameters and signals.</p>
+          <p class="panel-placeholder"><span class="panel-placeholder-highlight">Click a layer above to explore adaptation parameters and signals.</span></p>
         </div>
 
         {
@@ -163,13 +192,13 @@ const visibleConnections = connections.filter((c) => {
 </section>
 
 <script is:inline>
-  document.addEventListener("DOMContentLoaded", () => {
+  function setupResearchInfographic() {
     const wrapper = document.querySelector(".research-infographic");
     if (!wrapper) return;
 
     const canvas = wrapper.querySelector(".diagram-canvas");
-    const svg = wrapper.querySelector(".connection-svg");
-    const connectionGroups = wrapper.querySelectorAll(".connection-svg .connection");
+    const svgPaths = wrapper.querySelector(".connection-svg-paths");
+    const svgLabels = wrapper.querySelector(".connection-svg-labels");
 
     const layerBtns = wrapper.querySelectorAll("[data-layer-btn]");
     const panelDefault = wrapper.querySelector("[data-panel-default]");
@@ -220,7 +249,7 @@ const visibleConnections = connections.filter((c) => {
     }
 
     function recalcConnections() {
-      if (!canvas || !svg) return;
+      if (!canvas || !svgPaths || !svgLabels) return;
 
       const canvasRect = canvas.getBoundingClientRect();
       const w = canvasRect.width;
@@ -228,7 +257,8 @@ const visibleConnections = connections.filter((c) => {
       if (!w || !h) return;
 
       // Use pixel-aligned SVG coordinates for precise attachment.
-      svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
+      svgPaths.setAttribute("viewBox", `0 0 ${w} ${h}`);
+      svgLabels.setAttribute("viewBox", `0 0 ${w} ${h}`);
 
       const boxes = {};
       layerBtns.forEach((btn) => {
@@ -246,15 +276,29 @@ const visibleConnections = connections.filter((c) => {
       const laneOffset = clamp(8, avgCardW * 0.045, 14);
       const labelGap = clamp(16, avgCardW * 0.07, 28);
 
-      function setGroup(group, d, labelX, labelY, anchor, baseline) {
-        const path = group.querySelector("[data-flow-path]");
-        const text = group.querySelector("[data-flow-label]");
+      function setGroup(pathGroup, labelGroup, d, labelX, labelY, anchor, baseline) {
+        const path = pathGroup?.querySelector("[data-flow-path]");
+        const text = labelGroup?.querySelector("[data-flow-label]");
+        const bg = labelGroup?.querySelector("[data-flow-label-bg]");
         if (path) path.setAttribute("d", d);
         if (text) {
           text.setAttribute("x", `${labelX}`);
           text.setAttribute("y", `${labelY}`);
           text.setAttribute("text-anchor", anchor);
           if (baseline) text.setAttribute("dominant-baseline", baseline);
+        }
+        if (bg && text) {
+          const bbox = text.getBBox();
+          const padX = 6;
+          const padY = 2;
+          const x = bbox.x - padX;
+          const y = bbox.y - padY;
+          const width = bbox.width + padX * 2;
+          const height = bbox.height + padY * 2;
+          bg.setAttribute("x", `${x}`);
+          bg.setAttribute("y", `${y}`);
+          bg.setAttribute("width", `${width}`);
+          bg.setAttribute("height", `${height}`);
         }
       }
 
@@ -266,10 +310,12 @@ const visibleConnections = connections.filter((c) => {
       const xRight = w - wrapGutter;
       const xLeft = wrapGutter;
 
-      connectionGroups.forEach((group) => {
-        const from = group.getAttribute("data-from") || "";
-        const to = group.getAttribute("data-to") || "";
-        const isWrapAround = group.getAttribute("data-wrap-around") === "true";
+      const pathGroups = svgPaths.querySelectorAll(".connection");
+
+      pathGroups.forEach((pathGroup) => {
+        const from = pathGroup.getAttribute("data-from") || "";
+        const to = pathGroup.getAttribute("data-to") || "";
+        const isWrapAround = pathGroup.getAttribute("data-wrap-around") === "true";
 
         const a = boxes[from];
         const b = boxes[to];
@@ -284,41 +330,40 @@ const visibleConnections = connections.filter((c) => {
           } else {
             d = `M${a.left} ${a.centerY} L${xLeft} ${a.centerY} L${xLeft} ${b.centerY} L${b.left} ${b.centerY}`;
           }
-          const path = group.querySelector("[data-flow-path]");
-          if (path) path.setAttribute("d", d);
-          if (activeLayerId === "sensory" || activeLayerId === "behavior") {
-            const centerInset = 88;
-            let labelX, labelY, anchor, baseline;
-            if (activeLayerId === "sensory") {
-              labelY = behavior.bottom - 4;
-              baseline = "hanging";
-            } else {
-              labelY = sensory.top + 4;
-              baseline = "text-after-edge";
-            }
-            if (isDown) {
-              labelX = xRight - centerInset;
-              anchor = "middle";
-            } else {
-              labelX = xLeft + centerInset;
-              anchor = "middle";
-            }
-
-            // Ensure wrap-around labels stay away from the central card column
-            // only when cards have shrunk in the responsive layout.
-            if (avgCardW < 200) {
-              const stackCenterX = (sensory.centerX + behavior.centerX) / 2;
-              const minOffsetFromCenter = avgCardW * 0.95; // > half button width
-              const currentOffset = labelX - stackCenterX;
-              if (Math.abs(currentOffset) < minOffsetFromCenter) {
-                const adjust = (minOffsetFromCenter - Math.abs(currentOffset)) + 10;
-                labelX += currentOffset >= 0 ? adjust : -adjust;
-              }
-            }
-            labelX = clamp(16, labelX, w - 16);
-
-            setGroup(group, d, labelX, labelY, anchor, baseline);
+          // Always set path; labels are positioned for when sensory/behavior active (hidden by CSS otherwise)
+          const centerInset = 88;
+          let labelX, labelY, anchor, baseline;
+          if (activeLayerId === "sensory") {
+            labelY = behavior.bottom - 4;
+            baseline = "hanging";
+          } else {
+            labelY = sensory.top + 4;
+            baseline = "text-after-edge";
           }
+          if (isDown) {
+            labelX = xRight - centerInset;
+            anchor = "middle";
+          } else {
+            labelX = xLeft + centerInset;
+            anchor = "middle";
+          }
+
+          // Ensure wrap-around labels stay away from the central card column
+          // only when cards have shrunk in the responsive layout.
+          if (avgCardW < 200) {
+            const stackCenterX = (sensory.centerX + behavior.centerX) / 2;
+            const minOffsetFromCenter = avgCardW * 0.95; // > half button width
+            const currentOffset = labelX - stackCenterX;
+            if (Math.abs(currentOffset) < minOffsetFromCenter) {
+              const adjust = (minOffsetFromCenter - Math.abs(currentOffset)) + 10;
+              labelX += currentOffset >= 0 ? adjust : -adjust;
+            }
+          }
+          labelX = clamp(16, labelX, w - 16);
+
+          const connId = pathGroup.getAttribute("data-conn-id") || "";
+          const labelGroup = svgLabels.querySelector(`.connection[data-conn-id="${connId}"]`);
+          setGroup(pathGroup, labelGroup, d, labelX, labelY, anchor, baseline);
           return;
         } else {
           // Straight vertical arrows between adjacent card edges.
@@ -337,7 +382,9 @@ const visibleConnections = connections.filter((c) => {
           anchor = isDown ? "start" : "end";
         }
 
-        setGroup(group, d, labelX, labelY, anchor);
+        const connId = pathGroup.getAttribute("data-conn-id") || "";
+        const labelGroup = svgLabels.querySelector(`.connection[data-conn-id="${connId}"]`);
+        setGroup(pathGroup, labelGroup, d, labelX, labelY, anchor);
       });
     }
 
@@ -387,8 +434,22 @@ const visibleConnections = connections.filter((c) => {
       window.addEventListener("resize", () => scheduleRecalc(0), { passive: true });
     }
 
-    scheduleRecalc(0);
-  });
+    // Initial layout can report zero size; run recalc after layout is ready.
+    const runInitialRecalc = () => {
+      scheduleRecalc(0);
+      scheduleRecalc(800); // Keep recalculating for 800ms to catch late layout
+    };
+    requestAnimationFrame(() => {
+      requestAnimationFrame(runInitialRecalc);
+    });
+    window.addEventListener("load", () => scheduleRecalc(0));
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setupResearchInfographic);
+  } else {
+    setupResearchInfographic();
+  }
 </script>
 
 <style>
@@ -446,7 +507,8 @@ const visibleConnections = connections.filter((c) => {
   }
 
   .diagram-shell {
-    padding: 1rem 0.5rem 0;
+    padding: 0.5rem 0.5rem 0.5rem;
+    flex-shrink: 0;
   }
 
   .diagram-canvas {
@@ -462,7 +524,15 @@ const visibleConnections = connections.filter((c) => {
     inset: 0;
     width: 100%;
     height: 100%;
+    pointer-events: none;
+  }
+
+  .connection-svg-paths {
     z-index: 1;
+  }
+
+  .connection-svg-labels {
+    z-index: 3;
   }
 
   /* Reserve horizontal gutters; ensure min card width, arrows adapt to remaining space */
@@ -497,6 +567,85 @@ const visibleConnections = connections.filter((c) => {
   .layer-card:hover {
     --card-ty: -2px;
     box-shadow: 0 10px 22px rgba(0, 0, 0, 0.10);
+  }
+
+  /* Colored invite pulse when no layer selected - each card pulses in its own color */
+  .research-infographic[data-active-layer=""] .card-sensory {
+    animation: card-pulse-sensory 2.5s ease-in-out infinite;
+  }
+
+  .research-infographic[data-active-layer=""] .card-motor {
+    animation: card-pulse-motor 2.5s ease-in-out infinite;
+  }
+
+  .research-infographic[data-active-layer=""] .card-behavior {
+    animation: card-pulse-behavior 2.5s ease-in-out infinite;
+  }
+
+  @keyframes card-pulse-sensory {
+    0%, 100% {
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    }
+    50% {
+      box-shadow: 0 0 0 2px rgb(253 224 71 / 0.5), 0 4px 16px rgb(245 158 11 / 0.35);
+    }
+  }
+
+  @keyframes card-pulse-motor {
+    0%, 100% {
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    }
+    50% {
+      box-shadow: 0 0 0 2px rgb(125 211 252 / 0.6), 0 4px 16px rgb(56 189 248 / 0.35);
+    }
+  }
+
+  @keyframes card-pulse-behavior {
+    0%, 100% {
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    }
+    50% {
+      box-shadow: 0 0 0 2px rgb(196 181 253 / 0.6), 0 4px 16px rgb(139 92 246 / 0.35);
+    }
+  }
+
+  html.dark .research-infographic[data-active-layer=""] .card-sensory {
+    animation-name: card-pulse-sensory-dark;
+  }
+
+  html.dark .research-infographic[data-active-layer=""] .card-motor {
+    animation-name: card-pulse-motor-dark;
+  }
+
+  html.dark .research-infographic[data-active-layer=""] .card-behavior {
+    animation-name: card-pulse-behavior-dark;
+  }
+
+  @keyframes card-pulse-sensory-dark {
+    0%, 100% {
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+      box-shadow: 0 0 0 2px rgb(251 191 36 / 0.5), 0 4px 20px rgb(245 158 11 / 0.4);
+    }
+  }
+
+  @keyframes card-pulse-motor-dark {
+    0%, 100% {
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+      box-shadow: 0 0 0 2px rgb(125 211 252 / 0.5), 0 4px 20px rgb(56 189 248 / 0.4);
+    }
+  }
+
+  @keyframes card-pulse-behavior-dark {
+    0%, 100% {
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+      box-shadow: 0 0 0 2px rgb(196 181 253 / 0.5), 0 4px 20px rgb(139 92 246 / 0.4);
+    }
   }
 
   .layer-name {
@@ -577,12 +726,38 @@ const visibleConnections = connections.filter((c) => {
     transition: opacity 180ms ease;
     dominant-baseline: middle;
     pointer-events: none;
+  }
 
-    /* Improves readability over gradients without needing bent arrows. */
-    paint-order: stroke;
-    stroke: rgba(255, 255, 255, 0.92);
-    stroke-width: 3.25;
-    stroke-linejoin: round;
+  .flow-label-bg {
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+
+  .flow-label-bg-sensory {
+    /* light pastel yellow, matching card-sensory */
+    fill: rgb(254 243 199);
+  }
+
+  .flow-label-bg-motor {
+    /* light pastel blue, matching card-motor */
+    fill: rgb(224 242 254);
+  }
+
+  .flow-label-bg-behavior {
+    /* light pastel purple, matching card-behavior */
+    fill: rgb(237 233 254);
+  }
+
+  .flow-label-sensory {
+    fill: rgb(146 64 14);
+  }
+
+  .flow-label-motor {
+    fill: rgb(3 105 161);
+  }
+
+  .flow-label-behavior {
+    fill: rgb(109 40 217);
   }
 
   .detail-area {
@@ -590,6 +765,7 @@ const visibleConnections = connections.filter((c) => {
     margin: 0 auto;
     width: 100%;
     max-width: 960px;
+    flex-shrink: 0;
   }
 
   .detail-placeholder[aria-hidden="true"],
@@ -602,10 +778,20 @@ const visibleConnections = connections.filter((c) => {
   }
 
   .panel-placeholder {
-    font-size: 0.85rem;
+    font-size: 1rem;
+    font-weight: 600;
     line-height: 1.5;
-    color: rgb(115 115 115);
+    color: rgb(64 64 64);
     text-align: center;
+  }
+
+  .panel-placeholder-highlight {
+    background: linear-gradient(transparent 60%, rgba(251, 191, 36, 0.4) 60%);
+    padding: 0 2px;
+  }
+
+  html.dark .panel-placeholder-highlight {
+    background: linear-gradient(transparent 60%, rgba(251, 191, 36, 0.35) 60%);
   }
 
   /* Detail card: matches layer card style for visual connection */
@@ -788,6 +974,24 @@ const visibleConnections = connections.filter((c) => {
     z-index: 3;
   }
 
+  html.dark .research-infographic[data-active-layer="sensory"] .card-sensory {
+    background: linear-gradient(135deg, rgb(120 53 15 / 0.5), rgb(180 83 9 / 0.35));
+    border-color: rgb(251 191 36);
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.35), 0 0 20px rgba(251 191 36 / 0.2);
+  }
+
+  html.dark .research-infographic[data-active-layer="motor"] .card-motor {
+    background: linear-gradient(135deg, rgb(14 165 233 / 0.35), rgb(56 189 248 / 0.25));
+    border-color: rgb(125 211 252);
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.35), 0 0 20px rgba(56 189 248 / 0.25);
+  }
+
+  html.dark .research-infographic[data-active-layer="behavior"] .card-behavior {
+    background: linear-gradient(135deg, rgb(139 92 246 / 0.4), rgb(167 139 250 / 0.3));
+    border-color: rgb(196 181 253);
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.35), 0 0 20px rgba(167 139 250 / 0.3);
+  }
+
   /* Active: highlight arrows connected to the selected layer and reveal labels.
      Labels already sit left (up arrows) / right (down arrows) based on path direction. */
   .research-infographic[data-active-layer="sensory"] .connection[data-from="sensory"] .flow-path,
@@ -806,13 +1010,26 @@ const visibleConnections = connections.filter((c) => {
   .research-infographic[data-active-layer="motor"] .connection[data-from="motor"] .flow-label,
   .research-infographic[data-active-layer="motor"] .connection[data-to="motor"] .flow-label,
   .research-infographic[data-active-layer="behavior"] .connection[data-from="behavior"] .flow-label,
-  .research-infographic[data-active-layer="behavior"] .connection[data-to="behavior"] .flow-label {
+  .research-infographic[data-active-layer="behavior"] .connection[data-to="behavior"] .flow-label,
+  .research-infographic[data-active-layer="sensory"] .connection[data-from="sensory"] .flow-label-bg,
+  .research-infographic[data-active-layer="sensory"] .connection[data-to="sensory"] .flow-label-bg,
+  .research-infographic[data-active-layer="motor"] .connection[data-from="motor"] .flow-label-bg,
+  .research-infographic[data-active-layer="motor"] .connection[data-to="motor"] .flow-label-bg,
+  .research-infographic[data-active-layer="behavior"] .connection[data-from="behavior"] .flow-label-bg,
+  .research-infographic[data-active-layer="behavior"] .connection[data-to="behavior"] .flow-label-bg {
     opacity: 1;
   }
 
   /* Hide wrap-around labels instantly when motor active to prevent flicker */
   .research-infographic[data-active-layer="motor"] .connection[data-wrap-around="true"] .flow-label,
-  .research-infographic[data-active-layer=""] .connection[data-wrap-around="true"] .flow-label {
+  .research-infographic[data-active-layer="motor"] .connection[data-wrap-around="true"] .flow-label-bg {
+    opacity: 0;
+    transition: none;
+  }
+
+  /* Hide all labels instantly when no layer selected to prevent flicker on deselect */
+  .research-infographic[data-active-layer=""] .flow-label,
+  .research-infographic[data-active-layer=""] .flow-label-bg {
     opacity: 0;
     transition: none;
   }
@@ -824,9 +1041,12 @@ const visibleConnections = connections.filter((c) => {
   }
 
   html.dark .layer-sublabel,
-  html.dark .panel-label,
-  html.dark .panel-placeholder {
+  html.dark .panel-label {
     color: rgb(163 163 163);
+  }
+
+  html.dark .panel-placeholder {
+    color: rgb(212 212 212);
   }
 
   html.dark .card-sensory {
@@ -914,9 +1134,28 @@ const visibleConnections = connections.filter((c) => {
     color: rgb(253 230 138);
   }
 
-  html.dark .flow-label {
-    fill: rgb(229 229 229);
-    stroke: rgba(23, 23, 23, 0.88);
+  html.dark .flow-label-sensory {
+    fill: rgb(253 230 138);
+  }
+
+  html.dark .flow-label-motor {
+    fill: rgb(186 230 253);
+  }
+
+  html.dark .flow-label-behavior {
+    fill: rgb(233 213 255);
+  }
+
+  html.dark .flow-label-bg-sensory {
+    fill: rgb(120 53 15);
+  }
+
+  html.dark .flow-label-bg-motor {
+    fill: rgb(7 89 133);
+  }
+
+  html.dark .flow-label-bg-behavior {
+    fill: rgb(76 29 149);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -925,8 +1164,14 @@ const visibleConnections = connections.filter((c) => {
     .layer-card,
     .flow-path,
     .flow-label,
+    .flow-label-bg,
     .detail-card {
       transition: none !important;
+    }
+    .research-infographic[data-active-layer=""] .card-sensory,
+    .research-infographic[data-active-layer=""] .card-motor,
+    .research-infographic[data-active-layer=""] .card-behavior {
+      animation: none !important;
     }
     .detail-card {
       animation: none !important;
@@ -937,24 +1182,19 @@ const visibleConnections = connections.filter((c) => {
   }
 
   @media (max-width: 1024px) {
-    .research-infographic {
-      margin-left: -0.5rem;
-      margin-right: -0.5rem;
-      width: calc(100% + 1rem);
-    }
-
     .diagram-shell {
-      padding-left: 0;
-      padding-right: 0;
-      padding-bottom: 0.75rem;
+      padding: 0.5rem 0 0.5rem;
+      overflow: hidden;
     }
 
     .diagram-canvas {
-      height: 240px;
+      height: 275px;
+      min-height: 275px;
     }
 
     .cards-stack {
-      inset: 14px calc((100% - 180px) / 2);
+      inset: 18px calc((100% - 180px) / 2);
+      gap: 30px;
     }
 
     .layer-card {
@@ -973,21 +1213,14 @@ const visibleConnections = connections.filter((c) => {
 
   @media (max-width: 768px) {
     .research-infographic {
-      margin-left: -1rem;
-      margin-right: -1rem;
-      width: calc(100% + 2rem);
+      margin-left: 0;
+      margin-right: 0;
+      width: 100%;
     }
 
-    .flow-label {
+    .flow-label,
+    .flow-label-bg {
       display: none;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .research-infographic {
-      margin-left: -1.5rem;
-      margin-right: -1.5rem;
-      width: calc(100% + 3rem);
     }
   }
 </style>
