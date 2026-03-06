@@ -3,7 +3,7 @@
   "headline": "Ph.D. Student in Information Science at the University of Washington",
   "email": "seokhyun@uw.edu",
   "website": "https://www.seokhyunhwang.com",
-  "cvLink": "/Docs/CV_Seokhyun Hwang_FEB2026_LETTER.pdf",
+  "cvLink": "/Docs/CV_Seokhyun Hwang_MAR2026_LETTER.pdf",
   "profileImage": "/images/profile/profile.jpg",
   "bio": "Hi there! My name is Seokhyun (Shawn) Hwang, and I am a Ph.D. student in Information Science at the University of Washington in the ACE Lab (Advisor: Jacob O. Wobbrock). I completed my Master's degree in Intelligent Robotics at GIST HCIS Lab (Advisor: SeungJun Kim). I work on Human-Computer Interaction, VR/AR, haptics, and wearable systems.",
   "socialLinks": [
@@ -31,11 +31,6 @@
       "label": "ACM DL",
       "url": "https://dl.acm.org/profile/99660234042"
     }
-  ],
-  "researchGoals": [
-    "Crafting intuitive systems for unique sensory experiences.",
-    "Merging virtual reality and human sensation with cutting-edge haptic innovations.",
-    "Creating value through the fusion of virtual environments and human interaction, from enjoyment to practical applications."
   ],
   "education": [
     {
@@ -152,6 +147,11 @@
     }
   ],
   "invitedTalks": [
+    {
+      "organization": "University of Washington, Information School",
+      "date": "Mar 2026",
+      "detail": "Invited lightning talk (25th anniversary Information School Research Fair)"
+    },
     {
       "organization": "Toyota Research Institute",
       "date": "Aug 2025",
