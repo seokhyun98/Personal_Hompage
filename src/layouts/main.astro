@@ -28,8 +28,11 @@ const {
 	structuredData = [],
 } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname || "/", Astro.site);
-const siteUrl = Astro.site?.toString() ?? "https://www.seokhyunhwang.com";
-const ogImage = new URL("/images/profile/profile.jpg", siteUrl);
+const siteUrl = (Astro.site?.toString() ?? "https://www.seokhyunhwang.com").replace(/\/$/, "");
+const homeUrl = `${siteUrl}/`;
+const personId = `${siteUrl}/#person`;
+const websiteId = `${siteUrl}/#website`;
+const ogImage = new URL("/images/profile/profile.jpg", homeUrl);
 const socialProfileUrls = about.socialLinks.map((item) => item.url);
 const pageTitle =
 	typeof title === "string" && title.includes("Seokhyun Hwang")
@@ -39,10 +42,10 @@ const pageTitle =
 const personLd = {
 	"@context": "https://schema.org",
 	"@type": "Person",
-	"@id": `${siteUrl}/#person`,
+	"@id": personId,
 	name: "Seokhyun (Shawn) Hwang",
 	alternateName: ["Seokhyun Hwang", "Shawn Hwang"],
-	url: siteUrl,
+	url: homeUrl,
 	image: `${siteUrl}/images/profile/profile.jpg`,
 	email: `mailto:${about.email}`,
 	jobTitle: "Ph.D. Student in Information Science",
@@ -70,13 +73,13 @@ const personLd = {
 const websiteLd = {
 	"@context": "https://schema.org",
 	"@type": "WebSite",
-	"@id": `${siteUrl}/#website`,
+	"@id": websiteId,
 	name: "Seokhyun Hwang",
-	url: siteUrl,
+	url: homeUrl,
 	inLanguage: "en-US",
 	description: defaultDescription,
-	about: { "@id": `${siteUrl}/#person` },
-	publisher: { "@id": `${siteUrl}/#person` },
+	about: { "@id": personId },
+	publisher: { "@id": personId },
 };
 
 const defaultStructuredData = [personLd, websiteLd];

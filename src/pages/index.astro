@@ -5,10 +5,8 @@ import FunProjectsSection from "../components/sections/fun-projects-section.astr
 import HeroSection from "../components/sections/hero-section.astro";
 import PublicationsSection from "../components/sections/publications-section.astro";
 import ResearchGoalsSection from "../components/sections/research-goals-section.astro";
-import about from "../collections/about.json";
 import Layout from "../layouts/main.astro";
 
-const siteUrl = "https://www.seokhyunhwang.com";
 const homeDescription =
 	"Seokhyun (Shawn) Hwang is a Ph.D. student in Information Science at the University of Washington. Explore his publications, awards, talks, and profiles including Google Scholar and ACM DL.";
 const homeKeywords = [
@@ -21,36 +19,12 @@ const homeKeywords = [
 	"haptics",
 	"wearable systems",
 ];
-
-const profilePageLd = {
-	"@context": "https://schema.org",
-	"@type": "ProfilePage",
-	"@id": `${siteUrl}/#profile-page`,
-	url: siteUrl,
-	inLanguage: "en-US",
-	mainEntity: { "@id": `${siteUrl}/#person` },
-	name: "Seokhyun Hwang - Research Profile",
-	description: homeDescription,
-};
-
-const sameAsItemListLd = {
-	"@context": "https://schema.org",
-	"@type": "ItemList",
-	name: "Seokhyun Hwang External Academic Profiles",
-	itemListElement: about.socialLinks.map((item, index) => ({
-		"@type": "ListItem",
-		position: index + 1,
-		name: item.label,
-		url: item.url,
-	})),
-};
 ---
 
 <Layout
   title="Seokhyun Hwang - Ph.D. Student in HCI, VR/AR, Haptics"
   description={homeDescription}
   keywords={homeKeywords}
-  structuredData={[profilePageLd, sameAsItemListLd]}
 >
   <HeroSection />
   <ResearchGoalsSection />
