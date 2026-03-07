@@ -9,42 +9,49 @@ import about from "../collections/about.json";
 import Layout from "../layouts/main.astro";
 
 const siteUrl = "https://www.seokhyunhwang.com";
+const homeDescription =
+	"Seokhyun (Shawn) Hwang is a Ph.D. student in Information Science at the University of Washington. Explore his publications, awards, talks, and profiles including Google Scholar and ACM DL.";
+const homeKeywords = [
+	"Seokhyun Hwang",
+	"Shawn Hwang",
+	"Google Scholar",
+	"ACM DL",
+	"HCI",
+	"VR AR research",
+	"haptics",
+	"wearable systems",
+];
 
-const personLd = {
+const profilePageLd = {
 	"@context": "https://schema.org",
-	"@type": "Person",
-	name: about.name,
-	alternateName: "Seokhyun Shawn Hwang",
+	"@type": "ProfilePage",
+	"@id": `${siteUrl}/#profile-page`,
 	url: siteUrl,
-	image: `${siteUrl}/images/profile/profile.jpg`,
-	jobTitle: "Ph.D. Student, Information Science",
-	email: `mailto:${about.email}`,
-	worksFor: {
-		"@type": "Organization",
-		name: "University of Washington",
-		url: "https://www.washington.edu/",
-	},
-	affiliation: {
-		"@type": "Organization",
-		name: "University of Washington",
-	},
-	sameAs: about.socialLinks.map((item) => item.url),
+	inLanguage: "en-US",
+	mainEntity: { "@id": `${siteUrl}/#person` },
+	name: "Seokhyun Hwang - Research Profile",
+	description: homeDescription,
 };
 
-const websiteLd = {
+const sameAsItemListLd = {
 	"@context": "https://schema.org",
-	"@type": "WebSite",
-	name: "Seokhyun Hwang",
-	url: siteUrl,
-	description:
-		"Ph.D. Student in Information Science at University of Washington. Research in HCI, VR/AR, haptics, and wearable systems.",
-	author: { "@type": "Person", name: about.name, url: siteUrl },
+	"@type": "ItemList",
+	name: "Seokhyun Hwang External Academic Profiles",
+	itemListElement: about.socialLinks.map((item, index) => ({
+		"@type": "ListItem",
+		position: index + 1,
+		name: item.label,
+		url: item.url,
+	})),
 };
 ---
 
-<Layout title="Seokhyun Hwang - Ph.D. Student in HCI, VR/AR, Haptics">
-  <script is:inline type="application/ld+json" set:html={JSON.stringify(personLd)} />
-  <script is:inline type="application/ld+json" set:html={JSON.stringify(websiteLd)} />
+<Layout
+  title="Seokhyun Hwang - Ph.D. Student in HCI, VR/AR, Haptics"
+  description={homeDescription}
+  keywords={homeKeywords}
+  structuredData={[profilePageLd, sameAsItemListLd]}
+>
   <HeroSection />
   <ResearchGoalsSection />
   <PublicationsSection />
