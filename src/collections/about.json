@@ -3,7 +3,7 @@
   "headline": "Ph.D. Student in Information Science at the University of Washington",
   "email": "seokhyun@uw.edu",
   "website": "https://www.seokhyunhwang.com",
-  "cvLink": "/Docs/CV_Seokhyun Hwang_MAR2026_LETTER.pdf",
+  "cvLink": "/Docs/CV_Seokhyun Hwang_MAY2026_LETTER.pdf",
   "profileImage": "/images/profile/profile.jpg",
   "bio": "Hi there! My name is Seokhyun (Shawn) Hwang, and I am a Ph.D. student in Information Science at the University of Washington in the ACE Lab (Advisor: Jacob O. Wobbrock). I completed my Master's degree in Intelligent Robotics at GIST HCIS Lab (Advisor: SeungJun Kim). I work on Human-Computer Interaction, VR/AR, haptics, and wearable systems.",
   "socialLinks": [
@@ -197,7 +197,9 @@
         { "name": "GeekWire", "url": "https://www.geekwire.com/2025/uw-study-finds-touch-screens-in-cars-create-a-multitasking-problem-that-impacts-driving/" },
         { "name": "KIRO Seattle's morning News", "url": "https://www.youtube.com/watch?v=97j9em3dOfQ" },
         { "name": "KOMO News", "url": "https://komonews.com/news/local/built-in-vehicle-touch-screen-touchscreen-distractions-university-of-washington-toyota-research-distracted-driving-ability-safety-issues-simulator-car-functions?mkt_tok=MTMxLUFRTy0yMjUAAAGgM90ZyXecQ1UlwdEmY8kCFqwufH-sxBvnf6O1mooJIALjijZrCmYs8kxwks2Ff498eBoedmXwyRh65Is071_mVOXlg2CljWBdKok_fhcIGj2Xtyc" },
-        { "name": "Spotlight on America", "url": "https://thenationaldesk.com/news/spotlight-on-america/vehicle-touchscreen-frustration-and-safety-concerns-dashboard-automakers-blackouts-frozen-screens-software-glitches#" }
+        { "name": "Spotlight on America", "url": "https://thenationaldesk.com/news/spotlight-on-america/vehicle-touchscreen-frustration-and-safety-concerns-dashboard-automakers-blackouts-frozen-screens-software-glitches#" },
+        { "name": "TechRadar", "url": "https://www.techradar.com/vehicle-tech/hybrid-electric-vehicles/shock-horror-in-car-touchscreens-are-way-more-distracting-than-we-first-thought-says-new-study" },
+        { "name": "El Confidencial", "url": "https://www.elconfidencial.com/tecnologia/2025-12-23/toyota-experimento-peligro-pantalla-coche-1qrt_4273793/" }
       ]
     },
     {
