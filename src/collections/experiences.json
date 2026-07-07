@@ -52,8 +52,13 @@
   "teachingExperience": [
     {
       "organization": "University of Washington",
+      "role": "Teaching Practicum, IMT 565B: Designing Information Experiences",
+      "dates": "Mar 2026 - Jun 2026"
+    },
+    {
+      "organization": "University of Washington",
       "role": "Teaching Practicum, HCID 520: User Interface Software & Technology",
-      "dates": "Jan 2026 - Present"
+      "dates": "Jan 2026 - Mar 2026"
     },
     {
       "organization": "University of Washington",

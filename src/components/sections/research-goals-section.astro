@@ -1,481 +1,178 @@
 ---
-import researchLayersData from "../../collections/research-layers.json";
+import researchLoopData from "../../collections/research-loop.json";
 
-const layers = researchLayersData.layers;
-const layerById = Object.fromEntries(layers.map((layer) => [layer.id, layer]));
-
-const connections = researchLayersData.connections.map((connection, idx) => ({
-  ...connection,
-  id: `conn-${idx}`,
-  label: (connection as { label?: string }).label ?? connection.elements.join(", "),
-}));
-
-// Show vertical adjacent connections + wrap-around (top-bottom) connections.
-const verticalConnectionKeys = new Set([
-  "sensory-motor",
-  "motor-sensory",
-  "motor-behavior",
-  "behavior-motor",
-]);
-
-const wrapAroundKeys = new Set(["sensory-behavior", "behavior-sensory"]);
-
-const visibleConnections = connections.filter((c) => {
-  const key = `${c.from}-${c.to}`;
-  return verticalConnectionKeys.has(key) || wrapAroundKeys.has(key);
-});
+const board = researchLoopData.board;
+const phases = board.phases;
+const cellItems = new Map(
+  board.cells.map((cell) => [`${cell.phase}-${cell.axis}`, cell.items])
+);
 ---
 
 <section id="research-goals" class="relative z-20 mx-auto mt-12 w-full max-w-5xl px-7 xl:px-0">
   <h2 class="flex flex-wrap items-baseline gap-x-2 text-2xl font-bold text-neutral-900 dark:text-white">
-    Research Goals : <span class="intro-thesis">{researchLayersData.thesis}</span>
+    Research Goals : <span class="intro-thesis">{researchLoopData.thesis}</span>
   </h2>
 
   <div class="intro-block mt-2">
     <p class="intro-label">Problem</p>
-    <p class="intro-text">{researchLayersData.problemStatement}</p>
+    <p class="intro-text">{researchLoopData.problemStatement}</p>
     <p class="intro-label">Our Approach</p>
-    <p class="intro-text">{researchLayersData.approachStatement}</p>
+    <p class="intro-text">{researchLoopData.approachStatement}</p>
   </div>
 
-  <div class="research-infographic mt-5" data-active-layer="">
-    <div class="research-stage">
-      <div class="diagram-shell">
-        <div class="diagram-canvas">
-          <svg class="connection-svg connection-svg-paths" viewBox="0 0 620 275" preserveAspectRatio="none" aria-hidden="true">
-            <defs>
-              <marker
-                id="arrow-sensory"
-                markerWidth="10"
-                markerHeight="10"
-                refX="10"
-                refY="5"
-                orient="auto"
-                markerUnits="userSpaceOnUse"
-              >
-                <path d="M0 0 L10 5 L0 10 Z" fill="rgb(217 119 6)" />
-              </marker>
+  <div class="loop-board mt-5" data-active-phase="">
+    <p class="intro-label">{board.label}</p>
+    <p class="intro-text">{board.caption}</p>
 
-              <marker
-                id="arrow-motor"
-                markerWidth="10"
-                markerHeight="10"
-                refX="10"
-                refY="5"
-                orient="auto"
-                markerUnits="userSpaceOnUse"
-              >
-                <path d="M0 0 L10 5 L0 10 Z" fill="rgb(14 165 233)" />
-              </marker>
+    <div class="loop-arc" aria-hidden="true">
+      <span class="loop-arc-label">{board.loopBackLabel}</span>
+    </div>
 
-              <marker
-                id="arrow-behavior"
-                markerWidth="10"
-                markerHeight="10"
-                refX="10"
-                refY="5"
-                orient="auto"
-                markerUnits="userSpaceOnUse"
-              >
-                <path d="M0 0 L10 5 L0 10 Z" fill="rgb(139 92 246)" />
-              </marker>
-            </defs>
+    <div class="board-grid">
+      <div class="board-corner" aria-hidden="true"></div>
+      {
+        phases.map((phase, idx) => (
+          <button
+            type="button"
+            class={`phase-card${idx > 0 ? " has-arrow" : ""}`}
+            data-phase-btn
+            data-phase-id={phase.id}
+            aria-pressed="false"
+          >
+            <span class="phase-name">
+              <span class="phase-num" aria-hidden="true">{phase.num}</span>
+              {phase.name}
+            </span>
+            <span class="phase-sub">{phase.sub}</span>
+          </button>
+        ))
+      }
 
-            {
-              visibleConnections.map((connection) => {
-                const key = `${connection.from}-${connection.to}`;
-                const isWrapAround = wrapAroundKeys.has(key);
-                return (
-                  <g
-                    class="connection"
-                    data-from={connection.from}
-                    data-to={connection.to}
-                    data-conn-id={connection.id}
-                    data-wrap-around={isWrapAround ? "true" : undefined}
-                  >
-                    <path
-                      data-flow-path
-                      d="M0 0 L0 0"
-                      class={`flow-path flow-${connection.from}`}
-                      marker-end={`url(#arrow-${connection.from})`}
-                    />
-                  </g>
-                );
-              })
-            }
-          </svg>
-
-          <svg class="connection-svg connection-svg-labels" viewBox="0 0 620 275" preserveAspectRatio="none" aria-hidden="true">
-            {
-              visibleConnections.map((connection) => {
-                const key = `${connection.from}-${connection.to}`;
-                const isWrapAround = wrapAroundKeys.has(key);
-                return (
-                  <g
-                    class="connection"
-                    data-from={connection.from}
-                    data-to={connection.to}
-                    data-conn-id={connection.id}
-                    data-wrap-around={isWrapAround ? "true" : undefined}
-                  >
-                    <rect
-                      data-flow-label-bg
-                      x="0"
-                      y="0"
-                      width="0"
-                      height="0"
-                      rx="6"
-                      ry="6"
-                      class={`flow-label-bg flow-label-bg-${connection.from}`}
-                    />
-                    <text data-flow-label x="0" y="0" class={`flow-label flow-label-${connection.from}`}>
-                      {connection.label}
-                    </text>
-                  </g>
-                );
-              })
-            }
-          </svg>
-
-          <div class="cards-stack">
-            <button type="button" class="layer-card card-sensory" data-layer-btn data-layer-id="sensory" aria-pressed="false">
-              <span class="layer-name">{layerById.sensory.name}</span>
-            </button>
-
-            <button type="button" class="layer-card card-motor" data-layer-btn data-layer-id="motor" aria-pressed="false">
-              <span class="layer-name">{layerById.motor.name}</span>
-            </button>
-
-            <button type="button" class="layer-card card-behavior" data-layer-btn data-layer-id="behavior" aria-pressed="false">
-              <span class="layer-name">{layerById.behavior.name}</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div class="detail-area">
-        <div class="detail-placeholder" data-panel-default>
-          <p class="panel-placeholder"><span class="panel-placeholder-highlight">Click a layer above to explore adaptation parameters and signals.</span></p>
-        </div>
-
-        {
-          layers.map((layer) => (
-            <div
-              class={`detail-card detail-card-${layer.id}`}
-              data-panel-content
-              data-layer-id={layer.id}
-              aria-hidden="true"
-            >
-              <div class="detail-card-header">
-                <span class="detail-card-name">{layer.name}</span>
-                <span class="detail-card-sublabel">({layer.sublabel})</span>
-              </div>
-              <div class="detail-card-body">
-                <p class="panel-label">Goal</p>
-                <p class="panel-goal">{layer.goal}</p>
-
-                <p class="panel-label">Signals Analyzed</p>
-                <div class="panel-badges">{layer.signals.map((s) => <span class="data-badge">{s}</span>)}</div>
-
-                <p class="panel-label">System Adapted</p>
-                <div class="panel-badges">{layer.systemAdapted.map((s) => <span class="data-badge">{s}</span>)}</div>
-
-                <p class="panel-label">Key Impact</p>
-                <p class="panel-impact">{layer.keyImpact}</p>
-              </div>
+      {
+        board.axes.map((axis) => (
+          <>
+            <div class="matrix-cap-head">
+              <span class={`matrix-cap-name axis-${axis.id}`}>{axis.name}</span>
+              <span class="matrix-cap-sub">{axis.sub}</span>
             </div>
-          ))
-        }
+            {phases.map((phase) => (
+              <div class="matrix-cell" data-phase={phase.id}>
+                <span class="matrix-cell-phase">
+                  <span class="phase-num" aria-hidden="true">{phase.num}</span>
+                  {phase.name}
+                </span>
+                {(cellItems.get(`${phase.id}-${axis.id}`) ?? []).map((item) => (
+                  <span class={`matrix-chip tier-${item.tier} chip-${axis.id}`}>
+                    {item.label}
+                    {item.ids.length > 0 && <span class="chip-ids">[{item.ids.join(", ")}]</span>}
+                    {item.award && <span class="chip-award">★ {item.award}</span>}
+                    {item.sub && <span class="chip-sub">{item.sub}</span>}
+                  </span>
+                ))}
+              </div>
+            ))}
+          </>
+        ))
+      }
+    </div>
+
+    <div class="detail-area">
+      <div class="detail-placeholder" data-panel-default>
+        <ul class="insight-list">
+          {
+            phases.map((phase) => (
+              <li>
+                <span class="phase-num" aria-hidden="true">{phase.num}</span>
+                <span class="insight-text">{phase.keyImpact}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="panel-placeholder"><span class="panel-placeholder-highlight">{board.placeholder}</span></p>
       </div>
+
+      {
+        phases.map((phase) => (
+          <div class="detail-card" data-panel-content data-phase-id={phase.id} aria-hidden="true">
+            <div class="detail-card-header">
+              <span class="phase-num" aria-hidden="true">{phase.num}</span>
+              <span class="detail-card-name">{phase.name}</span>
+              <span class="detail-card-sublabel">({phase.sub})</span>
+            </div>
+            <div class="detail-card-body">
+              <p class="panel-label">Goal</p>
+              <p class="panel-goal">{phase.goal}</p>
+
+              {phase.groups.map((group) => (
+                <>
+                  <p class="panel-label">{group.label}</p>
+                  <div class="panel-badges">{group.items.map((item) => <span class="data-badge">{item}</span>)}</div>
+                </>
+              ))}
+
+              <p class="panel-label">Key Insight</p>
+              <p class="panel-impact">{phase.keyImpact}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="matrix-legend">
+      <span class="matrix-legend-note">{board.legendNote}</span>
+      {
+        board.legend.map((entry) => (
+          <span class={`matrix-chip matrix-legend-chip tier-${entry.tier} chip-legend`}>{entry.label}</span>
+        ))
+      }
     </div>
   </div>
 </section>
 
 <script is:inline>
-  function setupResearchInfographic() {
-    const wrapper = document.querySelector(".research-infographic");
-    if (!wrapper) return;
+  function setupLoopBoard() {
+    const boardEl = document.querySelector(".loop-board");
+    if (!boardEl) return;
 
-    const canvas = wrapper.querySelector(".diagram-canvas");
-    const svgPaths = wrapper.querySelector(".connection-svg-paths");
-    const svgLabels = wrapper.querySelector(".connection-svg-labels");
+    const phaseBtns = boardEl.querySelectorAll("[data-phase-btn]");
+    const panelDefault = boardEl.querySelector("[data-panel-default]");
+    const panelContents = boardEl.querySelectorAll("[data-panel-content]");
 
-    const layerBtns = wrapper.querySelectorAll("[data-layer-btn]");
-    const panelDefault = wrapper.querySelector("[data-panel-default]");
-    const panelContents = wrapper.querySelectorAll("[data-panel-content]");
+    let activePhaseId = "";
 
-    let activeLayerId = "";
+    function setActive(phaseId) {
+      activePhaseId = phaseId;
+      boardEl.setAttribute("data-active-phase", phaseId || "");
 
-    const clamp = (min, v, max) => Math.max(min, Math.min(v, max));
-
-    function getBox(el, canvasRect) {
-      const r = el.getBoundingClientRect();
-      const x = r.left - canvasRect.left;
-      const y = r.top - canvasRect.top;
-      return {
-        left: x,
-        top: y,
-        right: x + r.width,
-        bottom: y + r.height,
-        width: r.width,
-        height: r.height,
-        centerX: x + r.width / 2,
-        centerY: y + r.height / 2,
-      };
-    }
-
-    function setActive(layerId) {
-      activeLayerId = layerId;
-      wrapper.setAttribute("data-active-layer", layerId || "");
-
-      layerBtns.forEach((btn) => {
-        const id = btn.getAttribute("data-layer-id");
-        btn.setAttribute("aria-pressed", id === layerId ? "true" : "false");
+      phaseBtns.forEach((btn) => {
+        btn.setAttribute("aria-pressed", btn.getAttribute("data-phase-id") === phaseId ? "true" : "false");
       });
 
-      if (layerId) {
+      if (phaseId) {
         panelDefault?.setAttribute("aria-hidden", "true");
         panelContents.forEach((panel) => {
-          const id = panel.getAttribute("data-layer-id");
-          panel.setAttribute("aria-hidden", id === layerId ? "false" : "true");
+          panel.setAttribute("aria-hidden", panel.getAttribute("data-phase-id") === phaseId ? "false" : "true");
         });
       } else {
         panelDefault?.setAttribute("aria-hidden", "false");
         panelContents.forEach((panel) => panel.setAttribute("aria-hidden", "true"));
       }
-
-      // Track the diagram shift/scale + panel reveal so arrows stay glued.
-      scheduleRecalc(460);
     }
 
-    function recalcConnections() {
-      if (!canvas || !svgPaths || !svgLabels) return;
-
-      const canvasRect = canvas.getBoundingClientRect();
-      const w = canvasRect.width;
-      const h = canvasRect.height;
-      if (!w || !h) return;
-
-      // Use pixel-aligned SVG coordinates for precise attachment.
-      svgPaths.setAttribute("viewBox", `0 0 ${w} ${h}`);
-      svgLabels.setAttribute("viewBox", `0 0 ${w} ${h}`);
-
-      const boxes = {};
-      layerBtns.forEach((btn) => {
-        const id = btn.getAttribute("data-layer-id");
-        if (!id) return;
-        boxes[id] = getBox(btn, canvasRect);
-      });
-
-      const sensory = boxes.sensory;
-      const motor = boxes.motor;
-      const behavior = boxes.behavior;
-      if (!sensory || !motor || !behavior) return;
-
-      const avgCardW = (sensory.width + motor.width + behavior.width) / 3;
-      const laneOffset = clamp(8, avgCardW * 0.045, 14);
-      const labelGap = clamp(16, avgCardW * 0.07, 28);
-
-      function setGroup(pathGroup, labelGroup, d, labelX, labelY, anchor, baseline) {
-        const path = pathGroup?.querySelector("[data-flow-path]");
-        const text = labelGroup?.querySelector("[data-flow-label]");
-        const bg = labelGroup?.querySelector("[data-flow-label-bg]");
-        if (path) path.setAttribute("d", d);
-        if (text) {
-          text.setAttribute("x", `${labelX}`);
-          text.setAttribute("y", `${labelY}`);
-          text.setAttribute("text-anchor", anchor);
-          if (baseline) text.setAttribute("dominant-baseline", baseline);
-        }
-        if (bg && text) {
-          const bbox = text.getBBox();
-          const padX = 6;
-          const padY = 2;
-          const x = bbox.x - padX;
-          const y = bbox.y - padY;
-          const width = bbox.width + padX * 2;
-          const height = bbox.height + padY * 2;
-          bg.setAttribute("x", `${x}`);
-          bg.setAttribute("y", `${y}`);
-          bg.setAttribute("width", `${width}`);
-          bg.setAttribute("height", `${height}`);
-        }
-      }
-
-      // For wrap-around: arrows route closer to cards on narrow screens; wide screens slightly more detour.
-      const isNarrow = w < 700;
-      const wrapGutter = isNarrow
-        ? Math.max(80, w * 0.18)
-        : Math.max(70, w * (w < 850 ? 0.20 : 0.16));
-      let xRight = w - wrapGutter;
-      let xLeft = wrapGutter;
-
-      // On narrow screens, ensure wrap-around path stays outside the cards (never goes inside buttons)
-      if (isNarrow && sensory && behavior) {
-        const cardRight = Math.max(sensory.right, behavior.right);
-        const cardLeft = Math.min(sensory.left, behavior.left);
-        const margin = 16;
-        xRight = Math.max(xRight, cardRight + margin);
-        xLeft = Math.min(xLeft, cardLeft - margin);
-        xRight = Math.min(xRight, w - 8);
-        xLeft = Math.max(xLeft, 8);
-      }
-
-      const pathGroups = svgPaths.querySelectorAll(".connection");
-
-      pathGroups.forEach((pathGroup) => {
-        const from = pathGroup.getAttribute("data-from") || "";
-        const to = pathGroup.getAttribute("data-to") || "";
-        const isWrapAround = pathGroup.getAttribute("data-wrap-around") === "true";
-
-        const a = boxes[from];
-        const b = boxes[to];
-        if (!a || !b) return;
-
-        let d, labelX, labelY, anchor;
-
-        if (isWrapAround) {
-          const isDown = b.centerY > a.centerY;
-          if (isDown) {
-            d = `M${a.right} ${a.centerY} L${xRight} ${a.centerY} L${xRight} ${b.centerY} L${b.right} ${b.centerY}`;
-          } else {
-            d = `M${a.left} ${a.centerY} L${xLeft} ${a.centerY} L${xLeft} ${b.centerY} L${b.left} ${b.centerY}`;
-          }
-          // Always set path; labels are positioned for when sensory/behavior active (hidden by CSS otherwise)
-          const centerInset = 88;
-          let labelX, labelY, anchor, baseline;
-          if (activeLayerId === "sensory") {
-            labelY = behavior.bottom - 4;
-            baseline = "hanging";
-          } else {
-            labelY = sensory.top + 4;
-            baseline = "text-after-edge";
-          }
-          if (isDown) {
-            labelX = xRight - centerInset;
-            anchor = "middle";
-          } else {
-            labelX = xLeft + centerInset;
-            anchor = "middle";
-          }
-
-          // Ensure wrap-around labels stay away from the central card column
-          // only when cards have shrunk in the responsive layout.
-          if (avgCardW < 200) {
-            const stackCenterX = (sensory.centerX + behavior.centerX) / 2;
-            const minOffsetFromCenter = avgCardW * 0.95; // > half button width
-            const currentOffset = labelX - stackCenterX;
-            if (Math.abs(currentOffset) < minOffsetFromCenter) {
-              const adjust = (minOffsetFromCenter - Math.abs(currentOffset)) + 10;
-              labelX += currentOffset >= 0 ? adjust : -adjust;
-            }
-          }
-          labelX = clamp(16, labelX, w - 16);
-
-          const connId = pathGroup.getAttribute("data-conn-id") || "";
-          const labelGroup = svgLabels.querySelector(`.connection[data-conn-id="${connId}"]`);
-          setGroup(pathGroup, labelGroup, d, labelX, labelY, anchor, baseline);
-          return;
-        } else {
-          // Straight vertical arrows between adjacent card edges.
-          const isDown = b.centerY > a.centerY;
-
-          const xBase = (a.centerX + b.centerX) / 2;
-          const x = xBase + (isDown ? laneOffset : -laneOffset);
-
-          const yStart = isDown ? a.bottom : a.top;
-          const yEnd = isDown ? b.top : b.bottom;
-
-          d = `M${x} ${yStart} L${x} ${yEnd}`;
-
-          labelY = (yStart + yEnd) / 2;
-          labelX = isDown ? (x + labelGap) : (x - labelGap);
-          anchor = isDown ? "start" : "end";
-        }
-
-        const connId = pathGroup.getAttribute("data-conn-id") || "";
-        const labelGroup = svgLabels.querySelector(`.connection[data-conn-id="${connId}"]`);
-        setGroup(pathGroup, labelGroup, d, labelX, labelY, anchor);
-      });
-    }
-
-    let rafId = 0;
-    function scheduleRecalc(durationMs = 0) {
-      if (durationMs <= 0) {
-        recalcConnections();
-        return;
-      }
-      if (rafId) cancelAnimationFrame(rafId);
-
-      const start = performance.now();
-      const tick = () => {
-        recalcConnections();
-        if (performance.now() - start < durationMs) {
-          rafId = requestAnimationFrame(tick);
-        }
-      };
-      rafId = requestAnimationFrame(tick);
-    }
-
-    layerBtns.forEach((btn) => {
-      const layerId = btn.getAttribute("data-layer-id") || "";
-
-      btn.addEventListener("click", () => setActive(activeLayerId === layerId ? "" : layerId));
-
-      btn.addEventListener("mouseenter", () => {
-        wrapper.setAttribute("data-hover-layer", layerId);
-        scheduleRecalc(180);
-      });
-
-      btn.addEventListener("mouseleave", () => {
-        wrapper.setAttribute("data-hover-layer", "");
-        scheduleRecalc(180);
-      });
+    phaseBtns.forEach((btn) => {
+      const phaseId = btn.getAttribute("data-phase-id") || "";
+      btn.addEventListener("click", () => setActive(activePhaseId === phaseId ? "" : phaseId));
     });
-
-    wrapper.addEventListener("mouseleave", () => {
-      wrapper.setAttribute("data-hover-layer", "");
-      scheduleRecalc(180);
-    });
-
-    if ("ResizeObserver" in window && canvas) {
-      const ro = new ResizeObserver(() => scheduleRecalc(0));
-      ro.observe(canvas);
-    } else {
-      window.addEventListener("resize", () => scheduleRecalc(0), { passive: true });
-    }
-
-    // Initial layout can report zero size; run recalc after layout is ready.
-    const runInitialRecalc = () => {
-      scheduleRecalc(0);
-      scheduleRecalc(800); // Keep recalculating for 800ms to catch late layout
-    };
-    requestAnimationFrame(() => {
-      requestAnimationFrame(runInitialRecalc);
-    });
-    window.addEventListener("load", () => scheduleRecalc(0));
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", setupResearchInfographic);
+    document.addEventListener("DOMContentLoaded", setupLoopBoard);
   } else {
-    setupResearchInfographic();
+    setupLoopBoard();
   }
 </script>
 
 <style>
-  .research-infographic {
-    border-radius: 1rem;
-    border: 1px dashed rgb(212 212 212);
-    background: rgb(250 250 250);
-    overflow: hidden;
-  }
-
-  html.dark .research-infographic {
-    border-color: rgb(64 64 64);
-    background: rgba(23 23 23 / 0.5);
-  }
-
   .intro-thesis {
     font-size: 1rem;
     font-weight: 600;
@@ -511,272 +208,400 @@ const visibleConnections = connections.filter((c) => {
     color: rgb(212 212 212);
   }
 
-  .research-stage {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
+  /* One integrated board: the loop as columns, the three capacities as rows. */
+  .loop-board {
+    border-radius: 1rem;
+    border: 1px dashed rgb(212 212 212);
+    background: rgb(250 250 250);
+    padding: 0.25rem 1rem 1rem;
   }
 
-  .diagram-shell {
-    padding: 0.5rem 0.5rem 0.5rem;
-    flex-shrink: 0;
+  html.dark .loop-board {
+    border-color: rgb(64 64 64);
+    background: rgba(23 23 23 / 0.5);
   }
 
-  .diagram-canvas {
+  .loop-board .intro-label {
+    margin-top: 0.75rem;
+  }
+
+  /* Loop-back arc: S4 feeds S1 — the claim that cost governs the next read. */
+  .loop-arc {
     position: relative;
-    height: 275px;
-    width: 100%;
-    max-width: 960px;
-    margin: 0 auto;
+    height: 14px;
+    margin-top: 1.9rem;
+    margin-left: calc(116px + (100% - 116px) / 6);
+    margin-right: calc((100% - 116px) / 6);
+    border: 1px dashed rgb(163 163 163);
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
   }
 
-  .connection-svg {
+  .loop-arc::after {
+    content: "";
     position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
+    left: -5px;
+    bottom: -5px;
+    width: 0;
+    height: 0;
+    border-left: 4.5px solid transparent;
+    border-right: 4.5px solid transparent;
+    border-top: 6px solid rgb(163 163 163);
   }
 
-  .connection-svg-paths {
-    z-index: 1;
-  }
-
-  .connection-svg-labels {
-    z-index: 3;
-  }
-
-  /* Reserve horizontal gutters; ensure min card width, arrows adapt to remaining space */
-  .cards-stack {
+  .loop-arc-label {
     position: absolute;
-    inset: 18px min(calc((100% + 300px) / 4), calc((100% - 240px) / 2));
+    top: -1.25em;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: rgb(115 115 115);
+  }
+
+  html.dark .loop-arc {
+    border-color: rgb(115 115 115);
+  }
+
+  html.dark .loop-arc::after {
+    border-top-color: rgb(115 115 115);
+  }
+
+  html.dark .loop-arc-label {
+    color: rgb(163 163 163);
+  }
+
+  .board-grid {
+    display: grid;
+    grid-template-columns: 108px repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 2px;
+  }
+
+  /* Phase cards: the loop's header row. Neutral surfaces so the stage dots and
+     capacity colors below stay the only strong hues on the board. */
+  .phase-card {
+    position: relative;
     display: flex;
     flex-direction: column;
-    gap: 30px;
-    z-index: 2;
-  }
-
-  .layer-card {
-    --card-scale: 1;
-    --card-ty: 0px;
-    min-width: 220px;
-
-    border-radius: 0.9rem;
+    gap: 0.12rem;
+    text-align: left;
+    border-radius: 0.8rem;
     border: 2px solid rgb(229 229 229);
     background: rgb(255 255 255);
-    text-align: center;
-    padding: 0.5rem 1rem;
-    min-height: 56px;
-
+    padding: 0.45rem 0.75rem;
     cursor: pointer;
-
-    transform: translateY(var(--card-ty)) scale(var(--card-scale));
-    transition: transform 280ms ease, box-shadow 280ms ease, opacity 240ms ease, border-color 280ms ease, filter 240ms ease;
+    transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease, opacity 200ms ease;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
   }
 
-  .layer-card:hover {
-    --card-ty: -2px;
-    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.10);
+  .phase-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
   }
 
-  /* Colored invite pulse when no layer selected - each card pulses in its own color */
-  .research-infographic[data-active-layer=""] .card-sensory {
-    animation: card-pulse-sensory 2.5s ease-in-out infinite;
+  .phase-card.has-arrow::before {
+    content: "→";
+    position: absolute;
+    left: -9px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.72rem;
+    line-height: 1;
+    color: rgb(163 163 163);
   }
 
-  .research-infographic[data-active-layer=""] .card-motor {
-    animation: card-pulse-motor 2.5s ease-in-out infinite;
+  /* Invite pulse while nothing is selected. */
+  .loop-board[data-active-phase=""] .phase-card {
+    animation: phase-pulse 2.5s ease-in-out infinite;
   }
 
-  .research-infographic[data-active-layer=""] .card-behavior {
-    animation: card-pulse-behavior 2.5s ease-in-out infinite;
-  }
-
-  @keyframes card-pulse-sensory {
+  @keyframes phase-pulse {
     0%, 100% {
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
     }
     50% {
-      box-shadow: 0 0 0 2px rgb(253 224 71 / 0.5), 0 4px 16px rgb(245 158 11 / 0.35);
+      box-shadow: 0 0 0 2px rgb(163 163 163 / 0.35), 0 4px 14px rgba(0, 0, 0, 0.1);
     }
   }
 
-  @keyframes card-pulse-motor {
-    0%, 100% {
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-    }
-    50% {
-      box-shadow: 0 0 0 2px rgb(125 211 252 / 0.6), 0 4px 16px rgb(56 189 248 / 0.35);
-    }
+  .phase-card[aria-pressed="true"] {
+    border-color: rgb(64 64 64);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
   }
 
-  @keyframes card-pulse-behavior {
-    0%, 100% {
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-    }
-    50% {
-      box-shadow: 0 0 0 2px rgb(196 181 253 / 0.6), 0 4px 16px rgb(139 92 246 / 0.35);
-    }
+  .loop-board:not([data-active-phase=""]) .phase-card[aria-pressed="false"] {
+    opacity: 0.5;
+    filter: saturate(0.75);
   }
 
-  html.dark .research-infographic[data-active-layer=""] .card-sensory {
-    animation-name: card-pulse-sensory-dark;
+  /* Numbered badge: the loop axis speaks in sequence (1 → 2 → 3),
+     leaving color free to encode the capacity axis alone. */
+  .phase-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.05rem;
+    height: 1.05rem;
+    border-radius: 9999px;
+    border: 1.5px solid rgb(115 115 115);
+    color: rgb(64 64 64);
+    font-size: 0.64rem;
+    font-weight: 700;
+    flex-shrink: 0;
   }
 
-  html.dark .research-infographic[data-active-layer=""] .card-motor {
-    animation-name: card-pulse-motor-dark;
+  html.dark .phase-num {
+    border-color: rgb(163 163 163);
+    color: rgb(212 212 212);
   }
 
-  html.dark .research-infographic[data-active-layer=""] .card-behavior {
-    animation-name: card-pulse-behavior-dark;
+  .phase-name {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: rgb(23 23 23);
   }
 
-  @keyframes card-pulse-sensory-dark {
+  .phase-sub {
+    font-size: 0.66rem;
+    font-weight: 500;
+    color: rgb(115 115 115);
+  }
+
+  html.dark .phase-card {
+    border-color: rgb(64 64 64);
+    background: rgb(23 23 23 / 0.7);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  html.dark .phase-card:hover {
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+  }
+
+  html.dark .phase-card[aria-pressed="true"] {
+    border-color: rgb(212 212 212);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.35);
+  }
+
+  @keyframes phase-pulse-dark {
     0%, 100% {
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     }
     50% {
-      box-shadow: 0 0 0 2px rgb(251 191 36 / 0.5), 0 4px 20px rgb(245 158 11 / 0.4);
+      box-shadow: 0 0 0 2px rgb(163 163 163 / 0.3), 0 4px 14px rgba(0, 0, 0, 0.35);
     }
   }
 
-  @keyframes card-pulse-motor-dark {
-    0%, 100% {
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-    }
-    50% {
-      box-shadow: 0 0 0 2px rgb(125 211 252 / 0.5), 0 4px 20px rgb(56 189 248 / 0.4);
-    }
+  html.dark .loop-board[data-active-phase=""] .phase-card {
+    animation-name: phase-pulse-dark;
   }
 
-  @keyframes card-pulse-behavior-dark {
-    0%, 100% {
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-    }
-    50% {
-      box-shadow: 0 0 0 2px rgb(196 181 253 / 0.5), 0 4px 20px rgb(139 92 246 / 0.4);
-    }
+  html.dark .phase-name {
+    color: rgb(245 245 245);
   }
 
-  .layer-name {
-    font-size: 0.8rem;
+  html.dark .phase-sub {
+    color: rgb(163 163 163);
+  }
+
+  /* Capacity heads (rows): the three abilities, phrased in human terms. */
+  .matrix-cap-head {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.15rem;
+  }
+
+  .matrix-cap-name {
+    font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.04em;
-    color: rgb(23 23 23);
-    display: block;
+    text-transform: uppercase;
   }
 
-  .layer-sublabel {
+  .matrix-cap-sub {
+    font-size: 0.63rem;
+    font-weight: 500;
+    line-height: 1.3;
+    color: rgb(115 115 115);
+  }
+
+  html.dark .matrix-cap-sub {
+    color: rgb(163 163 163);
+  }
+
+  .axis-perceptual {
+    color: rgb(180 83 9);
+  }
+
+  .axis-cognitive {
+    color: rgb(124 58 237);
+  }
+
+  .axis-motor {
+    color: rgb(2 132 199);
+  }
+
+  html.dark .axis-perceptual {
+    color: rgb(251 191 36);
+  }
+
+  html.dark .axis-cognitive {
+    color: rgb(196 181 253);
+  }
+
+  html.dark .axis-motor {
+    color: rgb(125 211 252);
+  }
+
+  .matrix-cell {
+    border-radius: 0.6rem;
+    border: 1px solid rgb(229 229 229);
+    background: rgb(255 255 255);
+    padding: 0.4rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    align-content: flex-start;
+  }
+
+  html.dark .matrix-cell {
+    border-color: rgb(64 64 64);
+    background: rgb(23 23 23 / 0.6);
+  }
+
+  .matrix-cell {
+    transition: opacity 240ms ease, filter 240ms ease;
+  }
+
+  /* Cross-highlight: while a phase is selected, fade the other columns' cells. */
+  .loop-board[data-active-phase="read"] .matrix-cell:not([data-phase="read"]),
+  .loop-board[data-active-phase="write"] .matrix-cell:not([data-phase="write"]),
+  .loop-board[data-active-phase="loop"] .matrix-cell:not([data-phase="loop"]) {
+    opacity: 0.35;
+    filter: saturate(0.7);
+  }
+
+  .matrix-cell-phase {
+    display: none;
+  }
+
+  .matrix-chip {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: 0.3rem;
+    row-gap: 0.06rem;
     font-size: 0.7rem;
     font-weight: 600;
-    color: rgb(82 82 82);
-    display: block;
-    margin-top: 0.1rem;
+    line-height: 1.3;
+    padding: 0.18rem 0.45rem;
+    border-radius: 0.35rem;
+    border: 1px solid transparent;
+    text-decoration: none;
   }
 
-  .card-sensory {
-    background: linear-gradient(135deg, rgb(255 251 235), rgb(254 243 199));
-    border-color: rgb(253 224 71);
+  /* Award badge: surfaces the quality signal (Best Paper / Honorable Mention) on the map itself. */
+  .chip-award {
+    align-self: center;
+    font-size: 0.56rem;
+    font-weight: 700;
+    line-height: 1.4;
+    padding: 0 0.28rem;
+    border-radius: 0.25rem;
+    background: rgb(253 230 138);
+    color: rgb(23 23 23);
+    white-space: nowrap;
   }
 
-  .card-motor {
-    background: linear-gradient(135deg, rgb(240 249 255), rgb(224 242 254));
-    border-color: rgb(125 211 252);
+  html.dark .chip-award {
+    background: rgb(120 53 15 / 0.5);
+    color: rgb(254 243 199);
   }
 
-  .card-behavior {
-    background: linear-gradient(135deg, rgb(245 243 255), rgb(237 233 254));
-    border-color: rgb(196 181 253);
-  }
-
-  /* Dashed arrows; animate dash offset when active. */
-  .flow-path {
-    fill: none;
-    stroke-width: 2.25;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-dasharray: 8 6;
-    stroke-dashoffset: 0;
-    opacity: 0.34;
-    transition: opacity 220ms ease, stroke-width 220ms ease, filter 220ms ease;
-  }
-
-  .research-infographic[data-active-layer="sensory"] .connection[data-from="sensory"] .flow-path,
-  .research-infographic[data-active-layer="sensory"] .connection[data-to="sensory"] .flow-path,
-  .research-infographic[data-active-layer="motor"] .connection[data-from="motor"] .flow-path,
-  .research-infographic[data-active-layer="motor"] .connection[data-to="motor"] .flow-path,
-  .research-infographic[data-active-layer="behavior"] .connection[data-from="behavior"] .flow-path,
-  .research-infographic[data-active-layer="behavior"] .connection[data-to="behavior"] .flow-path {
-    animation: flow-dash-move 0.6s linear infinite;
-  }
-
-  @keyframes flow-dash-move {
-    to {
-      stroke-dashoffset: -14;
-    }
-  }
-
-  .flow-sensory {
-    stroke: rgb(217 119 6);
-  }
-
-  .flow-motor {
-    stroke: rgb(14 165 233);
-  }
-
-  .flow-behavior {
-    stroke: rgb(139 92 246);
-  }
-
-  .flow-label {
-    font-size: 11.5px;
-    font-weight: 500;
-    fill: rgb(82 82 82);
-    opacity: 0;
-    transition: opacity 180ms ease;
-    dominant-baseline: middle;
-    pointer-events: none;
-  }
-
-  .flow-label-bg {
-    opacity: 0;
-    transition: opacity 180ms ease;
-  }
-
-  .flow-label-bg-sensory {
-    /* light pastel yellow, matching card-sensory */
-    fill: rgb(254 243 199);
-  }
-
-  .flow-label-bg-motor {
-    /* light pastel blue, matching card-motor */
-    fill: rgb(224 242 254);
-  }
-
-  .flow-label-bg-behavior {
-    /* light pastel purple, matching card-behavior */
-    fill: rgb(237 233 254);
-  }
-
-  .flow-label-sensory {
-    fill: rgb(146 64 14);
-  }
-
-  .flow-label-motor {
-    fill: rgb(3 105 161);
-  }
-
-  .flow-label-behavior {
-    fill: rgb(109 40 217);
-  }
-
-  .detail-area {
-    padding: 0 0.5rem 1.25rem;
-    margin: 0 auto;
+  /* Sub line: testbed · timescale · inherited asset — makes planned chips read as an agenda. */
+  .chip-sub {
     width: 100%;
-    max-width: 960px;
-    flex-shrink: 0;
+    font-size: 0.6rem;
+    font-weight: 500;
+    line-height: 1.35;
+    opacity: 0.85;
+  }
+
+  .chip-ids {
+    font-size: 0.62rem;
+    font-weight: 500;
+    opacity: 0.75;
+  }
+
+  .tier-core.chip-perceptual {
+    background: rgb(254 243 199);
+    color: rgb(120 53 15);
+    border-color: rgb(253 224 71 / 0.7);
+  }
+
+  .tier-core.chip-cognitive {
+    background: rgb(237 233 254);
+    color: rgb(76 29 149);
+    border-color: rgb(196 181 253 / 0.7);
+  }
+
+  .tier-core.chip-motor {
+    background: rgb(224 242 254);
+    color: rgb(7 89 133);
+    border-color: rgb(125 211 252 / 0.7);
+  }
+
+  html.dark .tier-core.chip-perceptual {
+    background: rgb(120 53 15 / 0.45);
+    color: rgb(253 230 138);
+    border-color: rgb(180 83 9);
+  }
+
+  html.dark .tier-core.chip-cognitive {
+    background: rgb(139 92 246 / 0.3);
+    color: rgb(233 213 255);
+    border-color: rgb(139 92 246 / 0.6);
+  }
+
+  html.dark .tier-core.chip-motor {
+    background: rgb(56 189 248 / 0.25);
+    color: rgb(186 230 253);
+    border-color: rgb(56 189 248 / 0.6);
+  }
+
+  .matrix-chip.tier-collab {
+    background: transparent;
+    color: rgb(82 82 82);
+    border-color: rgb(163 163 163);
+  }
+
+  html.dark .matrix-chip.tier-collab {
+    color: rgb(212 212 212);
+    border-color: rgb(115 115 115);
+  }
+
+  .matrix-chip.tier-planned {
+    background: transparent;
+    color: rgb(115 115 115);
+    border-style: dashed;
+    border-color: rgb(163 163 163);
+  }
+
+  html.dark .matrix-chip.tier-planned {
+    color: rgb(163 163 163);
+    border-color: rgb(115 115 115);
+  }
+
+  /* Detail panel: opens under the board when a phase is selected. */
+  .detail-area {
+    margin-top: 0.75rem;
   }
 
   .detail-placeholder[aria-hidden="true"],
@@ -785,11 +610,39 @@ const visibleConnections = connections.filter((c) => {
   }
 
   .detail-placeholder {
-    padding: 1rem 1.25rem;
+    padding: 0.6rem 0.5rem 0.4rem;
+  }
+
+  /* The three key insights stay visible without a click — skimmers and PDF readers see the argument. */
+  .insight-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    margin-bottom: 0.65rem;
+  }
+
+  .insight-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .insight-list .phase-num {
+    margin-top: 0.12rem;
+  }
+
+  .insight-text {
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: rgb(82 82 82);
+  }
+
+  html.dark .insight-text {
+    color: rgb(163 163 163);
   }
 
   .panel-placeholder {
-    font-size: 1rem;
+    font-size: 0.85rem;
     font-weight: 600;
     line-height: 1.5;
     color: rgb(64 64 64);
@@ -801,14 +654,18 @@ const visibleConnections = connections.filter((c) => {
     padding: 0 2px;
   }
 
+  html.dark .panel-placeholder {
+    color: rgb(212 212 212);
+  }
+
   html.dark .panel-placeholder-highlight {
     background: linear-gradient(transparent 60%, rgba(251, 191, 36, 0.35) 60%);
   }
 
-  /* Detail card: matches layer card style for visual connection */
   .detail-card {
-    border-radius: 0.9rem;
-    border: 2px solid rgb(229 229 229);
+    border-radius: 0.8rem;
+    border: 2px solid rgb(212 212 212);
+    background: rgb(255 255 255);
     overflow: hidden;
     max-height: 320px;
     display: flex;
@@ -831,13 +688,18 @@ const visibleConnections = connections.filter((c) => {
     padding: 0.5rem 1rem;
     display: flex;
     align-items: baseline;
-    gap: 0.35rem;
+    gap: 0.45rem;
+  }
+
+  .detail-card-header .phase-num {
+    align-self: center;
   }
 
   .detail-card-name {
     font-size: 0.8rem;
     font-weight: 700;
     letter-spacing: 0.04em;
+    text-transform: uppercase;
     color: rgb(23 23 23);
   }
 
@@ -863,21 +725,6 @@ const visibleConnections = connections.filter((c) => {
   .detail-card-body::-webkit-scrollbar-thumb {
     background: rgba(115 115 115 / 0.4);
     border-radius: 3px;
-  }
-
-  .detail-card-sensory {
-    background: linear-gradient(135deg, rgb(255 251 235), rgb(254 243 199));
-    border-color: rgb(253 224 71);
-  }
-
-  .detail-card-motor {
-    background: linear-gradient(135deg, rgb(240 249 255), rgb(224 242 254));
-    border-color: rgb(125 211 252);
-  }
-
-  .detail-card-behavior {
-    background: linear-gradient(135deg, rgb(245 243 255), rgb(237 233 254));
-    border-color: rgb(196 181 253);
   }
 
   .detail-card-body .panel-label {
@@ -917,206 +764,28 @@ const visibleConnections = connections.filter((c) => {
     color: rgb(64 64 64);
   }
 
-  .detail-card-sensory .data-badge {
-    background: rgb(253 224 71 / 0.45);
-    color: rgb(92 56 0);
+  html.dark .detail-card {
+    border-color: rgb(82 82 82);
+    background: rgb(23 23 23 / 0.7);
   }
 
-  .detail-card-motor .data-badge {
-    background: rgb(125 211 252 / 0.45);
-    color: rgb(8 51 82);
-  }
-
-  .detail-card-behavior .data-badge {
-    background: rgb(196 181 253 / 0.45);
-    color: rgb(49 36 91);
-  }
-
-  .paper-badge {
-    font-size: 0.7rem;
-    padding: 0.18rem 0.4rem;
-    background: rgb(255 251 235);
-    border: 1px solid rgb(253 224 71);
-    border-radius: 0.35rem;
-    font-weight: 600;
-    color: rgb(120 53 15);
-  }
-
-  /* Hover: lightly emphasize related arrows without opening the panel. */
-  .research-infographic[data-hover-layer="sensory"] .connection[data-from="sensory"] .flow-path,
-  .research-infographic[data-hover-layer="sensory"] .connection[data-to="sensory"] .flow-path,
-  .research-infographic[data-hover-layer="motor"] .connection[data-from="motor"] .flow-path,
-  .research-infographic[data-hover-layer="motor"] .connection[data-to="motor"] .flow-path,
-  .research-infographic[data-hover-layer="behavior"] .connection[data-from="behavior"] .flow-path,
-  .research-infographic[data-hover-layer="behavior"] .connection[data-to="behavior"] .flow-path {
-    opacity: 0.7;
-    stroke-width: 2.8;
-  }
-
-  /* De-emphasize non-selected cards. */
-  .research-infographic[data-active-layer="sensory"] .layer-card:not(.card-sensory),
-  .research-infographic[data-active-layer="motor"] .layer-card:not(.card-motor),
-  .research-infographic[data-active-layer="behavior"] .layer-card:not(.card-behavior) {
-    opacity: 0.52;
-    filter: saturate(0.88);
-    --card-scale: 0.94;
-    --card-ty: 0px;
-  }
-
-  /* Selected card: slightly larger and more prominent. */
-  .research-infographic[data-active-layer="sensory"] .card-sensory {
-    --card-scale: 1.05;
-    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.14);
-    border-color: rgb(245 158 11);
-    z-index: 3;
-  }
-
-  .research-infographic[data-active-layer="motor"] .card-motor {
-    --card-scale: 1.05;
-    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.14);
-    border-color: rgb(56 189 248);
-    z-index: 3;
-  }
-
-  .research-infographic[data-active-layer="behavior"] .card-behavior {
-    --card-scale: 1.05;
-    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.14);
-    border-color: rgb(167 139 250);
-    z-index: 3;
-  }
-
-  html.dark .research-infographic[data-active-layer="sensory"] .card-sensory {
-    background: linear-gradient(135deg, rgb(120 53 15 / 0.5), rgb(180 83 9 / 0.35));
-    border-color: rgb(251 191 36);
-    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.35), 0 0 20px rgba(251 191 36 / 0.2);
-  }
-
-  html.dark .research-infographic[data-active-layer="motor"] .card-motor {
-    background: linear-gradient(135deg, rgb(14 165 233 / 0.35), rgb(56 189 248 / 0.25));
-    border-color: rgb(125 211 252);
-    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.35), 0 0 20px rgba(56 189 248 / 0.25);
-  }
-
-  html.dark .research-infographic[data-active-layer="behavior"] .card-behavior {
-    background: linear-gradient(135deg, rgb(139 92 246 / 0.4), rgb(167 139 250 / 0.3));
-    border-color: rgb(196 181 253);
-    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.35), 0 0 20px rgba(167 139 250 / 0.3);
-  }
-
-  /* Active: highlight arrows connected to the selected layer and reveal labels.
-     Labels already sit left (up arrows) / right (down arrows) based on path direction. */
-  .research-infographic[data-active-layer="sensory"] .connection[data-from="sensory"] .flow-path,
-  .research-infographic[data-active-layer="sensory"] .connection[data-to="sensory"] .flow-path,
-  .research-infographic[data-active-layer="motor"] .connection[data-from="motor"] .flow-path,
-  .research-infographic[data-active-layer="motor"] .connection[data-to="motor"] .flow-path,
-  .research-infographic[data-active-layer="behavior"] .connection[data-from="behavior"] .flow-path,
-  .research-infographic[data-active-layer="behavior"] .connection[data-to="behavior"] .flow-path {
-    opacity: 1;
-    stroke-width: 3.1;
-    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.14));
-  }
-
-  .research-infographic[data-active-layer="sensory"] .connection[data-from="sensory"] .flow-label,
-  .research-infographic[data-active-layer="sensory"] .connection[data-to="sensory"] .flow-label,
-  .research-infographic[data-active-layer="motor"] .connection[data-from="motor"] .flow-label,
-  .research-infographic[data-active-layer="motor"] .connection[data-to="motor"] .flow-label,
-  .research-infographic[data-active-layer="behavior"] .connection[data-from="behavior"] .flow-label,
-  .research-infographic[data-active-layer="behavior"] .connection[data-to="behavior"] .flow-label,
-  .research-infographic[data-active-layer="sensory"] .connection[data-from="sensory"] .flow-label-bg,
-  .research-infographic[data-active-layer="sensory"] .connection[data-to="sensory"] .flow-label-bg,
-  .research-infographic[data-active-layer="motor"] .connection[data-from="motor"] .flow-label-bg,
-  .research-infographic[data-active-layer="motor"] .connection[data-to="motor"] .flow-label-bg,
-  .research-infographic[data-active-layer="behavior"] .connection[data-from="behavior"] .flow-label-bg,
-  .research-infographic[data-active-layer="behavior"] .connection[data-to="behavior"] .flow-label-bg {
-    opacity: 1;
-  }
-
-  /* Hide wrap-around labels instantly when motor active to prevent flicker */
-  .research-infographic[data-active-layer="motor"] .connection[data-wrap-around="true"] .flow-label,
-  .research-infographic[data-active-layer="motor"] .connection[data-wrap-around="true"] .flow-label-bg {
-    opacity: 0;
-    transition: none;
-  }
-
-  /* Hide all labels instantly when no layer selected to prevent flicker on deselect */
-  .research-infographic[data-active-layer=""] .flow-label,
-  .research-infographic[data-active-layer=""] .flow-label-bg {
-    opacity: 0;
-    transition: none;
-  }
-
-  html.dark .layer-name,
+  html.dark .detail-card-name,
   html.dark .panel-goal,
   html.dark .panel-impact {
     color: rgb(250 250 250);
   }
 
-  html.dark .layer-sublabel,
-  html.dark .panel-label {
+  html.dark .detail-card-sublabel,
+  html.dark .detail-card-body .panel-label {
     color: rgb(163 163 163);
-  }
-
-  html.dark .panel-placeholder {
-    color: rgb(212 212 212);
-  }
-
-  html.dark .card-sensory {
-    background: linear-gradient(135deg, rgb(69 26 3 / 0.3), rgb(120 53 15 / 0.2));
-    border-color: rgb(180 83 9);
-  }
-
-  html.dark .card-motor {
-    background: linear-gradient(135deg, rgb(7 89 133 / 0.2), rgb(14 165 233 / 0.15));
-    border-color: rgb(56 189 248);
-  }
-
-  html.dark .card-behavior {
-    background: linear-gradient(135deg, rgb(76 29 149 / 0.2), rgb(139 92 246 / 0.15));
-    border-color: rgb(167 139 250);
-  }
-
-  html.dark .detail-card-sensory {
-    background: linear-gradient(135deg, rgb(69 26 3 / 0.3), rgb(120 53 15 / 0.2));
-    border-color: rgb(180 83 9);
-  }
-
-  html.dark .detail-card-motor {
-    background: linear-gradient(135deg, rgb(7 89 133 / 0.2), rgb(14 165 233 / 0.15));
-    border-color: rgb(56 189 248);
-  }
-
-  html.dark .detail-card-behavior {
-    background: linear-gradient(135deg, rgb(76 29 149 / 0.2), rgb(139 92 246 / 0.15));
-    border-color: rgb(167 139 250);
-  }
-
-  html.dark .detail-card-name {
-    color: rgb(250 250 250);
-  }
-
-  html.dark .detail-card-sublabel {
-    color: rgb(163 163 163);
-  }
-
-  html.dark .detail-card {
-    border-color: rgb(64 64 64);
-  }
-
-  html.dark .detail-card-body::-webkit-scrollbar-thumb {
-    background: rgba(163 163 163 / 0.5);
   }
 
   html.dark .detail-card-body {
     scrollbar-color: rgba(163 163 163 / 0.5) transparent;
   }
 
-  html.dark .layer-card {
-    border-color: rgb(64 64 64);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  }
-
-  html.dark .layer-card:hover {
-    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.25);
+  html.dark .detail-card-body::-webkit-scrollbar-thumb {
+    background: rgba(163 163 163 / 0.5);
   }
 
   html.dark .data-badge {
@@ -1124,114 +793,114 @@ const visibleConnections = connections.filter((c) => {
     color: rgb(212 212 212);
   }
 
-  html.dark .detail-card-sensory .data-badge {
-    background: rgb(180 83 9 / 0.4);
-    color: rgb(253 230 138);
+  .matrix-legend {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.75rem;
   }
 
-  html.dark .detail-card-motor .data-badge {
-    background: rgb(56 189 248 / 0.25);
-    color: rgb(186 230 253);
+  .matrix-legend-note {
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: rgb(115 115 115);
+    margin-right: 0.2rem;
   }
 
-  html.dark .detail-card-behavior .data-badge {
-    background: rgb(139 92 246 / 0.3);
-    color: rgb(233 213 255);
+  html.dark .matrix-legend-note {
+    color: rgb(163 163 163);
   }
 
-  html.dark .paper-badge {
-    background: rgb(69 26 3 / 0.4);
-    border-color: rgb(180 83 9);
-    color: rgb(253 230 138);
+  .matrix-legend-chip {
+    cursor: default;
   }
 
-  html.dark .flow-label-sensory {
-    fill: rgb(253 230 138);
+  /* Legend samples stay axis-neutral: fill style (not color) carries the tier meaning. */
+  .tier-core.chip-legend {
+    background: rgb(229 229 229);
+    color: rgb(38 38 38);
+    border-color: rgb(163 163 163 / 0.7);
   }
 
-  html.dark .flow-label-motor {
-    fill: rgb(186 230 253);
-  }
-
-  html.dark .flow-label-behavior {
-    fill: rgb(233 213 255);
-  }
-
-  html.dark .flow-label-bg-sensory {
-    fill: rgb(120 53 15);
-  }
-
-  html.dark .flow-label-bg-motor {
-    fill: rgb(7 89 133);
-  }
-
-  html.dark .flow-label-bg-behavior {
-    fill: rgb(76 29 149);
+  html.dark .tier-core.chip-legend {
+    background: rgb(64 64 64);
+    color: rgb(245 245 245);
+    border-color: rgb(115 115 115);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .diagram-shell,
-    .research-stage,
-    .layer-card,
-    .flow-path,
-    .flow-label,
-    .flow-label-bg,
+    .phase-card,
+    .matrix-cell,
     .detail-card {
       transition: none !important;
-    }
-    .research-infographic[data-active-layer=""] .card-sensory,
-    .research-infographic[data-active-layer=""] .card-motor,
-    .research-infographic[data-active-layer=""] .card-behavior {
       animation: none !important;
     }
-    .detail-card {
+    .loop-board[data-active-phase=""] .phase-card {
       animation: none !important;
-    }
-    .flow-path {
-      animation: none !important;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    .diagram-shell {
-      padding: 0.5rem 0 0.5rem;
-      overflow: hidden;
-    }
-
-    .diagram-canvas {
-      height: 275px;
-      min-height: 275px;
-    }
-
-    .cards-stack {
-      inset: 18px calc((100% - 180px) / 2);
-      gap: 30px;
-    }
-
-    .layer-card {
-      min-width: 160px;
-    }
-
-    .detail-area {
-      padding-left: 0.5rem;
-      padding-right: 0.5rem;
-    }
-
-    .detail-card {
-      max-height: 280px;
     }
   }
 
   @media (max-width: 768px) {
-    .research-infographic {
+    .loop-board {
       margin-left: 0;
       margin-right: 0;
       width: 100%;
     }
 
-    .flow-label,
-    .flow-label-bg {
+    .loop-arc {
       display: none;
+    }
+
+    /* Board collapses to a single column: phase cards stack as a compact strip,
+       then each capacity becomes a labeled group whose three cells read
+       top-to-bottom as the loop storyline. */
+    .board-grid {
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-top: 0.75rem;
+    }
+
+    .board-corner {
+      display: none;
+    }
+
+    .phase-card.has-arrow::before {
+      display: none;
+    }
+
+    .matrix-cap-head {
+      flex-direction: row;
+      align-items: baseline;
+      gap: 0.4rem;
+      margin-top: 0.5rem;
+    }
+
+    .matrix-cell-phase {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      width: 100%;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: rgb(115 115 115);
+    }
+
+    html.dark .matrix-cell-phase {
+      color: rgb(163 163 163);
+    }
+
+    .matrix-cell-phase .phase-num {
+      width: 0.9rem;
+      height: 0.9rem;
+      font-size: 0.56rem;
+      border-width: 1px;
+    }
+
+    .detail-card {
+      max-height: 300px;
     }
   }
 </style>
