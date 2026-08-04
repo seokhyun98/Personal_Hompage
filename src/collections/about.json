@@ -3,9 +3,9 @@
   "headline": "Ph.D. Student in Information Science at the University of Washington",
   "email": "seokhyun@uw.edu",
   "website": "https://www.seokhyunhwang.com",
-  "cvLink": "/Docs/CV_Seokhyun Hwang_MAY2026_LETTER.pdf",
+  "cvLink": "/Docs/CV_Seokhyun Hwang_AUG2026_LETTER.pdf",
   "profileImage": "/images/profile/profile.jpg",
-  "bio": "Hi there! My name is Seokhyun (Shawn) Hwang, and I am a Ph.D. student in Information Science at the University of Washington in the ACE Lab (Advisor: Jacob O. Wobbrock). I completed my Master's degree in Intelligent Robotics at GIST HCIS Lab (Advisor: SeungJun Kim). I work on Human-Computer Interaction, VR/AR, haptics, and wearable systems.",
+  "bio": "Hi there! My name is Seokhyun (Shawn) Hwang, and I am a Ph.D. student in Information Science at the University of Washington in the ACE Lab (Advisor: Jacob O. Wobbrock). I completed my Master's degree in Intelligent Robotics at GIST HCIS Lab (Advisor: SeungJun Kim). I work on Human-Computer Interaction, VR/AR/XR, haptics, and wearable systems.",
   "socialLinks": [
     {
       "label": "Google Scholar",
@@ -125,7 +125,7 @@
     {
       "title": "President Award, GIST",
       "date": "Aug 2020",
-      "detail": "1st Prize in table tennis robot at the 4th GIST Creative Convergence Competition"
+      "detail": "1st Prize at the 4th GIST Creative Convergence Competition"
     },
     {
       "title": "Scholarship for Academic Excellence",
@@ -178,13 +178,13 @@
     {
       "label": "Conference Reviewer",
       "items": [
-        "CHI (4 in 2026, 4 in 2025); CHI LBW (1 in 2026, 2 in 2024, 1 in 2023); TEI (1 in 2025 Recognition for an outstanding review); VRST (1 in 2024); UIST (1 in 2023 Recognition for an outstanding review); EuroHaptics (2 in 2026)"
+        "CHI (4 in 2026, 4 in 2025); CHI EA (1 in 2026, 2 in 2024, 1 in 2023); TEI (1 in 2025 Recognition for an outstanding review); VRST (1 in 2024); UIST (1 in 2026, 1 in 2023 Recognition for an outstanding review); EuroHaptics (2 in 2026); IMWUT (1 in 2026)"
       ]
     },
     {
       "label": "Journal Reviewer",
       "items": [
-        "International Journal of Human–Computer Interaction (3 in 2024, 5 in 2025, 2 in 2026; incl. multi-round reviews)"
+        "International Journal of Human–Computer Interaction (3 in 2024, 5 in 2025, 5 in 2026; incl. multi-round reviews)"
       ]
     }
   ],
@@ -203,7 +203,7 @@
       ]
     },
     {
-      "title": "Development of communication technology that informs road users of who, when, and where autonomous vehicles will stop.",
+      "title": "Development of communication technology that informs road users of when autonomous vehicles will stop.",
       "date": "Dec 2025",
       "outlets": [
         { "name": "Veritas Alpha", "url": "https://www.veritas-a.com/news/articleView.html?idxno=589418" },
