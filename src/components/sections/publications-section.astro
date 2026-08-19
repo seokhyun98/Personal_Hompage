@@ -62,7 +62,7 @@ const copyrightEntries = publicationsData.entries.filter((item) => item.group ==
         <article id={`pub-${entry.id}`} class="publication-container rounded-lg border border-dashed border-neutral-300 p-2 dark:border-neutral-700" data-tags={entry.tags.join(" ")}>
           <div class="publication-image">
             {entry.media?.type === "video" ? (
-              <video aria-label={`${entry.title} demonstration video`} controls muted loop playsinline preload="metadata" poster={entry.media.poster} data-publication-video>
+              <video aria-label={`Play ${entry.title} demonstration video`} role="button" tabindex="0" muted loop playsinline preload="metadata" poster={entry.media.poster} data-publication-video data-video-title={entry.title}>
                 {entry.media.mp4 && <source src={entry.media.mp4} type="video/mp4" />}
                 Your browser does not support embedded video.
                 {entry.media.mp4 && <a href={entry.media.mp4}>Open the video file.</a>}
@@ -119,7 +119,7 @@ const copyrightEntries = publicationsData.entries.filter((item) => item.group ==
         <article id={`pub-${entry.id}`} class="publication-container rounded-lg border border-dashed border-neutral-300 p-2 dark:border-neutral-700" data-tags={entry.tags.join(" ")}>
           <div class="publication-image">
             {entry.media?.type === "video" ? (
-              <video aria-label={`${entry.title} demonstration video`} controls muted loop playsinline preload="metadata" poster={entry.media.poster} data-publication-video>
+              <video aria-label={`Play ${entry.title} demonstration video`} role="button" tabindex="0" muted loop playsinline preload="metadata" poster={entry.media.poster} data-publication-video data-video-title={entry.title}>
                 {entry.media.mp4 && <source src={entry.media.mp4} type="video/mp4" />}
                 Your browser does not support embedded video.
                 {entry.media.mp4 && <a href={entry.media.mp4}>Open the video file.</a>}
@@ -240,6 +240,7 @@ const copyrightEntries = publicationsData.entries.filter((item) => item.group ==
         video.dataset.inView === "true" &&
         !document.hidden &&
         !reducedMotionQuery.matches &&
+        video.dataset.userPaused !== "true" &&
         !publication?.hidden;
 
       if (shouldPlay) {
@@ -253,6 +254,34 @@ const copyrightEntries = publicationsData.entries.filter((item) => item.group ==
     function syncPublicationVideos() {
       publicationVideos.forEach(syncPublicationVideo);
     }
+
+    function updatePublicationVideoLabel(video) {
+      const action = video.paused ? "Play" : "Pause";
+      video.setAttribute("aria-label", `${action} ${video.dataset.videoTitle || "publication"} demonstration video`);
+    }
+
+    function togglePublicationVideo(video) {
+      if (video.paused) {
+        video.dataset.userPaused = "false";
+        video.muted = true;
+        video.play().catch(() => {});
+      } else {
+        video.dataset.userPaused = "true";
+        video.pause();
+      }
+    }
+
+    publicationVideos.forEach((video) => {
+      video.addEventListener("click", () => togglePublicationVideo(video));
+      video.addEventListener("keydown", (event) => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        event.preventDefault();
+        togglePublicationVideo(video);
+      });
+      video.addEventListener("play", () => updatePublicationVideoLabel(video));
+      video.addEventListener("pause", () => updatePublicationVideoLabel(video));
+      updatePublicationVideoLabel(video);
+    });
 
     if ("IntersectionObserver" in window) {
       const videoObserver = new IntersectionObserver(
@@ -410,6 +439,24 @@ const copyrightEntries = publicationsData.entries.filter((item) => item.group ==
     aspect-ratio: 16 / 9;
     object-fit: cover;
     border-radius: 8px;
+  }
+
+  .publication-image video {
+    cursor: pointer;
+  }
+
+  .publication-image video:focus-visible {
+    outline: 2px solid rgb(180 83 9);
+    outline-offset: 2px;
+  }
+
+  html.dark .publication-image video:focus-visible {
+    outline-color: rgb(251 191 36);
+  }
+
+  .publication-image video::-webkit-media-controls,
+  .publication-image video::-webkit-media-controls-start-playback-button {
+    display: none !important;
   }
 
   .publication-text {
