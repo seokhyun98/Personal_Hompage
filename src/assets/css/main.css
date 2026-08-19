@@ -4,6 +4,28 @@
 
 /* Add Your Custom CSS Here */
 
+:root {
+  --section-scroll-offset: 4.5rem;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+#home,
+#research-goals,
+#publications,
+#about,
+#extras,
+#publications [id^="pub-"] {
+  scroll-margin-top: var(--section-scroll-offset);
+}
+
+html.mobile-menu-open,
+html.mobile-menu-open body {
+  overflow: hidden;
+}
+
 .prose img {
   border-radius: 30px;
 }
@@ -29,7 +51,7 @@ html.dark #darkToggle:hover .horizon {
 }
 
 html.dark {
-    color-scheme: dark;
+  color-scheme: dark;
 }
 
 .horizon .setting {
@@ -42,31 +64,47 @@ html.dark {
 
 @keyframes setting {
   0% {
-    transform: translate3d(0, 10px, 0)
+    transform: translate3d(0, 10px, 0);
   }
 
   40% {
-    transform: translate3d(0, -2px, 0)
+    transform: translate3d(0, -2px, 0);
   }
 
   to {
-    transform: translate3d(0, 30px, 0)
+    transform: translate3d(0, 30px, 0);
   }
 }
 
 @keyframes rising {
   0% {
     opacity: 0;
-    transform: translate3d(0, 30px, 0)
+    transform: translate3d(0, 30px, 0);
   }
 
   40% {
     opacity: 1;
-    transform: translate3d(0, -2px, 0)
+    transform: translate3d(0, -2px, 0);
   }
 
   to {
     opacity: 1;
-    transform: translate3d(0, 10, 0)
+    transform: translate3d(0, 10px, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  #sun,
+  #moon,
+  #menu,
+  #mobileMenuBackground,
+  .horizon .setting,
+  .horizon .rising {
+    animation: none !important;
+    transition: none !important;
   }
 }

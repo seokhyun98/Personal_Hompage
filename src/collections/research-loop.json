@@ -1,420 +1,180 @@
 {
-  "intendedUse": "infographic",
-  "thesis": "Body-state-aware interaction — systems that estimate the user's momentary capacity in real time and decide what, when, how — and whether — to intervene.",
-  "problemStatement": "Human capacity shifts by the second — load, fatigue, stress — and decades of adaptive-systems research let interfaces respond to context and traits. The bottleneck is knowing what responding costs. As proactive AI reaches the body — steering muscles, nudging balance, interrupting drivers — those costs rarely enter the decision, so systems cannot tell when not to act.",
-  "approachStatement": "One loop, extending ability-based design from stable traits to momentary state: 1 · Read the state — estimate capacity, with its uncertainty, from behavioral and physiological signals → 2 · Act on it — state-conditioned adaptation, actuation, and information delivery → 3 · Close the loop — measure what each intervention costs. Three testbeds vary the timescale and cost currency: driving (seconds), rehabilitation (sessions), industrial work (cumulative).",
-  "board": {
-    "label": "Program Map",
-    "caption": "Columns follow the loop; rows are the capacities being read and written. Every study has a coordinate — c.13 spans two phases.",
-    "loopBackLabel": "cost decides when (not) to intervene",
-    "placeholder": "Click a phase for details.",
-    "phases": [
+  "eyebrow": "A research program around human ability",
+  "title": "Human-Adaptive Interaction",
+  "statement": "Technology should adapt to what people can perceive, process, and do—without adding more burden than benefit.",
+  "readingHint": "Each row follows one human capacity through the same repeating cycle.",
+  "stages": [
+    {
+      "id": "understand",
+      "number": "1",
+      "label": "Understand",
+      "meta": "profile · momentary state · task goal",
+      "prompt": "Understand who the person is, what they can do now, and what the task requires."
+    },
+    {
+      "id": "respond",
+      "number": "2",
+      "label": "Respond",
+      "meta": "interface · information · body-level feedback",
+      "prompt": "Choose how—and whether—the system should adapt."
+    },
+    {
+      "id": "verify",
+      "number": "3",
+      "label": "Verify & Learn",
+      "meta": "performance · comfort · safety · cost",
+      "prompt": "Measure benefit and cost, then use the evidence to shape the next cycle."
+    }
+  ],
+  "lanes": [
+    {
+      "id": "perceive",
+      "number": "01",
+      "label": "Perceive",
+      "subtitle": "Align the senses",
+      "story": "Understand perceptual limits, shape multisensory feedback, and verify that the result remains comfortable and accessible.",
+      "cards": [
+        {
+          "id": "perceptual-limits",
+          "stage": "understand",
+          "title": "Perceptual Limits",
+          "caption": "Characterize detection thresholds and sensory conflict across people and contexts.",
+          "works": [
+            { "name": "Vestibular Stimulation", "refs": ["c.1", "c.3"] },
+            { "name": "Optical-Flow JND", "refs": ["j.1"] },
+            { "name": "Multisensory Attractors", "refs": ["j.2"] }
+          ]
+        },
+        {
+          "id": "multisensory-feedback",
+          "stage": "respond",
+          "title": "Multisensory Feedback",
+          "caption": "Coordinate visual, vestibular, tactile, thermal, auditory, and olfactory cues.",
+          "works": [
+            { "name": "In-Car VR Adaptation", "refs": ["c.4", "c.10"] },
+            { "name": "Flip-Pelt", "refs": ["c.8"] },
+            { "name": "ReD Shoes", "refs": ["j.3"] }
+          ]
+        },
+        {
+          "id": "comfort-access",
+          "stage": "verify",
+          "title": "Comfort & Access",
+          "caption": "Evaluate presence, sickness, stability, and visual exploration—not only technical range.",
+          "works": [
+            { "name": "WatchCap", "refs": ["c.6"] },
+            { "name": "In-Car VR Adaptation", "refs": ["c.4", "c.10"] },
+            { "name": "ReD Shoes", "refs": ["j.3"] }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "process",
+      "number": "02",
+      "label": "Process",
+      "subtitle": "Fit attention",
+      "story": "Understand cognitive demand, adapt interfaces and information, and verify effects on attention, decisions, and trust.",
+      "cards": [
+        {
+          "id": "load-demand",
+          "stage": "understand",
+          "title": "Load & Demand",
+          "caption": "Measure how workload, context, and information needs change touch, gaze, and behavior.",
+          "works": [
+            { "name": "Touchscreens in Motion", "refs": ["c.13"] },
+            { "name": "TimelyTale", "refs": ["c.7"] }
+          ]
+        },
+        {
+          "id": "adaptive-information",
+          "stage": "respond",
+          "title": "Adaptive UI & Information",
+          "caption": "Adapt layout, timing, and contextual communication to the person and the moment.",
+          "works": [
+            { "name": "Adaptive Touchscreen", "refs": ["c.14"] },
+            { "name": "Contextual eHMI", "refs": ["c.2", "c.12"] }
+          ]
+        },
+        {
+          "id": "attention-trust",
+          "stage": "verify",
+          "title": "Attention & Trust",
+          "caption": "Account for distraction, safety, clarity, and trust when deciding whether adaptation helps.",
+          "works": [
+            { "name": "Touchscreens in Motion", "refs": ["c.13"] },
+            { "name": "Contextual eHMI", "refs": ["c.12"] },
+            { "name": "Adaptive Touchscreen", "refs": ["c.14"] }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "act",
+      "number": "03",
+      "label": "Act",
+      "subtitle": "Partner with the body",
+      "story": "Understand intent and physical demand, deliver body-aware assistance, and verify performance and safety.",
+      "cards": [
+        {
+          "id": "intent-biomechanics",
+          "stage": "understand",
+          "title": "Intent & Biomechanics",
+          "caption": "Model movement intent and person-specific joint and muscle demands.",
+          "works": [
+            { "name": "Adaptive Walker", "refs": ["c.9"] },
+            { "name": "GaitWay", "refs": ["p.4"] },
+            { "name": "ErgoPulse", "refs": ["c.5"] }
+          ]
+        },
+        {
+          "id": "haptics-assistance",
+          "stage": "respond",
+          "title": "Haptics & Assistance",
+          "caption": "Translate task forces and sensed performance into stimulation, guidance, or device support.",
+          "works": [
+            { "name": "ErgoPulse + TelePulse", "refs": ["c.5", "c.11"] },
+            { "name": "Adaptive Walker", "refs": ["c.9"] },
+            { "name": "CPR Glove", "refs": ["c.15"] }
+          ]
+        },
+        {
+          "id": "performance-safety",
+          "stage": "verify",
+          "title": "Performance & Safety",
+          "caption": "Test task accuracy, movement quality, distraction, stability, and the cost of physical intervention.",
+          "works": [
+            { "name": "Adaptive Walker", "refs": ["c.9"] },
+            { "name": "TelePulse", "refs": ["c.11"] },
+            { "name": "CPR Glove", "refs": ["c.15"] }
+          ]
+        }
+      ]
+    }
+  ],
+  "currentNext": {
+    "label": "Current & next questions",
+    "groups": [
       {
-        "id": "read",
-        "num": "1",
-        "name": "Read the State",
-        "sub": "signals → capacity estimate",
-        "goal": "Sense behavioral and physiological signals — touch, gaze, posture, tactile pressure, pupil, EDA, EMG — and turn them, via statistical and ML models, into estimates of the user's momentary state and perceptual limits: cognitive load, information demand, force and intent, muscle state, and perceptual thresholds.",
-        "groups": [
-          {
-            "label": "Signals Acquired",
-            "items": [
-              "Touch Kinematics",
-              "Gaze + Glances",
-              "Posture / IMU",
-              "High-Resolution Tactile Pressure",
-              "Pupil Diameter",
-              "EDA",
-              "EMG"
-            ]
-          },
-          {
-            "label": "States + Perceptual Limits Estimated (Statistical + ML Models)",
-            "items": [
-              "Cognitive Load",
-              "Performance Breakdown Points",
-              "Information Demand Timing",
-              "Force + Intent",
-              "Muscle State",
-              "Perceptual Thresholds (DT/JND)"
-            ]
-          },
-          {
-            "label": "Representative Work",
-            "items": [
-              "Touchscreens in Motion [c.13]",
-              "TimelyTale [c.7]",
-              "Adaptive Walker [c.9]",
-              "CPR Glove [c.15]",
-              "Optical-Flow JND [j.1]",
-              "EMG Muscle-State Estimation (ongoing)"
-            ]
-          }
-        ],
-        "keyImpact": "Different signals, same problem: turn a noisy continuous stream into the estimate an intervention decision needs — with its uncertainty carried into that decision."
+        "id": "perceive-next",
+        "lane": "perceive",
+        "laneLabel": "Perceive",
+        "status": "Next",
+        "title": "Low-Vision Scene Understanding"
       },
       {
-        "id": "write",
-        "num": "2",
-        "name": "Act on It",
-        "sub": "state-conditioned interventions",
-        "goal": "Build the intervention repertoire — interface adaptation, muscle-level actuation grounded in personalized biomechanical simulation, perceptual-threshold modulation, timed information delivery — and condition it on the estimated state.",
-        "groups": [
-          {
-            "label": "Intervention Channels",
-            "items": [
-              "Adaptive UI (profile × state)",
-              "EMS Muscle Stimulation",
-              "Vestibular Stimulation",
-              "Thermal + Pressure",
-              "Vibrotactile Guidance",
-              "Reflex-Based Cues",
-              "Timed Information Delivery"
-            ]
-          },
-          {
-            "label": "Representative Work",
-            "items": [
-              "Adaptive Touchscreen [c.14]",
-              "TelePulse [c.11]",
-              "ErgoPulse [c.5]",
-              "Vestibular Stimulation [c.1, c.3]",
-              "WatchCap [c.6]",
-              "Flip-Pelt [c.8]",
-              "eHMI [c.2, c.12]",
-              "Multisensory Attractors [j.2, p.1]"
-            ]
-          }
-        ],
-        "keyImpact": "A palette of body channels — UI, vestibular, thermal, vibrotactile, muscle-level EMS — built to be conditioned on estimated momentary state, not only context or stable traits."
+        "id": "process-next",
+        "lane": "process",
+        "laneLabel": "Process",
+        "status": "Next",
+        "title": "Load-Conditioned Coaching · Adaptation Cost"
       },
       {
-        "id": "loop",
-        "num": "3",
-        "name": "Close the Loop",
-        "sub": "count the cost of intervening",
-        "goal": "Quantify what intervening itself costs — switching, attention, interruption, alarm fatigue, trust — for body-level interventions, where such costs are largely unmeasured, and find where acting beats staying silent: over seconds (driving), sessions (rehabilitation), and cumulative exposure (industrial work). My current studies target this gap.",
-        "groups": [
-          {
-            "label": "Cost Currencies",
-            "items": [
-              "Post-Switch Performance Dip",
-              "Off-Road Glance Re-Search",
-              "Interruption + Task Break",
-              "Alarm Desensitization",
-              "Trust + Compliance",
-              "Motion Sickness"
-            ]
-          },
-          {
-            "label": "Representative Work",
-            "items": [
-              "Off-Road Glance Cost [c.13]",
-              "Motion-Sickness Cost [c.4, c.10]",
-              "Adaptation-Cost Study (planned)",
-              "EMG-Conditioned Rehab (planned)",
-              "AR Injury Prevention → Field Deployment (planned)"
-            ]
-          }
-        ],
-        "keyImpact": "Mixed-initiative research priced interruption on the desktop; body-level interventions — EMS, vestibular, in-car — need the same cost accounting before systems can know when not to act."
-      }
-    ],
-    "axes": [
-      {
-        "id": "perceptual",
-        "name": "Perceptual",
-        "sub": "what they can perceive"
-      },
-      {
-        "id": "cognitive",
-        "name": "Cognitive",
-        "sub": "how loaded their mind is"
-      },
-      {
-        "id": "motor",
-        "name": "Motor",
-        "sub": "what their body can do"
-      }
-    ],
-    "cells": [
-      {
-        "phase": "read",
-        "axis": "perceptual",
-        "items": [
-          {
-            "label": "Optical-Flow JND",
-            "ids": [
-              "j.1"
-            ],
-            "tier": "core",
-            "award": "",
-            "sub": ""
-          }
-        ]
-      },
-      {
-        "phase": "read",
-        "axis": "cognitive",
-        "items": [
-          {
-            "label": "Touchscreens in Motion",
-            "ids": [
-              "c.13"
-            ],
-            "tier": "core",
-            "award": "",
-            "sub": ""
-          },
-          {
-            "label": "TimelyTale",
-            "ids": [
-              "c.7"
-            ],
-            "tier": "core",
-            "award": "",
-            "sub": ""
-          }
-        ]
-      },
-      {
-        "phase": "read",
-        "axis": "motor",
-        "items": [
-          {
-            "label": "Adaptive Walker",
-            "ids": [
-              "c.9",
-              "w.2"
-            ],
-            "tier": "collab",
-            "award": "",
-            "sub": ""
-          },
-          {
-            "label": "CPR Glove",
-            "ids": [
-              "c.15"
-            ],
-            "tier": "collab",
-            "award": "",
-            "sub": ""
-          },
-          {
-            "label": "GaitWay",
-            "ids": [
-              "p.4"
-            ],
-            "tier": "collab",
-            "award": "",
-            "sub": ""
-          },
-          {
-            "label": "EMG Muscle-State Estimation (ongoing)",
-            "ids": [],
-            "tier": "planned",
-            "award": "",
-            "sub": "feeds EMG-conditioned rehab"
-          }
-        ]
-      },
-      {
-        "phase": "write",
-        "axis": "perceptual",
-        "items": [
-          {
-            "label": "Vestibular Stimulation",
-            "ids": [
-              "c.1",
-              "c.3",
-              "p.2",
-              "pa.1"
-            ],
-            "tier": "core",
-            "award": "Honorable Mention",
-            "sub": ""
-          },
-          {
-            "label": "ReD Shoes",
-            "ids": [
-              "j.3"
-            ],
-            "tier": "collab",
-            "award": "",
-            "sub": ""
-          },
-          {
-            "label": "WatchCap",
-            "ids": [
-              "c.6"
-            ],
-            "tier": "collab",
-            "award": "",
-            "sub": ""
-          },
-          {
-            "label": "Flip-Pelt",
-            "ids": [
-              "c.8",
-              "w.1",
-              "pa.2"
-            ],
-            "tier": "collab",
-            "award": "",
-            "sub": ""
-          },
-          {
-            "label": "Multisensory Attractors",
-            "ids": [
-              "j.2",
-              "p.1"
-            ],
-            "tier": "collab",
-            "award": "",
-            "sub": ""
-          }
-        ]
-      },
-      {
-        "phase": "write",
-        "axis": "cognitive",
-        "items": [
-          {
-            "label": "Adaptive Touchscreen",
-            "ids": [
-              "c.14"
-            ],
-            "tier": "core",
-            "award": "",
-            "sub": ""
-          },
-          {
-            "label": "Load-Conditioned Sports Coaching",
-            "ids": [],
-            "tier": "planned",
-            "award": "",
-            "sub": "reuses the load pipeline [c.13, c.7]"
-          },
-          {
-            "label": "eHMI",
-            "ids": [
-              "c.2",
-              "c.12"
-            ],
-            "tier": "collab",
-            "award": "Honorable Mention",
-            "sub": ""
-          }
-        ]
-      },
-      {
-        "phase": "write",
-        "axis": "motor",
-        "items": [
-          {
-            "label": "TelePulse",
-            "ids": [
-              "c.11",
-              "w.4"
-            ],
-            "tier": "core",
-            "award": "Best Paper",
-            "sub": ""
-          },
-          {
-            "label": "ErgoPulse",
-            "ids": [
-              "c.5"
-            ],
-            "tier": "core",
-            "award": "Honorable Mention",
-            "sub": ""
-          }
-        ]
-      },
-      {
-        "phase": "loop",
-        "axis": "perceptual",
-        "items": [
-          {
-            "label": "Motion-Sickness Cost (In-Car VR)",
-            "ids": [
-              "c.4",
-              "c.10",
-              "w.3",
-              "p.3",
-              "cc.1",
-              "cc.2"
-            ],
-            "tier": "collab",
-            "award": "Honorable Mention",
-            "sub": ""
-          },
-          {
-            "label": "Low-Vision Scene Understanding",
-            "ids": [],
-            "tier": "planned",
-            "award": "",
-            "sub": "when and how much to describe — builds on WatchCap [c.6]"
-          }
-        ]
-      },
-      {
-        "phase": "loop",
-        "axis": "cognitive",
-        "items": [
-          {
-            "label": "Off-Road Glance Cost",
-            "ids": [
-              "c.13"
-            ],
-            "tier": "core",
-            "award": "",
-            "sub": "cost-measurement protocol"
-          },
-          {
-            "label": "Adaptation-Cost Study",
-            "ids": [],
-            "tier": "planned",
-            "award": "",
-            "sub": "driving · seconds — extends the c.13 protocol"
-          }
-        ]
-      },
-      {
-        "phase": "loop",
-        "axis": "motor",
-        "items": [
-          {
-            "label": "EMG-Conditioned Rehab",
-            "ids": [],
-            "tier": "planned",
-            "award": "",
-            "sub": "rehab · sessions — on the biomech stack [c.5, c.11]"
-          },
-          {
-            "label": "AR Injury Prevention",
-            "ids": [],
-            "tier": "planned",
-            "award": "",
-            "sub": "industrial · cumulative — to field deployment"
-          }
-        ]
-      }
-    ],
-    "legendNote": "Chip color follows its row (capacity); fill style marks the role:",
-    "legend": [
-      {
-        "tier": "core",
-        "label": "Core program (filled)"
-      },
-      {
-        "tier": "collab",
-        "label": "Collaborative (outlined)"
-      },
-      {
-        "tier": "planned",
-        "label": "Planned · ongoing (dashed)"
+        "id": "act-next",
+        "lane": "act",
+        "laneLabel": "Act",
+        "status": "Ongoing → Next",
+        "title": "EMG State → Rehab · AR Injury Prevention"
       }
     ]
   }

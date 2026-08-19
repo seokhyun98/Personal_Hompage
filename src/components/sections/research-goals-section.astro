@@ -1,906 +1,1274 @@
 ---
-import researchLoopData from "../../collections/research-loop.json";
+import researchProgram from "../../collections/research-loop.json";
 
-const board = researchLoopData.board;
-const phases = board.phases;
-const cellItems = new Map(
-  board.cells.map((cell) => [`${cell.phase}-${cell.axis}`, cell.items])
-);
+const previewLanes = researchProgram.lanes;
+const showCurrentNext = true;
 ---
 
-<section id="research-goals" class="relative z-20 mx-auto mt-12 w-full max-w-5xl px-7 xl:px-0">
-  <h2 class="flex flex-wrap items-baseline gap-x-2 text-2xl font-bold text-neutral-900 dark:text-white">
-    Research Goals : <span class="intro-thesis">{researchLoopData.thesis}</span>
-  </h2>
+<section
+  id="research-goals"
+  class="research-goals relative z-20 mx-auto mt-14 w-full max-w-5xl px-7 xl:px-0"
+  aria-labelledby="research-goals-heading"
+>
+  <header class="research-heading">
+    <p class="research-eyebrow">{researchProgram.eyebrow}</p>
+    <h2 id="research-goals-heading">Research Goals</h2>
+  </header>
 
-  <div class="intro-block mt-2">
-    <p class="intro-label">Problem</p>
-    <p class="intro-text">{researchLoopData.problemStatement}</p>
-    <p class="intro-label">Our Approach</p>
-    <p class="intro-text">{researchLoopData.approachStatement}</p>
+  <div class="program-summary">
+    <p class="program-title">{researchProgram.title}</p>
+    <p class="program-statement">{researchProgram.statement}</p>
   </div>
 
-  <div class="loop-board mt-5" data-active-phase="">
-    <p class="intro-label">{board.label}</p>
-    <p class="intro-text">{board.caption}</p>
-
-    <div class="loop-arc" aria-hidden="true">
-      <span class="loop-arc-label">{board.loopBackLabel}</span>
+  <div class="capacity-loop" data-capacity-loop>
+    <div class="loop-intro">
+      <p>{researchProgram.readingHint}</p>
+      <span>Select a row, step, or card to explore</span>
     </div>
 
-    <div class="board-grid">
-      <div class="board-corner" aria-hidden="true"></div>
+    <div class="stage-row">
+      <div class="stage-corner" aria-hidden="true"></div>
       {
-        phases.map((phase, idx) => (
+        researchProgram.stages.map((stage) => (
           <button
             type="button"
-            class={`phase-card${idx > 0 ? " has-arrow" : ""}`}
-            data-phase-btn
-            data-phase-id={phase.id}
+            class="stage-heading"
+            data-loop-trigger
+            data-trigger-type="stage"
+            data-stage={stage.id}
+            data-caption-label={`Shared method · Step ${stage.number}`}
+            data-caption-title={stage.label}
+            data-caption-text={stage.prompt}
+            aria-controls="research-loop-caption"
+            aria-label={`${stage.label}. ${stage.meta}. ${stage.prompt}`}
             aria-pressed="false"
           >
-            <span class="phase-name">
-              <span class="phase-num" aria-hidden="true">{phase.num}</span>
-              {phase.name}
+            <span class="stage-number" aria-hidden="true">{stage.number}</span>
+            <span class="stage-copy">
+              <strong>{stage.label}</strong>
+              <small>{stage.meta}</small>
             </span>
-            <span class="phase-sub">{phase.sub}</span>
+            {stage.id === "verify" && <span class="stage-loopback" aria-hidden="true">↺</span>}
           </button>
         ))
       }
+    </div>
 
+    <div class="lane-rows">
       {
-        board.axes.map((axis) => (
-          <>
-            <div class="matrix-cap-head">
-              <span class={`matrix-cap-name axis-${axis.id}`}>{axis.name}</span>
-              <span class="matrix-cap-sub">{axis.sub}</span>
-            </div>
-            {phases.map((phase) => (
-              <div class="matrix-cell" data-phase={phase.id}>
-                <span class="matrix-cell-phase">
-                  <span class="phase-num" aria-hidden="true">{phase.num}</span>
-                  {phase.name}
-                </span>
-                {(cellItems.get(`${phase.id}-${axis.id}`) ?? []).map((item) => (
-                  <span class={`matrix-chip tier-${item.tier} chip-${axis.id}`}>
-                    {item.label}
-                    {item.ids.length > 0 && <span class="chip-ids">[{item.ids.join(", ")}]</span>}
-                    {item.award && <span class="chip-award">★ {item.award}</span>}
-                    {item.sub && <span class="chip-sub">{item.sub}</span>}
-                  </span>
-                ))}
-              </div>
-            ))}
-          </>
+        previewLanes.map((lane) => (
+          <article
+            class="lane-row"
+            data-lane-row
+            data-lane={lane.id}
+            aria-labelledby={`lane-${lane.id}-heading`}
+          >
+            <button
+              type="button"
+              class="lane-heading"
+              data-loop-trigger
+              data-trigger-type="lane"
+              data-lane={lane.id}
+              data-caption-label={`${lane.label} · capacity loop`}
+              data-caption-title={lane.subtitle}
+              data-caption-text={lane.story}
+              aria-controls="research-loop-caption"
+              aria-label={`${lane.label}: ${lane.story}`}
+              aria-pressed="false"
+            >
+              <span class="lane-number" aria-hidden="true">{lane.number}</span>
+              <span>
+                <strong id={`lane-${lane.id}-heading`}>{lane.label}</strong>
+                <small>{lane.subtitle}</small>
+              </span>
+            </button>
+
+            {
+              lane.cards.map((card, index) => {
+                const stage = researchProgram.stages.find((item) => item.id === card.stage);
+                const detailId = `research-detail-${lane.id}-${card.id}`;
+                return (
+                  <div class="loop-cell" data-stage={card.stage}>
+                    <span class="mobile-stage-label">{stage?.label}</span>
+                    <button
+                      type="button"
+                      class="research-card"
+                      data-loop-trigger
+                      data-trigger-type="card"
+                      data-lane={lane.id}
+                      data-stage={card.stage}
+                      data-card-id={card.id}
+                      data-card-works={JSON.stringify(card.works)}
+                      data-inline-detail-id={detailId}
+                      data-caption-label={`${lane.label} · ${stage?.label ?? ""}`}
+                      data-caption-title={card.title}
+                      data-caption-text={card.caption}
+                      aria-controls={`research-loop-caption ${detailId}`}
+                      aria-expanded="false"
+                      aria-label={`${lane.label}, ${stage?.label ?? ""}: ${card.title}. ${card.caption}`}
+                      aria-pressed="false"
+                    >
+                      <span>{card.title}</span>
+                    </button>
+                    <div
+                      id={detailId}
+                      class="mobile-card-detail"
+                      data-mobile-card-detail
+                      role="region"
+                      aria-label={`${card.title} related work`}
+                      aria-live="polite"
+                      hidden
+                    >
+                      <p class="mobile-detail-caption">{card.caption}</p>
+                      <div class="mobile-detail-works">
+                        {card.works.map((work) => (
+                          <span class="evidence-badge">
+                            <span class="evidence-name">{work.name}</span>
+                            <span class="evidence-refs">
+                              {work.refs.map((ref) => (
+                                <a
+                                  href={`#pub-${ref}`}
+                                  class="evidence-ref"
+                                  aria-label={`Open ${work.name}, publication ${ref}`}
+                                >
+                                  [{ref}]
+                                </a>
+                              ))}
+                            </span>
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    {index < lane.cards.length - 1 && <span class="cell-arrow" aria-hidden="true">→</span>}
+                  </div>
+                );
+              })
+            }
+          </article>
         ))
       }
     </div>
 
-    <div class="detail-area">
-      <div class="detail-placeholder" data-panel-default>
-        <ul class="insight-list">
-          {
-            phases.map((phase) => (
-              <li>
-                <span class="phase-num" aria-hidden="true">{phase.num}</span>
-                <span class="insight-text">{phase.keyImpact}</span>
-              </li>
-            ))
-          }
-        </ul>
-        <p class="panel-placeholder"><span class="panel-placeholder-highlight">{board.placeholder}</span></p>
+    <div id="research-loop-caption" class="loop-caption" data-loop-caption>
+      <div class="loop-caption-copy" role="status" aria-live="polite" aria-atomic="true">
+        <p class="caption-label" data-caption-label>How to read this map</p>
+        <p class="caption-title" data-caption-title>One method, three human capacities</p>
+        <p class="caption-text" data-caption-text>
+          Select a card to see the systems and studies behind each part of the cycle.
+        </p>
       </div>
-
-      {
-        phases.map((phase) => (
-          <div class="detail-card" data-panel-content data-phase-id={phase.id} aria-hidden="true">
-            <div class="detail-card-header">
-              <span class="phase-num" aria-hidden="true">{phase.num}</span>
-              <span class="detail-card-name">{phase.name}</span>
-              <span class="detail-card-sublabel">({phase.sub})</span>
-            </div>
-            <div class="detail-card-body">
-              <p class="panel-label">Goal</p>
-              <p class="panel-goal">{phase.goal}</p>
-
-              {phase.groups.map((group) => (
-                <>
-                  <p class="panel-label">{group.label}</p>
-                  <div class="panel-badges">{group.items.map((item) => <span class="data-badge">{item}</span>)}</div>
-                </>
-              ))}
-
-              <p class="panel-label">Key Insight</p>
-              <p class="panel-impact">{phase.keyImpact}</p>
-            </div>
-          </div>
-        ))
-      }
-    </div>
-
-    <div class="matrix-legend">
-      <span class="matrix-legend-note">{board.legendNote}</span>
-      {
-        board.legend.map((entry) => (
-          <span class={`matrix-chip matrix-legend-chip tier-${entry.tier} chip-legend`}>{entry.label}</span>
-        ))
-      }
+      <div class="caption-works" data-caption-works aria-label="Related work"></div>
     </div>
   </div>
+
+  {
+    showCurrentNext && (
+      <aside class="current-next" aria-labelledby="current-next-heading">
+        <p id="current-next-heading" class="current-next-label">{researchProgram.currentNext.label}</p>
+        <div class="next-groups">
+          {researchProgram.currentNext.groups.map((group) => (
+            <div class="next-group" data-lane={group.lane}>
+              <div class="next-meta">
+                <span class="next-dot" aria-hidden="true"></span>
+                <span>{group.laneLabel}</span>
+                <small>{group.status}</small>
+              </div>
+              <p>{group.title}</p>
+            </div>
+          ))}
+        </div>
+      </aside>
+    )
+  }
 </section>
 
 <script is:inline>
-  function setupLoopBoard() {
-    const boardEl = document.querySelector(".loop-board");
-    if (!boardEl) return;
+  function setupCapacityLoop() {
+    document.querySelectorAll("[data-capacity-loop]").forEach((loop) => {
+      const triggers = Array.from(loop.querySelectorAll("[data-loop-trigger]"));
+      const cards = Array.from(loop.querySelectorAll('[data-trigger-type="card"]'));
+      const cardDetails = Array.from(loop.querySelectorAll("[data-mobile-card-detail]"));
+      const detailsById = new Map(cardDetails.map((detail) => [detail.id, detail]));
+      const laneTriggers = Array.from(loop.querySelectorAll('[data-trigger-type="lane"]'));
+      const stageTriggers = Array.from(loop.querySelectorAll('[data-trigger-type="stage"]'));
+      const caption = loop.querySelector("[data-loop-caption]");
+      const captionLabel = caption?.querySelector("[data-caption-label]");
+      const captionTitle = caption?.querySelector("[data-caption-title]");
+      const captionText = caption?.querySelector("[data-caption-text]");
+      const captionWorks = caption?.querySelector("[data-caption-works]");
+      let pinnedTrigger = null;
+      let shownTrigger = null;
 
-    const phaseBtns = boardEl.querySelectorAll("[data-phase-btn]");
-    const panelDefault = boardEl.querySelector("[data-panel-default]");
-    const panelContents = boardEl.querySelectorAll("[data-panel-content]");
+      const defaults = {
+        label: captionLabel?.textContent || "",
+        title: captionTitle?.textContent || "",
+        text: captionText?.textContent || "",
+      };
 
-    let activePhaseId = "";
+      function renderWorks(works) {
+        if (!captionWorks) return;
+        captionWorks.replaceChildren();
+        works.forEach((work) => {
+          const badge = document.createElement("span");
+          badge.className = "evidence-badge";
 
-    function setActive(phaseId) {
-      activePhaseId = phaseId;
-      boardEl.setAttribute("data-active-phase", phaseId || "");
+          const name = document.createElement("span");
+          name.className = "evidence-name";
+          name.textContent = work.name;
+          badge.appendChild(name);
 
-      phaseBtns.forEach((btn) => {
-        btn.setAttribute("aria-pressed", btn.getAttribute("data-phase-id") === phaseId ? "true" : "false");
+          const refs = document.createElement("span");
+          refs.className = "evidence-refs";
+          work.refs.forEach((ref) => {
+            const link = document.createElement("a");
+            link.href = `#pub-${ref}`;
+            link.textContent = `[${ref}]`;
+            link.className = "evidence-ref";
+            link.setAttribute("aria-label", `Open ${work.name}, publication ${ref}`);
+            refs.appendChild(link);
+          });
+
+          badge.appendChild(refs);
+          captionWorks.appendChild(badge);
+        });
+      }
+
+      function showTrigger(trigger) {
+        const type = trigger.getAttribute("data-trigger-type");
+        const lane = trigger.getAttribute("data-lane");
+        const stage = trigger.getAttribute("data-stage");
+        shownTrigger = trigger;
+        loop.classList.add("has-highlight");
+
+        laneTriggers.forEach((item) => {
+          item.classList.toggle("is-highlighted", Boolean(lane) && item.getAttribute("data-lane") === lane);
+        });
+
+        stageTriggers.forEach((item) => {
+          item.classList.toggle("is-highlighted", Boolean(stage) && item.getAttribute("data-stage") === stage);
+        });
+
+        cards.forEach((card) => {
+          const sameLane = Boolean(lane) && card.getAttribute("data-lane") === lane;
+          const sameStage = Boolean(stage) && card.getAttribute("data-stage") === stage;
+          const isActive = card === trigger;
+          const isRelated =
+            type === "lane" ? sameLane :
+            type === "stage" ? sameStage :
+            type === "card" ? sameLane || sameStage :
+            false;
+
+          card.classList.toggle("is-active", isActive);
+          card.classList.toggle("is-related", isRelated);
+          card.classList.toggle("is-path", type === "card" && sameLane);
+          card.classList.toggle("is-column", type === "card" && sameStage);
+
+          const revealDetail = type === "card" && isActive;
+          const detailId = card.getAttribute("data-inline-detail-id") || "";
+          const detail = detailsById.get(detailId);
+          card.setAttribute("aria-expanded", String(revealDetail));
+          if (detail) detail.hidden = !revealDetail;
+        });
+
+        if (captionLabel) captionLabel.textContent = trigger.getAttribute("data-caption-label") || "";
+        if (captionTitle) captionTitle.textContent = trigger.getAttribute("data-caption-title") || "";
+        if (captionText) captionText.textContent = trigger.getAttribute("data-caption-text") || "";
+
+        const workData = trigger.getAttribute("data-card-works");
+        let works = [];
+        if (workData) {
+          try {
+            works = JSON.parse(workData);
+          } catch {
+            works = [];
+          }
+        }
+        renderWorks(works);
+      }
+
+      function resetLoop() {
+        loop.classList.remove("has-highlight");
+        triggers.forEach((trigger) => {
+          trigger.classList.remove("is-highlighted", "is-active", "is-related", "is-path", "is-column");
+          trigger.setAttribute("aria-pressed", "false");
+        });
+        cards.forEach((card) => card.setAttribute("aria-expanded", "false"));
+        cardDetails.forEach((detail) => { detail.hidden = true; });
+        if (captionLabel) captionLabel.textContent = defaults.label;
+        if (captionTitle) captionTitle.textContent = defaults.title;
+        if (captionText) captionText.textContent = defaults.text;
+        renderWorks([]);
+        shownTrigger = null;
+      }
+
+      function pinTrigger(trigger) {
+        const shouldClear = pinnedTrigger === trigger;
+        triggers.forEach((item) => item.setAttribute("aria-pressed", "false"));
+        pinnedTrigger = shouldClear ? null : trigger;
+
+        if (pinnedTrigger) {
+          pinnedTrigger.setAttribute("aria-pressed", "true");
+          showTrigger(pinnedTrigger);
+        } else {
+          resetLoop();
+        }
+      }
+
+      function focusRelatedWork(trigger) {
+        if (trigger.getAttribute("data-trigger-type") !== "card") return;
+        const useInlineDetail = window.matchMedia("(max-width: 768px)").matches;
+        const detailId = trigger.getAttribute("data-inline-detail-id") || "";
+        const detail = detailsById.get(detailId);
+        const targetRegion = useInlineDetail ? detail : captionWorks;
+        const firstLink = targetRegion?.querySelector(".evidence-ref");
+        if (firstLink instanceof HTMLElement) firstLink.focus({ preventScroll: true });
+      }
+
+      triggers.forEach((trigger) => {
+        trigger.addEventListener("mouseenter", () => {
+          if (!pinnedTrigger && !loop.contains(document.activeElement)) showTrigger(trigger);
+        });
+        trigger.addEventListener("focus", () => {
+          if (!pinnedTrigger) showTrigger(trigger);
+        });
+        trigger.addEventListener("click", (event) => {
+          const wasPinned = pinnedTrigger === trigger;
+          pinTrigger(trigger);
+          if (!wasPinned && pinnedTrigger === trigger && event.detail === 0) {
+            window.requestAnimationFrame(() => focusRelatedWork(trigger));
+          }
+        });
       });
 
-      if (phaseId) {
-        panelDefault?.setAttribute("aria-hidden", "true");
-        panelContents.forEach((panel) => {
-          panel.setAttribute("aria-hidden", panel.getAttribute("data-phase-id") === phaseId ? "false" : "true");
-        });
-      } else {
-        panelDefault?.setAttribute("aria-hidden", "false");
-        panelContents.forEach((panel) => panel.setAttribute("aria-hidden", "true"));
-      }
-    }
+      loop.addEventListener("mouseleave", () => {
+        if (!pinnedTrigger && !loop.contains(document.activeElement)) resetLoop();
+      });
 
-    phaseBtns.forEach((btn) => {
-      const phaseId = btn.getAttribute("data-phase-id") || "";
-      btn.addEventListener("click", () => setActive(activePhaseId === phaseId ? "" : phaseId));
+      loop.addEventListener("focusout", () => {
+        window.setTimeout(() => {
+          if (!pinnedTrigger && !loop.contains(document.activeElement)) resetLoop();
+        }, 0);
+      });
+
+      loop.addEventListener("keydown", (event) => {
+        if (event.key !== "Escape") return;
+        const returnTarget = pinnedTrigger || shownTrigger;
+        if (returnTarget instanceof HTMLElement && document.activeElement !== returnTarget) {
+          returnTarget.focus({ preventScroll: true });
+        }
+        pinnedTrigger = null;
+        resetLoop();
+        event.preventDefault();
+      });
     });
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", setupLoopBoard);
+    document.addEventListener("DOMContentLoaded", setupCapacityLoop);
   } else {
-    setupLoopBoard();
+    setupCapacityLoop();
   }
 </script>
 
 <style>
-  .intro-thesis {
-    font-size: 1rem;
-    font-weight: 600;
-    line-height: 1.5;
-    color: rgb(38 38 38);
+  .research-goals {
+    scroll-margin-top: 5.5rem;
   }
 
-  .intro-label {
-    font-size: 0.7rem;
+  .research-heading {
+    margin-bottom: 0.85rem;
+  }
+
+  .research-heading h2 {
+    margin-top: 0.12rem;
+    font-size: 1.5rem;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: rgb(82 82 82);
-    margin-top: 1rem;
-    margin-bottom: 0.25rem;
-  }
-
-  .intro-text {
-    font-size: 0.875rem;
-    line-height: 1.5;
-    color: rgb(64 64 64);
-  }
-
-  html.dark .intro-thesis {
-    color: rgb(250 250 250);
-  }
-
-  html.dark .intro-label {
-    color: rgb(163 163 163);
-  }
-
-  html.dark .intro-text {
-    color: rgb(212 212 212);
-  }
-
-  /* One integrated board: the loop as columns, the three capacities as rows. */
-  .loop-board {
-    border-radius: 1rem;
-    border: 1px dashed rgb(212 212 212);
-    background: rgb(250 250 250);
-    padding: 0.25rem 1rem 1rem;
-  }
-
-  html.dark .loop-board {
-    border-color: rgb(64 64 64);
-    background: rgba(23 23 23 / 0.5);
-  }
-
-  .loop-board .intro-label {
-    margin-top: 0.75rem;
-  }
-
-  /* Loop-back arc: S4 feeds S1 — the claim that cost governs the next read. */
-  .loop-arc {
-    position: relative;
-    height: 14px;
-    margin-top: 1.9rem;
-    margin-left: calc(116px + (100% - 116px) / 6);
-    margin-right: calc((100% - 116px) / 6);
-    border: 1px dashed rgb(163 163 163);
-    border-bottom: none;
-    border-radius: 10px 10px 0 0;
-  }
-
-  .loop-arc::after {
-    content: "";
-    position: absolute;
-    left: -5px;
-    bottom: -5px;
-    width: 0;
-    height: 0;
-    border-left: 4.5px solid transparent;
-    border-right: 4.5px solid transparent;
-    border-top: 6px solid rgb(163 163 163);
-  }
-
-  .loop-arc-label {
-    position: absolute;
-    top: -1.25em;
-    left: 50%;
-    transform: translateX(-50%);
-    white-space: nowrap;
-    font-size: 0.68rem;
-    font-weight: 600;
-    color: rgb(115 115 115);
-  }
-
-  html.dark .loop-arc {
-    border-color: rgb(115 115 115);
-  }
-
-  html.dark .loop-arc::after {
-    border-top-color: rgb(115 115 115);
-  }
-
-  html.dark .loop-arc-label {
-    color: rgb(163 163 163);
-  }
-
-  .board-grid {
-    display: grid;
-    grid-template-columns: 108px repeat(3, minmax(0, 1fr));
-    gap: 8px;
-    margin-top: 2px;
-  }
-
-  /* Phase cards: the loop's header row. Neutral surfaces so the stage dots and
-     capacity colors below stay the only strong hues on the board. */
-  .phase-card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 0.12rem;
-    text-align: left;
-    border-radius: 0.8rem;
-    border: 2px solid rgb(229 229 229);
-    background: rgb(255 255 255);
-    padding: 0.45rem 0.75rem;
-    cursor: pointer;
-    transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease, opacity 200ms ease;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-  }
-
-  .phase-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
-  }
-
-  .phase-card.has-arrow::before {
-    content: "→";
-    position: absolute;
-    left: -9px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 0.72rem;
-    line-height: 1;
-    color: rgb(163 163 163);
-  }
-
-  /* Invite pulse while nothing is selected. */
-  .loop-board[data-active-phase=""] .phase-card {
-    animation: phase-pulse 2.5s ease-in-out infinite;
-  }
-
-  @keyframes phase-pulse {
-    0%, 100% {
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-    }
-    50% {
-      box-shadow: 0 0 0 2px rgb(163 163 163 / 0.35), 0 4px 14px rgba(0, 0, 0, 0.1);
-    }
-  }
-
-  .phase-card[aria-pressed="true"] {
-    border-color: rgb(64 64 64);
-    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
-  }
-
-  .loop-board:not([data-active-phase=""]) .phase-card[aria-pressed="false"] {
-    opacity: 0.5;
-    filter: saturate(0.75);
-  }
-
-  /* Numbered badge: the loop axis speaks in sequence (1 → 2 → 3),
-     leaving color free to encode the capacity axis alone. */
-  .phase-num {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.05rem;
-    height: 1.05rem;
-    border-radius: 9999px;
-    border: 1.5px solid rgb(115 115 115);
-    color: rgb(64 64 64);
-    font-size: 0.64rem;
-    font-weight: 700;
-    flex-shrink: 0;
-  }
-
-  html.dark .phase-num {
-    border-color: rgb(163 163 163);
-    color: rgb(212 212 212);
-  }
-
-  .phase-name {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
+    line-height: 1.3;
     color: rgb(23 23 23);
   }
 
-  .phase-sub {
-    font-size: 0.66rem;
-    font-weight: 500;
+  .research-eyebrow,
+  .caption-label,
+  .current-next-label,
+  .mobile-stage-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1.4;
+    text-transform: uppercase;
     color: rgb(115 115 115);
   }
 
-  html.dark .phase-card {
-    border-color: rgb(64 64 64);
-    background: rgb(23 23 23 / 0.7);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  .program-summary {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    gap: 1rem;
+    align-items: center;
+    padding: 0.9rem 1.1rem;
+    border: 1px solid rgb(212 212 212);
+    border-left: 3px solid rgb(245 158 11);
+    border-radius: 0 0.85rem 0.85rem 0;
+    background: rgb(250 250 250);
   }
 
-  html.dark .phase-card:hover {
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+  .program-title {
+    padding: 0.28rem 0.55rem;
+    border-radius: 999px;
+    background: rgb(254 243 199);
+    font-size: 0.68rem;
+    font-weight: 750;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: rgb(146 64 14);
   }
 
-  html.dark .phase-card[aria-pressed="true"] {
-    border-color: rgb(212 212 212);
-    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.35);
+  .program-statement {
+    max-width: 47rem;
+    font-size: clamp(1rem, 1.7vw, 1.22rem);
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: -0.012em;
+    color: rgb(38 38 38);
   }
 
-  @keyframes phase-pulse-dark {
-    0%, 100% {
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-    }
-    50% {
-      box-shadow: 0 0 0 2px rgb(163 163 163 / 0.3), 0 4px 14px rgba(0, 0, 0, 0.35);
-    }
+  .capacity-loop {
+    margin-top: 0.75rem;
+    padding: 0.85rem;
+    border: 1px dashed rgb(212 212 212);
+    border-radius: 0.9rem;
   }
 
-  html.dark .loop-board[data-active-phase=""] .phase-card {
-    animation-name: phase-pulse-dark;
+  .loop-intro {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.45rem 1rem;
+    margin-bottom: 0.7rem;
   }
 
-  html.dark .phase-name {
-    color: rgb(245 245 245);
+  .loop-intro p {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: rgb(82 82 82);
   }
 
-  html.dark .phase-sub {
+  .loop-intro span {
+    font-size: 0.61rem;
+    font-weight: 650;
+    color: rgb(115 115 115);
+  }
+
+  .stage-row,
+  .lane-row {
+    display: grid;
+    grid-template-columns: 118px repeat(3, minmax(0, 1fr));
+    gap: 0.55rem;
+  }
+
+  .stage-row {
+    margin-bottom: 0.42rem;
+    padding-inline: 0.48rem;
+  }
+
+  .stage-heading {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 0.52rem;
+    padding: 0.5rem 0.58rem;
+    text-align: left;
+    border: 0;
+    border-bottom: 1px solid rgb(212 212 212);
+    background: transparent;
+    cursor: pointer;
+    transition: border-color 150ms ease, background-color 150ms ease, opacity 150ms ease;
+  }
+
+  .stage-heading:not(:last-child)::after {
+    content: "→";
+    position: absolute;
+    right: -0.43rem;
+    color: rgb(163 163 163);
+    font-size: 0.68rem;
+  }
+
+  .stage-heading:hover,
+  .stage-heading.is-highlighted {
+    border-color: rgb(245 158 11);
+    background: rgb(255 251 235);
+  }
+
+  .stage-heading:focus-visible {
+    border-color: rgb(245 158 11);
+    background: rgb(255 251 235);
+    outline: 2px solid rgb(217 119 6);
+    outline-offset: 1px;
+  }
+
+  .stage-number {
+    display: inline-flex;
+    width: 1.25rem;
+    height: 1.25rem;
+    flex: 0 0 1.25rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: rgb(38 38 38);
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: white;
+  }
+
+  .stage-copy {
+    min-width: 0;
+  }
+
+  .stage-loopback {
+    margin-left: auto;
+    font-size: 0.92rem;
+    font-weight: 700;
+    line-height: 1;
+    color: rgb(217 119 6);
+  }
+
+  .stage-copy strong,
+  .stage-copy small {
+    display: block;
+  }
+
+  .stage-copy strong {
+    font-size: 0.75rem;
+    color: rgb(38 38 38);
+  }
+
+  .stage-copy small {
+    margin-top: 0.08rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.58rem;
+    color: rgb(115 115 115);
+  }
+
+  .lane-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 0.42rem;
+  }
+
+  .lane-row {
+    --lane-color: rgb(180 83 9);
+    --lane-soft: rgb(255 251 235);
+    --lane-border: rgb(252 211 77);
+    align-items: stretch;
+    padding: 0.48rem;
+    border: 1px solid rgb(229 229 229);
+    border-radius: 0.72rem;
+    transition: opacity 150ms ease, border-color 150ms ease;
+  }
+
+  .lane-row[data-lane="process"] {
+    --lane-color: rgb(109 40 217);
+    --lane-soft: rgb(250 245 255);
+    --lane-border: rgb(196 181 253);
+  }
+
+  .lane-row[data-lane="act"] {
+    --lane-color: rgb(3 105 161);
+    --lane-soft: rgb(240 249 255);
+    --lane-border: rgb(125 211 252);
+  }
+
+  .lane-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.42rem;
+    padding: 0.35rem;
+    text-align: left;
+    border: 0;
+    border-radius: 0.48rem;
+    background: transparent;
+    cursor: pointer;
+    transition: background-color 150ms ease, opacity 150ms ease;
+  }
+
+  .lane-heading:hover,
+  .lane-heading.is-highlighted {
+    background: var(--lane-soft);
+  }
+
+  .lane-heading:focus-visible {
+    background: var(--lane-soft);
+    outline: 2px solid var(--lane-color);
+    outline-offset: 2px;
+  }
+
+  .lane-number {
+    font-size: 0.58rem;
+    font-weight: 700;
     color: rgb(163 163 163);
   }
 
-  /* Capacity heads (rows): the three abilities, phrased in human terms. */
-  .matrix-cap-head {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 0.15rem;
+  .lane-heading strong,
+  .lane-heading small {
+    display: block;
   }
 
-  .matrix-cap-name {
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
+  .lane-heading strong {
+    font-size: 0.8rem;
+    font-weight: 750;
+    color: var(--lane-color);
   }
 
-  .matrix-cap-sub {
-    font-size: 0.63rem;
-    font-weight: 500;
+  .lane-heading small {
+    margin-top: 0.1rem;
+    font-size: 0.58rem;
     line-height: 1.3;
     color: rgb(115 115 115);
   }
 
-  html.dark .matrix-cap-sub {
+  .loop-cell {
+    position: relative;
+    min-width: 0;
+  }
+
+  .research-card {
+    display: flex;
+    width: 100%;
+    min-height: 3.15rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0.48rem 0.55rem;
+    text-align: center;
+    border: 1px solid rgb(212 212 212);
+    border-radius: 0.52rem;
+    background: rgb(255 255 255);
+    cursor: pointer;
+    transition: opacity 150ms ease, border-color 150ms ease, background-color 150ms ease;
+  }
+
+  .research-card span {
+    font-size: 0.7rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: rgb(38 38 38);
+  }
+
+  .research-card:hover,
+  .research-card.is-active,
+  .research-card[aria-pressed="true"] {
+    border-color: var(--lane-color);
+    background: var(--lane-soft);
+  }
+
+  .research-card:focus-visible {
+    border-color: var(--lane-color);
+    background: var(--lane-soft);
+    outline: 2px solid var(--lane-color);
+    outline-offset: 2px;
+  }
+
+  .cell-arrow {
+    position: absolute;
+    top: 50%;
+    right: -0.48rem;
+    z-index: 2;
+    transform: translateY(-50%);
+    font-size: 0.64rem;
     color: rgb(163 163 163);
   }
 
-  .axis-perceptual {
-    color: rgb(180 83 9);
-  }
-
-  .axis-cognitive {
-    color: rgb(124 58 237);
-  }
-
-  .axis-motor {
-    color: rgb(2 132 199);
-  }
-
-  html.dark .axis-perceptual {
-    color: rgb(251 191 36);
-  }
-
-  html.dark .axis-cognitive {
-    color: rgb(196 181 253);
-  }
-
-  html.dark .axis-motor {
-    color: rgb(125 211 252);
-  }
-
-  .matrix-cell {
-    border-radius: 0.6rem;
-    border: 1px solid rgb(229 229 229);
-    background: rgb(255 255 255);
-    padding: 0.4rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.3rem;
-    align-content: flex-start;
-  }
-
-  html.dark .matrix-cell {
-    border-color: rgb(64 64 64);
-    background: rgb(23 23 23 / 0.6);
-  }
-
-  .matrix-cell {
-    transition: opacity 240ms ease, filter 240ms ease;
-  }
-
-  /* Cross-highlight: while a phase is selected, fade the other columns' cells. */
-  .loop-board[data-active-phase="read"] .matrix-cell:not([data-phase="read"]),
-  .loop-board[data-active-phase="write"] .matrix-cell:not([data-phase="write"]),
-  .loop-board[data-active-phase="loop"] .matrix-cell:not([data-phase="loop"]) {
-    opacity: 0.35;
-    filter: saturate(0.7);
-  }
-
-  .matrix-cell-phase {
+  .mobile-stage-label {
     display: none;
   }
 
-  .matrix-chip {
+  .capacity-loop.has-highlight .research-card:not(.is-related) {
+    border-color: rgb(229 229 229);
+    background: rgb(250 250 250);
+  }
+
+  .capacity-loop.has-highlight .research-card:not(.is-related) span {
+    color: rgb(115 115 115);
+  }
+
+  .capacity-loop.has-highlight .research-card.is-path {
+    border-color: var(--lane-border);
+  }
+
+  .capacity-loop.has-highlight .research-card.is-column {
+    border-color: var(--lane-border);
+    border-style: dashed;
+  }
+
+  .capacity-loop.has-highlight .research-card.is-active {
+    border-style: solid;
+    border-color: var(--lane-color);
+    background: var(--lane-soft);
+  }
+
+  .loop-caption {
+    display: flex;
+    min-height: 5.5rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    margin-top: 0.48rem;
+    padding: 0.6rem 0.7rem;
+    border-left: 2px solid rgb(245 158 11);
+    background: rgb(250 250 250);
+  }
+
+  .caption-title {
+    margin-top: 0.08rem;
+    font-size: 0.74rem;
+    font-weight: 750;
+    color: rgb(38 38 38);
+  }
+
+  .caption-text {
+    margin-top: 0.08rem;
+    max-width: 43rem;
+    font-size: 0.68rem;
+    line-height: 1.45;
+    color: rgb(82 82 82);
+  }
+
+  .caption-works {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.32rem;
+    max-width: 52%;
+    min-width: 0;
+  }
+
+  .caption-works :global(.evidence-badge),
+  .mobile-detail-works :global(.evidence-badge) {
+    display: inline-flex;
+    max-width: 100%;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.32rem;
+    padding: 0.22rem 0.4rem;
+    border: 1px solid rgb(212 212 212);
+    border-radius: 0.35rem;
+    background: rgb(245 245 245);
+    overflow-wrap: anywhere;
+  }
+
+  .caption-works :global(.evidence-name),
+  .mobile-detail-works :global(.evidence-name) {
+    min-width: 0;
+    font-size: 0.65rem;
+    font-weight: 700;
+    line-height: 1.25;
+    color: rgb(64 64 64);
+    overflow-wrap: anywhere;
+  }
+
+  .caption-works :global(.evidence-refs),
+  .mobile-detail-works :global(.evidence-refs) {
     display: inline-flex;
     flex-wrap: wrap;
-    align-items: baseline;
-    column-gap: 0.3rem;
-    row-gap: 0.06rem;
-    font-size: 0.7rem;
-    font-weight: 600;
-    line-height: 1.3;
-    padding: 0.18rem 0.45rem;
-    border-radius: 0.35rem;
+    gap: 0.2rem;
+  }
+
+  .caption-works :global(.evidence-ref),
+  .mobile-detail-works :global(.evidence-ref) {
+    display: inline-flex;
+    min-width: 1.5rem;
+    min-height: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0.12rem 0.28rem;
     border: 1px solid transparent;
+    border-radius: 0.24rem;
+    background: rgb(229 229 229);
+    font-size: 0.625rem;
+    font-weight: 700;
+    line-height: 1;
+    color: rgb(82 82 82);
     text-decoration: none;
   }
 
-  /* Award badge: surfaces the quality signal (Best Paper / Honorable Mention) on the map itself. */
-  .chip-award {
-    align-self: center;
-    font-size: 0.56rem;
-    font-weight: 700;
-    line-height: 1.4;
-    padding: 0 0.28rem;
-    border-radius: 0.25rem;
-    background: rgb(253 230 138);
-    color: rgb(23 23 23);
-    white-space: nowrap;
-  }
-
-  html.dark .chip-award {
-    background: rgb(120 53 15 / 0.5);
-    color: rgb(254 243 199);
-  }
-
-  /* Sub line: testbed · timescale · inherited asset — makes planned chips read as an agenda. */
-  .chip-sub {
-    width: 100%;
-    font-size: 0.6rem;
-    font-weight: 500;
-    line-height: 1.35;
-    opacity: 0.85;
-  }
-
-  .chip-ids {
-    font-size: 0.62rem;
-    font-weight: 500;
-    opacity: 0.75;
-  }
-
-  .tier-core.chip-perceptual {
+  .caption-works :global(.evidence-ref:hover),
+  .caption-works :global(.evidence-ref:focus-visible),
+  .mobile-detail-works :global(.evidence-ref:hover),
+  .mobile-detail-works :global(.evidence-ref:focus-visible) {
+    border-color: rgb(245 158 11);
     background: rgb(254 243 199);
-    color: rgb(120 53 15);
-    border-color: rgb(253 224 71 / 0.7);
+    color: rgb(146 64 14);
+    outline: 2px solid rgb(217 119 6);
+    outline-offset: 1px;
   }
 
-  .tier-core.chip-cognitive {
-    background: rgb(237 233 254);
-    color: rgb(76 29 149);
-    border-color: rgb(196 181 253 / 0.7);
-  }
-
-  .tier-core.chip-motor {
-    background: rgb(224 242 254);
-    color: rgb(7 89 133);
-    border-color: rgb(125 211 252 / 0.7);
-  }
-
-  html.dark .tier-core.chip-perceptual {
-    background: rgb(120 53 15 / 0.45);
-    color: rgb(253 230 138);
-    border-color: rgb(180 83 9);
-  }
-
-  html.dark .tier-core.chip-cognitive {
-    background: rgb(139 92 246 / 0.3);
-    color: rgb(233 213 255);
-    border-color: rgb(139 92 246 / 0.6);
-  }
-
-  html.dark .tier-core.chip-motor {
-    background: rgb(56 189 248 / 0.25);
-    color: rgb(186 230 253);
-    border-color: rgb(56 189 248 / 0.6);
-  }
-
-  .matrix-chip.tier-collab {
-    background: transparent;
-    color: rgb(82 82 82);
-    border-color: rgb(163 163 163);
-  }
-
-  html.dark .matrix-chip.tier-collab {
-    color: rgb(212 212 212);
-    border-color: rgb(115 115 115);
-  }
-
-  .matrix-chip.tier-planned {
-    background: transparent;
-    color: rgb(115 115 115);
-    border-style: dashed;
-    border-color: rgb(163 163 163);
-  }
-
-  html.dark .matrix-chip.tier-planned {
-    color: rgb(163 163 163);
-    border-color: rgb(115 115 115);
-  }
-
-  /* Detail panel: opens under the board when a phase is selected. */
-  .detail-area {
-    margin-top: 0.75rem;
-  }
-
-  .detail-placeholder[aria-hidden="true"],
-  .detail-card[aria-hidden="true"] {
+  .mobile-card-detail {
     display: none;
   }
 
-  .detail-placeholder {
-    padding: 0.6rem 0.5rem 0.4rem;
+  .current-next {
+    display: grid;
+    grid-template-columns: 118px minmax(0, 1fr);
+    gap: 0.55rem;
+    align-items: center;
+    margin-top: 0.55rem;
+    padding: 0.55rem 0.7rem;
+    border: 1px dashed rgb(212 212 212);
+    border-radius: 0.7rem;
   }
 
-  /* The three key insights stay visible without a click — skimmers and PDF readers see the argument. */
-  .insight-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.45rem;
-    margin-bottom: 0.65rem;
+  .next-groups {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.38rem;
   }
 
-  .insight-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.5rem;
+  .next-group {
+    --lane-color: rgb(180 83 9);
+    padding: 0.38rem 0.48rem;
+    border-left: 2px dotted var(--lane-color);
+    background: rgb(250 250 250);
   }
 
-  .insight-list .phase-num {
-    margin-top: 0.12rem;
+  .next-group[data-lane="process"] {
+    --lane-color: rgb(109 40 217);
   }
 
-  .insight-text {
-    font-size: 0.78rem;
-    line-height: 1.5;
-    color: rgb(82 82 82);
+  .next-group[data-lane="act"] {
+    --lane-color: rgb(3 105 161);
   }
 
-  html.dark .insight-text {
-    color: rgb(163 163 163);
-  }
-
-  .panel-placeholder {
-    font-size: 0.85rem;
-    font-weight: 600;
-    line-height: 1.5;
-    color: rgb(64 64 64);
-    text-align: center;
-  }
-
-  .panel-placeholder-highlight {
-    background: linear-gradient(transparent 60%, rgba(251, 191, 36, 0.4) 60%);
-    padding: 0 2px;
-  }
-
-  html.dark .panel-placeholder {
-    color: rgb(212 212 212);
-  }
-
-  html.dark .panel-placeholder-highlight {
-    background: linear-gradient(transparent 60%, rgba(251, 191, 36, 0.35) 60%);
-  }
-
-  .detail-card {
-    border-radius: 0.8rem;
-    border: 2px solid rgb(212 212 212);
-    background: rgb(255 255 255);
-    overflow: hidden;
-    max-height: 320px;
-    display: flex;
-    flex-direction: column;
-    animation: detail-card-appear 280ms ease;
-  }
-
-  @keyframes detail-card-appear {
-    from {
-      opacity: 0;
-      transform: translateY(-8px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .detail-card-header {
-    padding: 0.5rem 1rem;
-    display: flex;
-    align-items: baseline;
-    gap: 0.45rem;
-  }
-
-  .detail-card-header .phase-num {
-    align-self: center;
-  }
-
-  .detail-card-name {
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: rgb(23 23 23);
-  }
-
-  .detail-card-sublabel {
-    font-size: 0.7rem;
-    font-weight: 600;
-    color: rgb(82 82 82);
-  }
-
-  .detail-card-body {
-    padding: 0 1rem 1rem 1rem;
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(115 115 115 / 0.5) transparent;
-    flex: 1;
-    min-height: 0;
-  }
-
-  .detail-card-body::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  .detail-card-body::-webkit-scrollbar-thumb {
-    background: rgba(115 115 115 / 0.4);
-    border-radius: 3px;
-  }
-
-  .detail-card-body .panel-label {
-    font-size: 0.7rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: rgb(115 115 115);
-    margin-top: 0.75rem;
-    margin-bottom: 0.35rem;
-  }
-
-  .detail-card-body .panel-label:first-child {
-    margin-top: 0.35rem;
-  }
-
-  .panel-goal,
-  .panel-impact {
-    font-size: 0.88rem;
-    font-weight: 600;
-    line-height: 1.45;
-    color: rgb(23 23 23);
-  }
-
-  .panel-badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem;
-  }
-
-  .data-badge {
-    font-size: 0.72rem;
-    padding: 0.2rem 0.45rem;
-    background: rgb(229 229 229);
-    border-radius: 0.35rem;
-    font-weight: 600;
-    color: rgb(64 64 64);
-  }
-
-  html.dark .detail-card {
-    border-color: rgb(82 82 82);
-    background: rgb(23 23 23 / 0.7);
-  }
-
-  html.dark .detail-card-name,
-  html.dark .panel-goal,
-  html.dark .panel-impact {
-    color: rgb(250 250 250);
-  }
-
-  html.dark .detail-card-sublabel,
-  html.dark .detail-card-body .panel-label {
-    color: rgb(163 163 163);
-  }
-
-  html.dark .detail-card-body {
-    scrollbar-color: rgba(163 163 163 / 0.5) transparent;
-  }
-
-  html.dark .detail-card-body::-webkit-scrollbar-thumb {
-    background: rgba(163 163 163 / 0.5);
-  }
-
-  html.dark .data-badge {
-    background: rgb(64 64 64);
-    color: rgb(212 212 212);
-  }
-
-  .matrix-legend {
+  .next-meta {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.4rem;
-    margin-top: 0.75rem;
+    gap: 0.25rem;
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--lane-color);
   }
 
-  .matrix-legend-note {
-    font-size: 0.68rem;
-    font-weight: 500;
+  .next-meta small {
+    font-size: 0.58rem;
     color: rgb(115 115 115);
-    margin-right: 0.2rem;
   }
 
-  html.dark .matrix-legend-note {
+  .next-dot {
+    width: 0.34rem;
+    height: 0.34rem;
+    border-radius: 999px;
+    background: var(--lane-color);
+  }
+
+  .next-group > p {
+    margin-top: 0.16rem;
+    font-size: 0.68rem;
+    font-weight: 650;
+    line-height: 1.35;
+    color: rgb(64 64 64);
+  }
+
+  html.dark .research-heading h2,
+  html.dark .program-statement,
+  html.dark .stage-copy strong,
+  html.dark .research-card span,
+  html.dark .caption-title {
+    color: rgb(250 250 250);
+  }
+
+  html.dark .research-eyebrow,
+  html.dark .caption-label,
+  html.dark .current-next-label,
+  html.dark .mobile-stage-label,
+  html.dark .stage-copy small,
+  html.dark .lane-heading small,
+  html.dark .loop-intro span,
+  html.dark .next-meta small {
     color: rgb(163 163 163);
   }
 
-  .matrix-legend-chip {
-    cursor: default;
+  html.dark .program-summary,
+  html.dark .loop-caption,
+  html.dark .next-group {
+    background: rgb(23 23 23 / 0.72);
   }
 
-  /* Legend samples stay axis-neutral: fill style (not color) carries the tier meaning. */
-  .tier-core.chip-legend {
-    background: rgb(229 229 229);
-    color: rgb(38 38 38);
-    border-color: rgb(163 163 163 / 0.7);
+  html.dark .program-summary,
+  html.dark .capacity-loop,
+  html.dark .current-next {
+    border-color: rgb(64 64 64);
   }
 
-  html.dark .tier-core.chip-legend {
+  html.dark .program-title {
+    background: rgb(120 53 15 / 0.48);
+    color: rgb(254 243 199);
+  }
+
+  html.dark .loop-intro p,
+  html.dark .caption-text,
+  html.dark .next-group > p {
+    color: rgb(212 212 212);
+  }
+
+  html.dark .stage-heading {
+    border-color: rgb(64 64 64);
+  }
+
+  html.dark .stage-heading:hover,
+  html.dark .stage-heading.is-highlighted {
+    background: rgb(69 26 3 / 0.55);
+    border-color: rgb(180 83 9);
+  }
+
+  html.dark .stage-heading:focus-visible {
+    border-color: rgb(217 119 6);
+    background: rgb(69 26 3 / 0.55);
+    outline-color: rgb(251 191 36);
+  }
+
+  html.dark .stage-number {
+    background: rgb(245 245 245);
+    color: rgb(23 23 23);
+  }
+
+  html.dark .lane-row {
+    border-color: rgb(64 64 64);
+  }
+
+  html.dark .lane-row[data-lane="perceive"] {
+    --lane-color: rgb(251 191 36);
+    --lane-soft: rgb(69 26 3);
+    --lane-border: rgb(180 83 9);
+  }
+
+  html.dark .lane-row[data-lane="process"] {
+    --lane-color: rgb(196 181 253);
+    --lane-soft: rgb(46 16 101);
+    --lane-border: rgb(109 40 217);
+  }
+
+  html.dark .lane-row[data-lane="act"] {
+    --lane-color: rgb(125 211 252);
+    --lane-soft: rgb(12 74 110);
+    --lane-border: rgb(3 105 161);
+  }
+
+  html.dark .next-group[data-lane="perceive"] {
+    --lane-color: rgb(251 191 36);
+  }
+
+  html.dark .next-group[data-lane="process"] {
+    --lane-color: rgb(196 181 253);
+  }
+
+  html.dark .next-group[data-lane="act"] {
+    --lane-color: rgb(125 211 252);
+  }
+
+  html.dark .research-card {
+    border-color: rgb(64 64 64);
+    background: rgb(23 23 23);
+  }
+
+  html.dark .capacity-loop.has-highlight .research-card:not(.is-related) {
+    border-color: rgb(64 64 64);
+    background: rgb(23 23 23);
+  }
+
+  html.dark .capacity-loop.has-highlight .research-card:not(.is-related) span {
+    color: rgb(163 163 163);
+  }
+
+  html.dark .caption-works :global(.evidence-badge),
+  html.dark .mobile-detail-works :global(.evidence-badge) {
+    border-color: rgb(82 82 82);
     background: rgb(64 64 64);
-    color: rgb(245 245 245);
-    border-color: rgb(115 115 115);
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .phase-card,
-    .matrix-cell,
-    .detail-card {
-      transition: none !important;
-      animation: none !important;
+  html.dark .caption-works :global(.evidence-name),
+  html.dark .mobile-detail-works :global(.evidence-name) {
+    color: rgb(212 212 212);
+  }
+
+  html.dark .caption-works :global(.evidence-ref),
+  html.dark .mobile-detail-works :global(.evidence-ref) {
+    background: rgb(82 82 82);
+    color: rgb(245 245 245);
+  }
+
+  html.dark .caption-works :global(.evidence-ref:hover),
+  html.dark .caption-works :global(.evidence-ref:focus-visible),
+  html.dark .mobile-detail-works :global(.evidence-ref:hover),
+  html.dark .mobile-detail-works :global(.evidence-ref:focus-visible) {
+    border-color: rgb(217 119 6);
+    background: rgb(120 53 15 / 0.48);
+    color: rgb(254 243 199);
+    outline-color: rgb(251 191 36);
+  }
+
+  @media (min-width: 769px) and (max-width: 960px) {
+    .stage-copy small {
+      display: none;
     }
-    .loop-board[data-active-phase=""] .phase-card {
-      animation: none !important;
+
+    .stage-heading {
+      min-height: 2.75rem;
     }
   }
 
   @media (max-width: 768px) {
-    .loop-board {
-      margin-left: 0;
-      margin-right: 0;
-      width: 100%;
-    }
-
-    .loop-arc {
-      display: none;
-    }
-
-    /* Board collapses to a single column: phase cards stack as a compact strip,
-       then each capacity becomes a labeled group whose three cells read
-       top-to-bottom as the loop storyline. */
-    .board-grid {
+    .program-summary {
       grid-template-columns: 1fr;
-      gap: 8px;
-      margin-top: 0.75rem;
+      gap: 0.35rem;
+      padding: 0.7rem 0.8rem;
     }
 
-    .board-corner {
+    .program-title {
+      width: fit-content;
+      font-size: 0.64rem;
+    }
+
+    .program-statement {
+      font-size: 0.95rem;
+    }
+
+    .capacity-loop {
+      margin-top: 0.55rem;
+      padding: 0.6rem;
+    }
+
+    .loop-intro {
+      gap: 0.22rem 0.6rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .loop-intro p {
+      font-size: 0.68rem;
+    }
+
+    .loop-intro span {
+      font-size: 0.58rem;
+    }
+
+    .stage-row {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.28rem;
+      margin-bottom: 0.4rem;
+      padding-inline: 0;
+    }
+
+    .stage-corner,
+    .stage-number,
+    .stage-copy small {
       display: none;
     }
 
-    .phase-card.has-arrow::before {
-      display: none;
+    .stage-heading {
+      min-height: 2.35rem;
+      justify-content: center;
+      padding: 0.3rem 0.2rem;
+      border: 1px solid rgb(212 212 212);
+      border-radius: 0.4rem;
+      text-align: center;
     }
 
-    .matrix-cap-head {
-      flex-direction: row;
-      align-items: baseline;
-      gap: 0.4rem;
-      margin-top: 0.5rem;
+    .stage-heading:not(:last-child)::after {
+      right: -0.27rem;
+      z-index: 2;
+      padding-inline: 0.04rem;
+      background: white;
     }
 
-    .matrix-cell-phase {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      width: 100%;
-      font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: rgb(115 115 115);
+    .stage-copy strong {
+      font-size: 0.63rem;
+      line-height: 1.25;
     }
 
-    html.dark .matrix-cell-phase {
-      color: rgb(163 163 163);
+    .stage-loopback {
+      position: absolute;
+      top: 0.14rem;
+      right: 0.16rem;
+      margin-left: 0;
+      font-size: 0.66rem;
     }
 
-    .matrix-cell-phase .phase-num {
-      width: 0.9rem;
-      height: 0.9rem;
+    html.dark .stage-heading:not(:last-child)::after {
+      background: rgb(23 23 23);
+    }
+
+    .lane-rows {
+      gap: 0.42rem;
+    }
+
+    .lane-row {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.32rem 0.3rem;
+      padding: 0.38rem;
+    }
+
+    .lane-heading {
+      grid-column: 1 / -1;
+      min-height: 2rem;
+      justify-content: flex-start;
+      padding: 0.16rem 0.22rem 0.3rem;
+      border-bottom: 1px solid rgb(229 229 229);
+    }
+
+    .lane-heading strong {
+      font-size: 0.75rem;
+    }
+
+    .lane-heading small {
       font-size: 0.56rem;
-      border-width: 1px;
     }
 
-    .detail-card {
-      max-height: 300px;
+    .loop-cell {
+      display: contents;
+    }
+
+    .mobile-stage-label,
+    .cell-arrow {
+      display: none;
+    }
+
+    .loop-cell[data-stage="understand"] > .research-card {
+      grid-column: 1;
+    }
+
+    .loop-cell[data-stage="respond"] > .research-card {
+      grid-column: 2;
+    }
+
+    .loop-cell[data-stage="verify"] > .research-card {
+      grid-column: 3;
+    }
+
+    .loop-cell > .research-card {
+      grid-row: 2;
+      min-width: 0;
+      min-height: 3.4rem;
+      height: 100%;
+      padding: 0.38rem 0.22rem;
+    }
+
+    .loop-cell > .research-card span {
+      font-size: 0.63rem;
+      line-height: 1.25;
+      overflow-wrap: anywhere;
+    }
+
+    .mobile-card-detail:not([hidden]) {
+      display: block;
+      grid-column: 1 / -1;
+      grid-row: 3;
+      min-width: 0;
+      padding: 0.42rem 0.48rem;
+      border-left: 2px solid var(--lane-color);
+      border-radius: 0 0.4rem 0.4rem 0;
+      background: var(--lane-soft);
+    }
+
+    .mobile-detail-caption {
+      font-size: 0.62rem;
+      line-height: 1.4;
+      color: rgb(82 82 82);
+    }
+
+    .mobile-detail-works {
+      display: flex;
+      min-width: 0;
+      flex-wrap: wrap;
+      gap: 0.24rem;
+      margin-top: 0.3rem;
+    }
+
+    .mobile-detail-works :global(.evidence-badge) {
+      flex: 0 1 auto;
+      gap: 0.25rem;
+      padding: 0.18rem 0.32rem;
+    }
+
+    html.dark .mobile-detail-caption {
+      color: rgb(212 212 212);
+    }
+
+    html.dark .lane-heading {
+      border-bottom-color: rgb(64 64 64);
+    }
+
+    .loop-caption {
+      display: none;
+    }
+
+    .current-next {
+      grid-template-columns: 1fr;
+      gap: 0.3rem;
+      margin-top: 0.45rem;
+      padding: 0.42rem 0.5rem;
+    }
+
+    .current-next-label {
+      font-size: 0.61rem;
+    }
+
+    .next-groups {
+      grid-template-columns: 1fr;
+      gap: 0.2rem;
+    }
+
+    .next-group {
+      display: grid;
+      grid-template-columns: minmax(5.2rem, max-content) minmax(0, 1fr);
+      gap: 0.35rem;
+      align-items: center;
+      padding: 0.28rem 0.36rem;
+    }
+
+    .next-meta {
+      flex-wrap: nowrap;
+      gap: 0.18rem;
+      font-size: 0.54rem;
+      white-space: nowrap;
+    }
+
+    .next-meta small {
+      font-size: 0.5rem;
+    }
+
+    .next-dot {
+      width: 0.28rem;
+      height: 0.28rem;
+    }
+
+    .next-group > p {
+      min-width: 0;
+      margin-top: 0;
+      font-size: 0.62rem;
+      line-height: 1.25;
+      overflow-wrap: anywhere;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .research-goals {
+      padding-inline: 0.875rem;
+    }
+
+    .loop-cell > .research-card span {
+      overflow-wrap: normal;
+      word-break: normal;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stage-heading,
+    .lane-row,
+    .lane-heading,
+    .research-card {
+      transition: none;
     }
   }
 </style>

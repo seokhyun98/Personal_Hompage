@@ -1,1 +1,7 @@
-[{"name":"Home","url":"/"},{"name":"Publications","url":"/#publications"},{"name":"About","url":"/#about"},{"name":"Extras","url":"/#extras"}]
+[
+  { "name": "Home", "url": "/" },
+  { "name": "Research", "url": "/#research-goals" },
+  { "name": "Publications", "url": "/#publications" },
+  { "name": "About", "url": "/#about" },
+  { "name": "Extras", "url": "/#extras" }
+]

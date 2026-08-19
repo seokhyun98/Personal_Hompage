@@ -12,16 +12,21 @@ import Logo from "../components/logo.astro";
     <Logo />
     <div
       id="mobileMenuBackground"
-      onclick="closeMobileMenu()"
+      aria-hidden="true"
       class="fixed inset-0 z-20 hidden duration-300 ease-out bg-white/90 dark:bg-neutral-900/90"
     >
     </div>
     <nav
-      class="relative z-30 flex flex-row-reverse justify-start w-full text-sm sm:justify-end text-neutral-500 dark:text-neutral-400 sm:flex-row"
+      aria-label="Primary navigation"
+      class="relative z-30 flex w-full flex-row-reverse justify-start text-sm text-neutral-500 dark:text-neutral-400 md:flex-row md:justify-end"
     >
-      <div
+      <button
+        type="button"
         id="openMenu"
-        class="flex flex-col items-end justify-center w-6 h-6 ml-4 cursor-pointer sm:hidden"
+        aria-label="Open navigation menu"
+        aria-controls="menu"
+        aria-expanded="false"
+        class="flex h-10 w-10 cursor-pointer flex-col items-center justify-center md:hidden"
       >
         <svg
           class="w-8 h-8 dark:text-neutral-200"
@@ -32,10 +37,14 @@ import Logo from "../components/logo.astro";
           viewBox="0 0 24 24"
           stroke="currentColor"><path d="M4 8h16M4 16h16"></path></svg
         >
-      </div>
-      <div
+      </button>
+      <button
+        type="button"
         id="closeMenu"
-        class="flex flex-col items-end justify-center hidden w-6 h-6 ml-4 -translate-x-1 cursor-pointer sm:hidden"
+        hidden
+        aria-label="Close navigation menu"
+        aria-controls="menu"
+        class="flex h-10 w-10 cursor-pointer flex-col items-center justify-center md:hidden"
       >
         <svg
           class="w-6 h-6 text-neutral-600 dark:text-neutral-200"
@@ -46,13 +55,13 @@ import Logo from "../components/logo.astro";
           viewBox="0 0 24 24"
           stroke="currentColor"><path d="M6 18L18 6M6 6l12 12"></path></svg
         >
-      </div>
+      </button>
       <div
         id="menu"
-        class="fixed top-[75px] ease-out duration-300 sm:top-0 w-full left-0 sm:py-0 pt-7 pb-4 dm:mx-0 left-0 z-40 flex-col items-end justify-start hidden w-full h-auto text-sm sm:text-base sm:h-auto sm:relative sm:flex-row sm:flex sm:text-sm sm:w-auto sm:pr-0 sm:pt-0 sm:gap-8"
+        class="fixed left-0 top-[75px] z-40 hidden h-auto w-full flex-col items-end justify-start pb-4 pt-7 text-sm duration-300 ease-out md:relative md:left-auto md:top-0 md:flex md:w-auto md:flex-row md:items-center md:gap-3 md:pb-0 md:pt-0 md:text-xs lg:gap-6 lg:text-sm"
       >
         <div
-          class="absolute inset-0 top-0 right-0 block w-full h-full px-3 sm:hidden"
+          class="absolute inset-0 block h-full w-full px-3 md:hidden"
         >
           <div
             class="relative w-full h-full bg-white border border-dashed border-neutral-300 dark:border-neutral-700 backdrop-blur-sm rounded-xl dark:bg-neutral-900"
@@ -64,7 +73,7 @@ import Logo from "../components/logo.astro";
             return (
               <a
                 href={menu.url}
-                class="relative flex items-center justify-center w-full px-3 py-2 font-medium tracking-wide text-center duration-200 ease-out sm:py-0 sm:mb-0 md:w-auto hover:text-neutral-900 dark:hover:text-white"
+                class="relative flex w-full items-center justify-center px-3 py-2 text-center font-medium tracking-wide duration-200 ease-out hover:text-neutral-900 dark:hover:text-white md:w-auto md:px-1 md:py-0 lg:px-2"
               >
                 {menu.name}
               </a>
@@ -72,9 +81,12 @@ import Logo from "../components/logo.astro";
           })
         }
       </div>
-      <div
+      <button
+        type="button"
         id="darkToggle"
-        class="relative flex items-center pl-6 ml-8 font-medium tracking-wide cursor-pointer text-neutral-800 group dark:text-white"
+        aria-label="Switch to dark mode"
+        aria-pressed="false"
+        class="group relative ml-3 flex min-h-10 items-center pl-6 font-medium tracking-wide text-neutral-800 dark:text-white md:ml-4 lg:ml-6"
       >
         <div
           class="absolute left-0 flex items-center justify-center w-6 h-6 overflow-hidden border-b border-transparent horizon group-hover:border-neutral-600"
@@ -106,11 +118,11 @@ import Logo from "../components/logo.astro";
             ></path></svg
           >
         </div>
-        <span class="hidden sm:inline-block">
+        <span class="hidden lg:inline-block">
           <span id="dayText" class="ml-2">Day mode</span>
           <span id="nightText" class="hidden ml-2">Night mode</span>
         </span>
-      </div>
+      </button>
     </nav>
   </div>
 </header>

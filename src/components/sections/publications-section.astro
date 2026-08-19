@@ -27,122 +27,145 @@ const copyrightEntries = publicationsData.entries.filter((item) => item.group ==
 <section id="publications" class="relative z-20 w-full max-w-5xl mx-auto mt-14 px-7 xl:px-0">
   <h2 class="text-2xl font-bold text-neutral-900 dark:text-white">Publications</h2>
 
-  <div class="mt-5 flex flex-wrap items-end gap-x-2 gap-y-3">
-    <div class="filter-item">
-      <span class="filter-tag-label">&nbsp;</span>
-      <button class="tag-filter-btn active" data-filter="all">{displayTag("Reset_Filter")}</button>
+  <div class="publication-filter-bar mt-5" role="group" aria-label="Filter publications">
+    <div class="filter-reset">
+      <span class="filter-tag-label">View</span>
+      <button type="button" class="tag-filter-btn active" data-reset-filters data-filter="all" aria-pressed="true">
+        All publications
+      </button>
     </div>
     {
-      filterGroups.map((group) =>
-        group.tags.map((tag, i) => (
-          <div class={`filter-item${i === 0 ? " group-start" : ""}`}>
-            <span class="filter-tag-label">{i === 0 ? group.name : " "}</span>
-            <button class="tag-filter-btn" data-filter={tag}>
-              {displayTag(tag)}
-            </button>
+      filterGroups.map((group) => (
+        <fieldset class="filter-group" data-filter-group={group.name}>
+          <legend class="filter-tag-label">{group.name}</legend>
+          <div class="filter-buttons">
+            {group.tags.map((tag) => (
+              <button type="button" class="tag-filter-btn" data-filter={tag} aria-pressed="false">
+                {displayTag(tag)}
+              </button>
+            ))}
           </div>
+        </fieldset>
+      ))
+    }
+  </div>
+  <p class="filter-status" data-filter-status role="status" aria-live="polite" aria-atomic="true">
+    {publicationEntries.length} publications shown
+  </p>
+
+  <section data-publication-subsection>
+    <h3 class="publication-subheading mt-6 text-sm font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">Conferences & Journals</h3>
+    <div class="mt-2 publications-list">
+      <div class="publications-top-spacer" aria-hidden="true" />
+      {
+        conferenceJournalEntries.map((entry) => (
+        <article id={`pub-${entry.id}`} class="publication-container rounded-lg border border-dashed border-neutral-300 p-2 dark:border-neutral-700" data-tags={entry.tags.join(" ")}>
+          <div class="publication-image">
+            {entry.media?.type === "video" ? (
+              <video aria-label={`${entry.title} demonstration video`} controls muted playsinline preload="none" poster={entry.media.poster}>
+                {entry.media.mp4 && <source src={entry.media.mp4} type="video/mp4" />}
+                Your browser does not support embedded video.
+                {entry.media.mp4 && <a href={entry.media.mp4}>Open the video file.</a>}
+              </video>
+            ) : (
+              <img src={entry.media?.src} alt={entry.title} loading="lazy" decoding="async" />
+            )}
+          </div>
+          <div class="publication-text">
+            <div class="publication-heading">
+              <div class="publication-tags">
+                {entry.tags.map((tag: string) => <span class="publication-tag" data-tag={tag}>{displayTag(tag)}</span>)}
+              </div>
+              {entry.link ? (
+                <h4 class="mt-1 text-base font-semibold text-neutral-900 dark:text-white">
+                  <a href={entry.link} target="_blank" rel="noreferrer" class="hover:underline decoration-dotted underline-offset-2">
+                    [{entry.id}] {entry.title}
+                  </a>
+                </h4>
+              ) : (
+                <h4 class="mt-1 text-base font-semibold text-neutral-900 dark:text-white">[{entry.id}] {entry.title}</h4>
+              )}
+              {entry.award && <p class="mt-1 inline-block rounded-md bg-amber-200 px-2 py-1 text-xs font-semibold text-neutral-900 dark:bg-amber-900/50 dark:text-amber-100">🏆 {entry.award}</p>}
+            </div>
+            <div class="publication-details">
+              <p class="mt-1 text-sm text-neutral-700 dark:text-neutral-300">
+                {highlightAuthor(entry.authors).map((part) =>
+                  part.type === "highlight" ? (
+                    <span class="author-highlight font-semibold text-neutral-900 dark:text-white">{part.text}</span>
+                  ) : (
+                    part.text
+                  )
+                )}
+              </p>
+              <p class="mt-1 flex flex-wrap items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300">
+                <span class="italic">{entry.venue}</span>
+                {entry.status === "Accepted" && <span class="publication-status-badge inline-block rounded px-1.5 py-0.5 text-xs font-semibold bg-[#b0c4de] text-[#2c3e50] dark:bg-[#4b5563] dark:text-[#f3f4f6]">Coming Soon</span>}
+              </p>
+              {entry.status && entry.status !== "Accepted" && <p class="mt-1 text-sm font-medium text-neutral-700 dark:text-neutral-200">({entry.status})</p>}
+            </div>
+          </div>
+        </article>
         ))
-      )
-    }
-  </div>
+      }
+    </div>
+  </section>
 
-  <h3 class="publication-subheading mt-6 text-sm font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">Conferences & Journals</h3>
-  <div class="mt-2 publications-list">
-    <div class="publications-top-spacer" aria-hidden="true" />
-    {
-      conferenceJournalEntries.map((entry) => (
+  <section data-publication-subsection>
+    <h3 class="publication-subheading mt-6 text-sm font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">Posters & Workshops</h3>
+    <div class="mt-2 publications-list">
+      <div class="publications-top-spacer" aria-hidden="true" />
+      {
+        posterWorkshopEntries.map((entry) => (
         <article id={`pub-${entry.id}`} class="publication-container rounded-lg border border-dashed border-neutral-300 p-2 dark:border-neutral-700" data-tags={entry.tags.join(" ")}>
           <div class="publication-image">
             {entry.media?.type === "video" ? (
-              <video autoplay muted loop playsinline preload="none" poster={entry.media.poster}>
+              <video aria-label={`${entry.title} demonstration video`} controls muted playsinline preload="none" poster={entry.media.poster}>
                 {entry.media.mp4 && <source src={entry.media.mp4} type="video/mp4" />}
+                Your browser does not support embedded video.
+                {entry.media.mp4 && <a href={entry.media.mp4}>Open the video file.</a>}
               </video>
             ) : (
               <img src={entry.media?.src} alt={entry.title} loading="lazy" decoding="async" />
             )}
           </div>
           <div class="publication-text">
-            <div class="publication-tags">
-              {entry.tags.map((tag: string) => <span class="publication-tag" data-tag={tag}>{displayTag(tag)}</span>)}
-            </div>
-            {entry.link ? (
-              <h3 class="mt-1 text-base font-semibold text-neutral-900 dark:text-white">
-                <a href={entry.link} target="_blank" rel="noreferrer" class="hover:underline decoration-dotted underline-offset-2">
-                  [{entry.id}] {entry.title}
-                </a>
-              </h3>
-            ) : (
-              <h3 class="mt-1 text-base font-semibold text-neutral-900 dark:text-white">[{entry.id}] {entry.title}</h3>
-            )}
-            {entry.award && <p class="mt-1 inline-block rounded-md bg-amber-200 px-2 py-1 text-xs font-semibold text-neutral-900 dark:bg-amber-900/50 dark:text-amber-100">🏆 {entry.award}</p>}
-            <p class="mt-1 text-sm text-neutral-700 dark:text-neutral-300">
-              {highlightAuthor(entry.authors).map((part) =>
-                part.type === "highlight" ? (
-                  <span class="author-highlight font-semibold text-neutral-900 dark:text-white">{part.text}</span>
-                ) : (
-                  part.text
-                )
+            <div class="publication-heading">
+              <div class="publication-tags">
+                {entry.tags.map((tag: string) => <span class="publication-tag" data-tag={tag}>{displayTag(tag)}</span>)}
+              </div>
+              {entry.link ? (
+                <h4 class="mt-1 text-base font-semibold text-neutral-900 dark:text-white">
+                  <a href={entry.link} target="_blank" rel="noreferrer" class="hover:underline decoration-dotted underline-offset-2">
+                    [{entry.id}] {entry.title}
+                  </a>
+                </h4>
+              ) : (
+                <h4 class="mt-1 text-base font-semibold text-neutral-900 dark:text-white">[{entry.id}] {entry.title}</h4>
               )}
-            </p>
-            <p class="mt-1 flex flex-wrap items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300">
-              <span class="italic">{entry.venue}</span>
-              {entry.status === "Accepted" && <span class="publication-status-badge inline-block rounded px-1.5 py-0.5 text-xs font-semibold bg-[#b0c4de] text-[#2c3e50] dark:bg-[#4b5563] dark:text-[#f3f4f6]">Coming Soon</span>}
-            </p>
-            {entry.status && entry.status !== "Accepted" && <p class="mt-1 text-sm font-medium text-neutral-700 dark:text-neutral-200">({entry.status})</p>}
+              {entry.award && <p class="mt-1 inline-block rounded-md bg-amber-200 px-2 py-1 text-xs font-semibold text-neutral-900 dark:bg-amber-900/50 dark:text-amber-100">🏆 {entry.award}</p>}
+            </div>
+            <div class="publication-details">
+              <p class="mt-1 text-sm text-neutral-700 dark:text-neutral-300">
+                {highlightAuthor(entry.authors).map((part) =>
+                  part.type === "highlight" ? (
+                    <span class="author-highlight font-semibold text-neutral-900 dark:text-white">{part.text}</span>
+                  ) : (
+                    part.text
+                  )
+                )}
+              </p>
+              <p class="mt-1 flex flex-wrap items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300">
+                <span class="italic">{entry.venue}</span>
+                {entry.status === "Accepted" && <span class="publication-status-badge inline-block rounded px-1.5 py-0.5 text-xs font-semibold bg-[#b0c4de] text-[#2c3e50] dark:bg-[#4b5563] dark:text-[#f3f4f6]">Coming Soon</span>}
+              </p>
+              {entry.status && entry.status !== "Accepted" && <p class="mt-1 text-sm font-medium text-neutral-700 dark:text-neutral-200">({entry.status})</p>}
+            </div>
           </div>
         </article>
-      ))
-    }
-  </div>
-
-  <h3 class="publication-subheading mt-6 text-sm font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">Posters & Workshops</h3>
-  <div class="mt-2 publications-list">
-    <div class="publications-top-spacer" aria-hidden="true" />
-    {
-      posterWorkshopEntries.map((entry) => (
-        <article id={`pub-${entry.id}`} class="publication-container rounded-lg border border-dashed border-neutral-300 p-2 dark:border-neutral-700" data-tags={entry.tags.join(" ")}>
-          <div class="publication-image">
-            {entry.media?.type === "video" ? (
-              <video autoplay muted loop playsinline preload="none" poster={entry.media.poster}>
-                {entry.media.mp4 && <source src={entry.media.mp4} type="video/mp4" />}
-              </video>
-            ) : (
-              <img src={entry.media?.src} alt={entry.title} loading="lazy" decoding="async" />
-            )}
-          </div>
-          <div class="publication-text">
-            <div class="publication-tags">
-              {entry.tags.map((tag: string) => <span class="publication-tag" data-tag={tag}>{displayTag(tag)}</span>)}
-            </div>
-            {entry.link ? (
-              <h3 class="mt-1 text-base font-semibold text-neutral-900 dark:text-white">
-                <a href={entry.link} target="_blank" rel="noreferrer" class="hover:underline decoration-dotted underline-offset-2">
-                  [{entry.id}] {entry.title}
-                </a>
-              </h3>
-            ) : (
-              <h3 class="mt-1 text-base font-semibold text-neutral-900 dark:text-white">[{entry.id}] {entry.title}</h3>
-            )}
-            {entry.award && <p class="mt-1 inline-block rounded-md bg-amber-200 px-2 py-1 text-xs font-semibold text-neutral-900 dark:bg-amber-900/50 dark:text-amber-100">🏆 {entry.award}</p>}
-            <p class="mt-1 text-sm text-neutral-700 dark:text-neutral-300">
-              {highlightAuthor(entry.authors).map((part) =>
-                part.type === "highlight" ? (
-                  <span class="author-highlight font-semibold text-neutral-900 dark:text-white">{part.text}</span>
-                ) : (
-                  part.text
-                )
-              )}
-            </p>
-            <p class="mt-1 flex flex-wrap items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300">
-              <span class="italic">{entry.venue}</span>
-              {entry.status === "Accepted" && <span class="publication-status-badge inline-block rounded px-1.5 py-0.5 text-xs font-semibold bg-[#b0c4de] text-[#2c3e50] dark:bg-[#4b5563] dark:text-[#f3f4f6]">Coming Soon</span>}
-            </p>
-            {entry.status && entry.status !== "Accepted" && <p class="mt-1 text-sm font-medium text-neutral-700 dark:text-neutral-200">({entry.status})</p>}
-          </div>
-        </article>
-      ))
-    }
-  </div>
+        ))
+      }
+    </div>
+  </section>
 
   <h3 class="publication-subheading mt-6 text-sm font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">Patents & Copyrighted Contents</h3>
   <div class="mt-2 space-y-4">
@@ -203,33 +226,89 @@ const copyrightEntries = publicationsData.entries.filter((item) => item.group ==
   document.addEventListener("DOMContentLoaded", () => {
     const buttons = document.querySelectorAll(".tag-filter-btn");
     const publications = document.querySelectorAll(".publication-container");
-    const tags = document.querySelectorAll(".publication-tag");
+    const filterGroups = document.querySelectorAll("[data-filter-group]");
+    const subsections = document.querySelectorAll("[data-publication-subsection]");
+    const filterStatus = document.querySelector("[data-filter-status]");
+    const resetButton = document.querySelector("[data-reset-filters]");
     let currentTagFilter = "all";
 
-    function updateVisibility() {
-      publications.forEach((pub) => {
-        const tagText = pub.getAttribute("data-tags") || "";
-        const hasTag = currentTagFilter === "all" || tagText.split(" ").includes(currentTagFilter);
-        pub.classList.toggle("hidden", !hasTag);
+    function selectFilter(activeButton) {
+      buttons.forEach((button) => {
+        const isActive = button === activeButton;
+        button.classList.toggle("active", isActive);
+        button.setAttribute("aria-pressed", String(isActive));
       });
+      currentTagFilter = activeButton?.getAttribute("data-filter") || "all";
+      updateVisibility();
     }
 
-    tags.forEach((tag) => { tag.style.fontWeight = "bold"; });
+    function updateVisibility() {
+      let visibleCount = 0;
+
+      publications.forEach((pub) => {
+        const publicationTags = (pub.getAttribute("data-tags") || "").split(" ");
+        const matchesFilters = currentTagFilter === "all" || publicationTags.includes(currentTagFilter);
+        pub.hidden = !matchesFilters;
+        if (matchesFilters) visibleCount += 1;
+      });
+
+      subsections.forEach((section) => {
+        const sectionPublications = section.querySelectorAll(".publication-container");
+        section.hidden = !Array.from(sectionPublications).some((publication) => !publication.hidden);
+      });
+
+      if (filterStatus) {
+        filterStatus.textContent = `${visibleCount} of ${publications.length} publications shown`;
+      }
+    }
+
+    function resetFilters() {
+      if (resetButton) selectFilter(resetButton);
+    }
+
     buttons.forEach((btn) => { btn.style.fontWeight = "bold"; });
     applyTagColors();
 
     const observer = new MutationObserver(applyTagColors);
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
 
-    buttons.forEach((btn) => {
-      const filter = btn.getAttribute("data-filter");
-      btn.addEventListener("click", () => {
-        buttons.forEach((item) => item.classList.remove("active"));
-        btn.classList.add("active");
-        currentTagFilter = filter || "all";
-        updateVisibility();
+    filterGroups.forEach((group) => {
+      const groupButtons = group.querySelectorAll(".tag-filter-btn");
+      groupButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          selectFilter(button);
+        });
       });
     });
+
+    resetButton?.addEventListener("click", resetFilters);
+
+    function revealPublicationFromHash({ scroll = false } = {}) {
+      const id = decodeURIComponent(window.location.hash.slice(1));
+      if (!id.startsWith("pub-")) return;
+      const target = document.getElementById(id);
+      if (!target?.matches(".publication-container")) return;
+
+      if (target.hidden) resetFilters();
+      if (scroll) {
+        requestAnimationFrame(() => target.scrollIntoView({ block: "start" }));
+      }
+    }
+
+    document.addEventListener("click", (event) => {
+      const anchor = event.target instanceof Element ? event.target.closest('a[href^="#pub-"]') : null;
+      if (!anchor) return;
+      const id = anchor.getAttribute("href")?.slice(1);
+      const target = id ? document.getElementById(id) : null;
+      if (target?.matches(".publication-container") && target.hidden) {
+        resetFilters();
+        requestAnimationFrame(() => target.scrollIntoView({ block: "start" }));
+      }
+    });
+
+    window.addEventListener("hashchange", () => revealPublicationFromHash({ scroll: true }));
+    updateVisibility();
+    revealPublicationFromHash();
   });
 </script>
 
@@ -275,13 +354,8 @@ const copyrightEntries = publicationsData.entries.filter((item) => item.group ==
     transition: opacity 0.3s ease, max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), margin 0.3s ease, padding 0.3s ease, border-width 0.3s ease;
   }
 
-  .publication-container.hidden {
-    opacity: 0;
-    max-height: 0;
-    margin: 0 !important;
-    padding: 0 !important;
-    border-width: 0 !important;
-    pointer-events: none;
+  .publication-container[hidden] {
+    display: none;
   }
 
   .publication-image {
@@ -301,6 +375,15 @@ const copyrightEntries = publicationsData.entries.filter((item) => item.group ==
     flex: 4;
   }
 
+  .publication-heading,
+  .publication-details {
+    min-width: 0;
+  }
+
+  .publication-heading h4 {
+    overflow-wrap: anywhere;
+  }
+
   .publication-tags {
     display: flex;
     flex-wrap: wrap;
@@ -311,8 +394,10 @@ const copyrightEntries = publicationsData.entries.filter((item) => item.group ==
     display: inline-block;
     border-radius: 5px;
     font-size: 12px;
+    font-weight: 600;
     padding: 2px 6px;
     color: #444;
+    cursor: default;
     transition: background-color 0.2s, color 0.2s;
   }
 
@@ -332,15 +417,31 @@ const copyrightEntries = publicationsData.entries.filter((item) => item.group ==
     font-weight: 600;
   }
 
-  /* Filter buttons carry a small group label above; all sit on one baseline row. */
-  .filter-item {
+  .publication-filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 0.7rem 0.85rem;
+  }
+
+  .filter-reset,
+  .filter-group {
     display: flex;
     flex-direction: column;
     gap: 3px;
   }
 
-  .filter-item.group-start {
-    margin-left: 10px;
+  .filter-group {
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .filter-buttons {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.42rem;
   }
 
   .filter-tag-label {
@@ -359,13 +460,14 @@ const copyrightEntries = publicationsData.entries.filter((item) => item.group ==
   }
 
   .tag-filter-btn {
+    min-height: 2rem;
     cursor: pointer;
     border-radius: 6px;
-    border: 0;
+    border: 1px solid rgb(0 0 0 / 0.09);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    font-size: 14px;
-    padding: 4px 9px;
-    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+    font-size: 13px;
+    padding: 4px 8px;
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s, border-color 0.2s;
   }
 
   .tag-filter-btn.active {
@@ -373,7 +475,14 @@ const copyrightEntries = publicationsData.entries.filter((item) => item.group ==
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   }
 
+  .tag-filter-btn:focus-visible,
+  .publication-text a:focus-visible {
+    outline: 2px solid rgb(180 83 9);
+    outline-offset: 2px;
+  }
+
   html.dark .tag-filter-btn {
+    border-color: rgb(255 255 255 / 0.14);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   }
 
@@ -381,15 +490,103 @@ const copyrightEntries = publicationsData.entries.filter((item) => item.group ==
     outline: 2px solid #9ca3af;
   }
 
+  html.dark .tag-filter-btn:focus-visible,
+  html.dark .publication-text a:focus-visible {
+    outline-color: rgb(251 191 36);
+  }
+
+  .filter-status {
+    margin-top: 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgb(82 82 82);
+  }
+
+  html.dark .filter-status {
+    color: rgb(212 212 212);
+  }
+
   @media (max-width: 768px) {
+    .publication-filter-bar {
+      align-items: stretch;
+    }
+
+    .filter-reset,
+    .filter-group {
+      width: 100%;
+    }
+
+    .filter-buttons {
+      flex-wrap: wrap;
+    }
+
+    .filter-reset .tag-filter-btn {
+      width: fit-content;
+    }
+
     .publication-container {
-      flex-direction: column;
-      align-items: flex-start;
+      display: grid;
+      grid-template-columns: 108px minmax(0, 1fr);
+      align-items: start;
+      gap: 0.65rem 0.75rem;
     }
 
     .publication-image {
-      max-width: 100%;
-      width: 100%;
+      grid-column: 1;
+      width: 108px;
+      max-width: 108px;
+    }
+
+    .publication-text {
+      display: contents;
+    }
+
+    .publication-heading {
+      grid-column: 2;
+      align-self: start;
+    }
+
+    .publication-details {
+      grid-column: 1 / -1;
+    }
+
+    .publication-heading h4 {
+      font-size: 0.875rem;
+      line-height: 1.35;
+    }
+
+    .publication-heading .publication-tags {
+      gap: 4px;
+    }
+
+    .publication-heading .publication-tag {
+      padding: 1px 4px;
+      font-size: 10px;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .publication-container {
+      grid-template-columns: 84px minmax(0, 1fr);
+      column-gap: 0.6rem;
+    }
+
+    .publication-image {
+      width: 84px;
+      max-width: 84px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .publication-container,
+    .publication-tag,
+    .tag-filter-btn {
+      transition: none;
+    }
+
+    .publication-container:target,
+    .publication-anchor:target {
+      animation: none;
     }
   }
 </style>
