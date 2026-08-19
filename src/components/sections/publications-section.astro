@@ -8,7 +8,7 @@ function highlightAuthor(authors: string) {
 }
 
 function displayTag(tag: string) {
-  return tag.replace(/_/g, " ");
+  return tag === "Poster&Workshop" ? "Poster & Workshop" : tag.replace(/_/g, " ");
 }
 
 const publicationEntries = publicationsData.entries.filter((item) => item.group === "publication");
@@ -62,7 +62,7 @@ const copyrightEntries = publicationsData.entries.filter((item) => item.group ==
         <article id={`pub-${entry.id}`} class="publication-container rounded-lg border border-dashed border-neutral-300 p-2 dark:border-neutral-700" data-tags={entry.tags.join(" ")}>
           <div class="publication-image">
             {entry.media?.type === "video" ? (
-              <video aria-label={`${entry.title} demonstration video`} controls muted playsinline preload="none" poster={entry.media.poster}>
+              <video aria-label={`${entry.title} demonstration video`} controls muted loop playsinline preload="metadata" poster={entry.media.poster} data-publication-video>
                 {entry.media.mp4 && <source src={entry.media.mp4} type="video/mp4" />}
                 Your browser does not support embedded video.
                 {entry.media.mp4 && <a href={entry.media.mp4}>Open the video file.</a>}
@@ -85,7 +85,7 @@ const copyrightEntries = publicationsData.entries.filter((item) => item.group ==
               ) : (
                 <h4 class="mt-1 text-base font-semibold text-neutral-900 dark:text-white">[{entry.id}] {entry.title}</h4>
               )}
-              {entry.award && <p class="mt-1 inline-block rounded-md bg-amber-200 px-2 py-1 text-xs font-semibold text-neutral-900 dark:bg-amber-900/50 dark:text-amber-100">🏆 {entry.award}</p>}
+              {entry.award && <p class="publication-award mt-1 inline-block rounded-md bg-amber-200 px-2 py-1 text-xs font-semibold text-neutral-900 dark:bg-amber-900/50 dark:text-amber-100">🏆 {entry.award}</p>}
             </div>
             <div class="publication-details">
               <p class="mt-1 text-sm text-neutral-700 dark:text-neutral-300">
@@ -119,7 +119,7 @@ const copyrightEntries = publicationsData.entries.filter((item) => item.group ==
         <article id={`pub-${entry.id}`} class="publication-container rounded-lg border border-dashed border-neutral-300 p-2 dark:border-neutral-700" data-tags={entry.tags.join(" ")}>
           <div class="publication-image">
             {entry.media?.type === "video" ? (
-              <video aria-label={`${entry.title} demonstration video`} controls muted playsinline preload="none" poster={entry.media.poster}>
+              <video aria-label={`${entry.title} demonstration video`} controls muted loop playsinline preload="metadata" poster={entry.media.poster} data-publication-video>
                 {entry.media.mp4 && <source src={entry.media.mp4} type="video/mp4" />}
                 Your browser does not support embedded video.
                 {entry.media.mp4 && <a href={entry.media.mp4}>Open the video file.</a>}
@@ -142,7 +142,7 @@ const copyrightEntries = publicationsData.entries.filter((item) => item.group ==
               ) : (
                 <h4 class="mt-1 text-base font-semibold text-neutral-900 dark:text-white">[{entry.id}] {entry.title}</h4>
               )}
-              {entry.award && <p class="mt-1 inline-block rounded-md bg-amber-200 px-2 py-1 text-xs font-semibold text-neutral-900 dark:bg-amber-900/50 dark:text-amber-100">🏆 {entry.award}</p>}
+              {entry.award && <p class="publication-award mt-1 inline-block rounded-md bg-amber-200 px-2 py-1 text-xs font-semibold text-neutral-900 dark:bg-amber-900/50 dark:text-amber-100">🏆 {entry.award}</p>}
             </div>
             <div class="publication-details">
               <p class="mt-1 text-sm text-neutral-700 dark:text-neutral-300">
@@ -230,7 +230,46 @@ const copyrightEntries = publicationsData.entries.filter((item) => item.group ==
     const subsections = document.querySelectorAll("[data-publication-subsection]");
     const filterStatus = document.querySelector("[data-filter-status]");
     const resetButton = document.querySelector("[data-reset-filters]");
+    const publicationVideos = document.querySelectorAll("[data-publication-video]");
+    const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     let currentTagFilter = "all";
+
+    function syncPublicationVideo(video) {
+      const publication = video.closest(".publication-container");
+      const shouldPlay =
+        video.dataset.inView === "true" &&
+        !document.hidden &&
+        !reducedMotionQuery.matches &&
+        !publication?.hidden;
+
+      if (shouldPlay) {
+        video.muted = true;
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
+    }
+
+    function syncPublicationVideos() {
+      publicationVideos.forEach(syncPublicationVideo);
+    }
+
+    if ("IntersectionObserver" in window) {
+      const videoObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            entry.target.dataset.inView = String(entry.isIntersecting && entry.intersectionRatio >= 0.35);
+            syncPublicationVideo(entry.target);
+          });
+        },
+        { threshold: [0, 0.35] }
+      );
+
+      publicationVideos.forEach((video) => videoObserver.observe(video));
+    }
+
+    document.addEventListener("visibilitychange", syncPublicationVideos);
+    reducedMotionQuery.addEventListener?.("change", syncPublicationVideos);
 
     function selectFilter(activeButton) {
       buttons.forEach((button) => {
@@ -260,6 +299,8 @@ const copyrightEntries = publicationsData.entries.filter((item) => item.group ==
       if (filterStatus) {
         filterStatus.textContent = `${visibleCount} of ${publications.length} publications shown`;
       }
+
+      syncPublicationVideos();
     }
 
     function resetFilters() {
@@ -526,15 +567,17 @@ const copyrightEntries = publicationsData.entries.filter((item) => item.group ==
 
     .publication-container {
       display: grid;
-      grid-template-columns: 108px minmax(0, 1fr);
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
       align-items: start;
-      gap: 0.65rem 0.75rem;
+      gap: 0.5rem 0.75rem;
     }
 
     .publication-image {
       grid-column: 1;
-      width: 108px;
-      max-width: 108px;
+      grid-row: 1;
+      align-self: center;
+      width: 100%;
+      max-width: none;
     }
 
     .publication-text {
@@ -542,38 +585,47 @@ const copyrightEntries = publicationsData.entries.filter((item) => item.group ==
     }
 
     .publication-heading {
-      grid-column: 2;
-      align-self: start;
+      display: contents;
     }
 
+    .publication-heading .publication-tags {
+      grid-column: 2;
+      grid-row: 1;
+      align-self: start;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      align-items: stretch;
+      gap: 3px;
+    }
+
+    .publication-heading h4,
+    .publication-award,
     .publication-details {
       grid-column: 1 / -1;
     }
 
     .publication-heading h4 {
+      grid-row: 2;
+      margin-top: 0;
       font-size: 0.875rem;
       line-height: 1.35;
     }
 
-    .publication-heading .publication-tags {
-      gap: 4px;
+    .publication-award {
+      width: fit-content;
+      margin-top: 0;
     }
 
     .publication-heading .publication-tag {
-      padding: 1px 4px;
-      font-size: 10px;
-    }
-  }
-
-  @media (max-width: 360px) {
-    .publication-container {
-      grid-template-columns: 84px minmax(0, 1fr);
-      column-gap: 0.6rem;
-    }
-
-    .publication-image {
-      width: 84px;
-      max-width: 84px;
+      width: 100%;
+      padding: 2px 5px;
+      font-size: 11px;
+      line-height: 1.2;
+      text-align: center;
+      overflow-wrap: normal;
+      word-break: normal;
+      hyphens: none;
+      text-wrap: balance;
     }
   }
 
