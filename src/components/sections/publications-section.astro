@@ -61,12 +61,12 @@ const copyrightEntries = publicationsData.entries.filter((item) => item.group ==
         conferenceJournalEntries.map((entry) => (
         <article id={`pub-${entry.id}`} class="publication-container rounded-lg border border-dashed border-neutral-300 p-2 dark:border-neutral-700" data-tags={entry.tags.join(" ")}>
           <div class="publication-image">
-            {entry.media?.type === "video" ? (
-              <video aria-label={`Play ${entry.title} demonstration video`} role="button" tabindex="0" muted loop playsinline preload="metadata" poster={entry.media.poster} data-publication-video data-video-title={entry.title}>
-                {entry.media.mp4 && <source src={entry.media.mp4} type="video/mp4" />}
-                Your browser does not support embedded video.
-                {entry.media.mp4 && <a href={entry.media.mp4}>Open the video file.</a>}
-              </video>
+            {entry.media?.type === "animated-image" ? (
+              <picture>
+                <source media="(prefers-reduced-motion: reduce)" srcset={entry.media.poster} />
+                <source type="image/webp" srcset={entry.media.src} />
+                <img src={entry.media.poster} alt={entry.title} loading="lazy" decoding="async" />
+              </picture>
             ) : (
               <img src={entry.media?.src} alt={entry.title} loading="lazy" decoding="async" />
             )}
@@ -118,12 +118,12 @@ const copyrightEntries = publicationsData.entries.filter((item) => item.group ==
         posterWorkshopEntries.map((entry) => (
         <article id={`pub-${entry.id}`} class="publication-container rounded-lg border border-dashed border-neutral-300 p-2 dark:border-neutral-700" data-tags={entry.tags.join(" ")}>
           <div class="publication-image">
-            {entry.media?.type === "video" ? (
-              <video aria-label={`Play ${entry.title} demonstration video`} role="button" tabindex="0" muted loop playsinline preload="metadata" poster={entry.media.poster} data-publication-video data-video-title={entry.title}>
-                {entry.media.mp4 && <source src={entry.media.mp4} type="video/mp4" />}
-                Your browser does not support embedded video.
-                {entry.media.mp4 && <a href={entry.media.mp4}>Open the video file.</a>}
-              </video>
+            {entry.media?.type === "animated-image" ? (
+              <picture>
+                <source media="(prefers-reduced-motion: reduce)" srcset={entry.media.poster} />
+                <source type="image/webp" srcset={entry.media.src} />
+                <img src={entry.media.poster} alt={entry.title} loading="lazy" decoding="async" />
+              </picture>
             ) : (
               <img src={entry.media?.src} alt={entry.title} loading="lazy" decoding="async" />
             )}
@@ -230,75 +230,7 @@ const copyrightEntries = publicationsData.entries.filter((item) => item.group ==
     const subsections = document.querySelectorAll("[data-publication-subsection]");
     const filterStatus = document.querySelector("[data-filter-status]");
     const resetButton = document.querySelector("[data-reset-filters]");
-    const publicationVideos = document.querySelectorAll("[data-publication-video]");
-    const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     let currentTagFilter = "all";
-
-    function syncPublicationVideo(video) {
-      const publication = video.closest(".publication-container");
-      const shouldPlay =
-        video.dataset.inView === "true" &&
-        !document.hidden &&
-        !reducedMotionQuery.matches &&
-        video.dataset.userPaused !== "true" &&
-        !publication?.hidden;
-
-      if (shouldPlay) {
-        video.muted = true;
-        video.play().catch(() => {});
-      } else {
-        video.pause();
-      }
-    }
-
-    function syncPublicationVideos() {
-      publicationVideos.forEach(syncPublicationVideo);
-    }
-
-    function updatePublicationVideoLabel(video) {
-      const action = video.paused ? "Play" : "Pause";
-      video.setAttribute("aria-label", `${action} ${video.dataset.videoTitle || "publication"} demonstration video`);
-    }
-
-    function togglePublicationVideo(video) {
-      if (video.paused) {
-        video.dataset.userPaused = "false";
-        video.muted = true;
-        video.play().catch(() => {});
-      } else {
-        video.dataset.userPaused = "true";
-        video.pause();
-      }
-    }
-
-    publicationVideos.forEach((video) => {
-      video.addEventListener("click", () => togglePublicationVideo(video));
-      video.addEventListener("keydown", (event) => {
-        if (event.key !== "Enter" && event.key !== " ") return;
-        event.preventDefault();
-        togglePublicationVideo(video);
-      });
-      video.addEventListener("play", () => updatePublicationVideoLabel(video));
-      video.addEventListener("pause", () => updatePublicationVideoLabel(video));
-      updatePublicationVideoLabel(video);
-    });
-
-    if ("IntersectionObserver" in window) {
-      const videoObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            entry.target.dataset.inView = String(entry.isIntersecting && entry.intersectionRatio >= 0.35);
-            syncPublicationVideo(entry.target);
-          });
-        },
-        { threshold: [0, 0.35] }
-      );
-
-      publicationVideos.forEach((video) => videoObserver.observe(video));
-    }
-
-    document.addEventListener("visibilitychange", syncPublicationVideos);
-    reducedMotionQuery.addEventListener?.("change", syncPublicationVideos);
 
     function selectFilter(activeButton) {
       buttons.forEach((button) => {
@@ -328,8 +260,6 @@ const copyrightEntries = publicationsData.entries.filter((item) => item.group ==
       if (filterStatus) {
         filterStatus.textContent = `${visibleCount} of ${publications.length} publications shown`;
       }
-
-      syncPublicationVideos();
     }
 
     function resetFilters() {
@@ -433,30 +363,15 @@ const copyrightEntries = publicationsData.entries.filter((item) => item.group ==
     max-width: 260px;
   }
 
-  .publication-image img,
-  .publication-image video {
+  .publication-image picture {
+    display: block;
+  }
+
+  .publication-image img {
     width: 100%;
     aspect-ratio: 16 / 9;
     object-fit: cover;
     border-radius: 8px;
-  }
-
-  .publication-image video {
-    cursor: pointer;
-  }
-
-  .publication-image video:focus-visible {
-    outline: 2px solid rgb(180 83 9);
-    outline-offset: 2px;
-  }
-
-  html.dark .publication-image video:focus-visible {
-    outline-color: rgb(251 191 36);
-  }
-
-  .publication-image video::-webkit-media-controls,
-  .publication-image video::-webkit-media-controls-start-playback-button {
-    display: none !important;
   }
 
   .publication-text {

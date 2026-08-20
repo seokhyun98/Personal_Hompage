@@ -121,8 +121,9 @@
       "venue": "Proceedings of the 2026 CHI conference on Human Factors in Computing Systems",
       "link": "https://doi.org/10.1145/3772318.3790434",
       "media": {
-        "type": "image",
-        "src": "/images/publications/driver-touchscreen.gif"
+        "type": "animated-image",
+        "src": "/images/publications/driver-touchscreen.webp",
+        "poster": "/images/publications/driver-touchscreen-poster.jpg"
       }
     },
     {
@@ -157,9 +158,9 @@
       "venue": "Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies, Vol. 9, No.3",
       "link": "https://doi.org/10.1145/3749473",
       "media": {
-        "type": "video",
-        "poster": "/images/publications/contextual-ehmi-poster.jpg",
-        "mp4": "/images/publications/contextual-ehmi.mp4"
+        "type": "animated-image",
+        "src": "/images/publications/contextual-ehmi.webp",
+        "poster": "/images/publications/contextual-ehmi-poster.jpg"
       }
     },
     {
@@ -195,9 +196,9 @@
       "link": "https://doi.org/10.1145/3706598.3713767",
       "award": "Best Paper",
       "media": {
-        "type": "video",
-        "poster": "/images/publications/teleoperation-ems-poster.jpg",
-        "mp4": "/images/publications/teleoperation-ems.mp4"
+        "type": "animated-image",
+        "src": "/images/publications/teleoperation-ems.webp",
+        "poster": "/images/publications/teleoperation-ems-poster.jpg"
       }
     },
     {
@@ -214,9 +215,9 @@
       "venue": "Proceedings of the 2025 CHI conference on Human Factors in Computing Systems",
       "link": "https://doi.org/10.1145/3706598.3713373",
       "media": {
-        "type": "video",
-        "poster": "/images/publications/in-car-vr-locomotion-poster.jpg",
-        "mp4": "/images/publications/in-car-vr-locomotion.mp4"
+        "type": "animated-image",
+        "src": "/images/publications/in-car-vr-locomotion.webp",
+        "poster": "/images/publications/in-car-vr-locomotion-poster.jpg"
       }
     },
     {
@@ -250,9 +251,9 @@
       "venue": "Proceedings of the 2024 ACM Symposium on User Interface Software and Technology",
       "link": "https://doi.org/10.1145/3654777.3676363",
       "media": {
-        "type": "video",
-        "poster": "/images/publications/peltier-thermal-vr-poster.jpg",
-        "mp4": "/images/publications/peltier-thermal-vr.mp4"
+        "type": "animated-image",
+        "src": "/images/publications/peltier-thermal-vr.webp",
+        "poster": "/images/publications/peltier-thermal-vr-poster.jpg"
       }
     },
     {
@@ -377,9 +378,9 @@
       "link": "https://dl.acm.org/doi/10.1145/3613904.3642008",
       "award": "Honorable Mention",
       "media": {
-        "type": "video",
-        "poster": "/images/publications/lower-body-ems-vr-poster.jpg",
-        "mp4": "/images/publications/lower-body-ems-vr.mp4"
+        "type": "animated-image",
+        "src": "/images/publications/lower-body-ems-vr.webp",
+        "poster": "/images/publications/lower-body-ems-vr-poster.jpg"
       }
     },
     {
@@ -416,9 +417,9 @@
       "venue": "Extended Abstracts of the 2024 CHI conference on Human Factors in Computing Systems",
       "link": "https://dl.acm.org/doi/10.1145/3613905.3651073",
       "media": {
-        "type": "video",
-        "poster": "/images/publications/gait-way-poster.jpg",
-        "mp4": "/images/publications/gait-way.mp4"
+        "type": "animated-image",
+        "src": "/images/publications/gait-way.webp",
+        "poster": "/images/publications/gait-way-poster.jpg"
       }
     },
     {
@@ -435,9 +436,9 @@
       "venue": "Extended Abstracts of the 2024 CHI conference on Human Factors in Computing Systems",
       "link": "https://dl.acm.org/doi/10.1145/3613905.3650746",
       "media": {
-        "type": "video",
-        "poster": "/images/publications/redirected-steering-incar-poster.jpg",
-        "mp4": "/images/publications/redirected-steering-incar.mp4"
+        "type": "animated-image",
+        "src": "/images/publications/redirected-steering-incar.webp",
+        "poster": "/images/publications/redirected-steering-incar-poster.jpg"
       }
     },
     {
@@ -490,9 +491,9 @@
       "link": "https://www.computer.org/csdl/proceedings-article/ismar/2023/283800b181/1SBIOSZTWlG",
       "award": "Honorable Mention",
       "media": {
-        "type": "video",
-        "poster": "/images/publications/bone-conduction-rdw-poster.jpg",
-        "mp4": "/images/publications/bone-conduction-rdw.mp4"
+        "type": "animated-image",
+        "src": "/images/publications/bone-conduction-rdw.webp",
+        "poster": "/images/publications/bone-conduction-rdw-poster.jpg"
       }
     },
     {
@@ -528,9 +529,9 @@
       "venue": "Proceedings of the 2023 CHI conference on Human Factors in Computing Systems",
       "link": "https://dl.acm.org/doi/10.1145/3544548.3580862",
       "media": {
-        "type": "video",
-        "poster": "/images/publications/vestibular-comparison-poster.jpg",
-        "mp4": "/images/publications/vestibular-comparison.mp4"
+        "type": "animated-image",
+        "src": "/images/publications/vestibular-comparison.webp",
+        "poster": "/images/publications/vestibular-comparison-poster.jpg"
       }
     },
     {
@@ -547,9 +548,9 @@
       "venue": "Extended Abstracts of the 2022 CHI conference on Human Factors in Computing Systems",
       "link": "https://dl.acm.org/doi/10.1145/3491101.3519626",
       "media": {
-        "type": "video",
-        "poster": "/images/publications/vestibular-electrode-poster.jpg",
-        "mp4": "/images/publications/vestibular-electrode.mp4"
+        "type": "animated-image",
+        "src": "/images/publications/vestibular-electrode.webp",
+        "poster": "/images/publications/vestibular-electrode-poster.jpg"
       }
     },
     {
