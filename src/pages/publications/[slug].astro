@@ -1,0 +1,240 @@
+---
+import Layout from "../../layouts/main.astro";
+import {
+	SITE_ORIGIN,
+	type ScholarlyPublication,
+	absolutePublicationUrl,
+	displayTag,
+	publicationAssetUrl,
+	publicationKindLabel,
+	scholarlyPublications,
+} from "../../lib/scholarly-publications";
+
+export function getStaticPaths() {
+	return scholarlyPublications.map((publication) => ({
+		params: { slug: publication.slug },
+		props: { publication },
+	}));
+}
+
+const { publication } = Astro.props as { publication: ScholarlyPublication };
+const pageUrl = absolutePublicationUrl(publication);
+const description =
+	publication.abstract.length > 300
+		? `${publication.abstract.slice(0, 297).trimEnd()}...`
+		: publication.abstract;
+const pageStart = publication.pages?.split("-")[0];
+const pageEnd = publication.pages?.split("-")[1];
+const citationPublicationDate = publication.publicationDate.replaceAll(
+	"-",
+	"/",
+);
+const imageUrl = new URL(
+	publication.media.poster ?? publication.media.src,
+	`${SITE_ORIGIN}/`,
+).toString();
+const externalUrl = publication.doi
+	? `https://doi.org/${publication.doi}`
+	: publication.externalUrl;
+const sameAs = Array.from(
+	new Set(
+		[externalUrl, publication.preprintUrl].filter((url): url is string =>
+			Boolean(url),
+		),
+	),
+);
+const identifiers = [
+	{
+		"@type": "PropertyValue",
+		propertyID: "Local publication ID",
+		value: publication.id,
+	},
+	...(publication.doi
+		? [
+				{
+					"@type": "PropertyValue",
+					propertyID: "DOI",
+					value: publication.doi,
+					url: `https://doi.org/${publication.doi}`,
+				},
+			]
+		: []),
+	...(publication.preprint
+		? [
+				{
+					"@type": "PropertyValue",
+					propertyID: "arXiv",
+					value: publication.preprint.replace(/^arXiv:/u, ""),
+					url: publication.preprintUrl,
+				},
+			]
+		: []),
+];
+const articleLd = {
+	"@context": "https://schema.org",
+	"@type": ["Article", "ScholarlyArticle"],
+	"@id": `${pageUrl}#article`,
+	url: pageUrl,
+	mainEntityOfPage: pageUrl,
+	headline: publication.title,
+	name: publication.title,
+	abstract: publication.abstract,
+	datePublished: publication.publicationDate,
+	inLanguage: "en",
+	image: imageUrl,
+	author: publication.authors.map((author) =>
+		author.familyName === "Hwang" && author.givenName === "Seokhyun"
+			? {
+					"@type": "Person",
+					"@id": `${SITE_ORIGIN}/#person`,
+					name: "Seokhyun Hwang",
+					alternateName: "Seokhyun (Shawn) Hwang",
+					sameAs: "https://orcid.org/0000-0001-5244-017X",
+				}
+			: {
+					"@type": "Person",
+					name: author.displayName,
+					givenName: author.givenName,
+					familyName: author.familyName,
+				},
+	),
+	isPartOf: {
+		"@type":
+			publication.publicationKind === "journal-article"
+				? "Periodical"
+				: "CreativeWorkSeries",
+		name: publication.containerTitle,
+		...(publication.volume ? { volumeNumber: publication.volume } : {}),
+	},
+	identifier: identifiers,
+	...(sameAs.length ? { sameAs } : {}),
+	...(publication.volume ? { volumeNumber: publication.volume } : {}),
+	...(publication.issue ? { issueNumber: publication.issue } : {}),
+	...(publication.pages || publication.articleNumber
+		? { pagination: publication.pages ?? publication.articleNumber }
+		: {}),
+	...(pageStart ? { pageStart } : {}),
+	...(pageEnd ? { pageEnd } : {}),
+	keywords: publication.tags.map(displayTag),
+	about: publication.tags.map((tag) => ({
+		"@type": "Thing",
+		name: displayTag(tag),
+	})),
+	...(publication.award ? { award: publication.award } : {}),
+};
+---
+
+<Layout
+  title={publication.title}
+  description={description}
+  keywords={[
+    publication.title,
+    ...publication.tags.map(displayTag),
+    ...publication.authors.map((author) => author.displayName),
+  ]}
+  structuredData={[articleLd]}
+  ogType="article"
+  ogImage={publication.media.poster ?? publication.media.src}
+  ogImageAlt={`Research preview for ${publication.title}`}
+>
+  <Fragment slot="head">
+    <meta name="citation_title" content={publication.title} />
+    {publication.authors.map((author) => <meta name="citation_author" content={`${author.familyName}, ${author.givenName}`} />)}
+    <meta name="citation_publication_date" content={citationPublicationDate} />
+    <meta name="citation_abstract" content={publication.abstract} />
+    <meta name="citation_language" content="en" />
+    <meta name="citation_abstract_html_url" content={pageUrl} />
+    {publication.publicationKind === "journal-article" ? (
+      <meta name="citation_journal_title" content={publication.containerTitle} />
+    ) : (
+      <meta name="citation_conference_title" content={publication.containerTitle} />
+    )}
+    {publication.volume && <meta name="citation_volume" content={publication.volume} />}
+    {publication.issue && <meta name="citation_issue" content={publication.issue} />}
+    {(pageStart || publication.articleNumber) && (
+      <meta name="citation_firstpage" content={pageStart ?? publication.articleNumber} />
+    )}
+    {pageEnd && <meta name="citation_lastpage" content={pageEnd} />}
+    {publication.doi && <meta name="citation_doi" content={publication.doi} />}
+    {publication.preprint && (
+      <meta name="citation_arxiv_id" content={publication.preprint.replace(/^arXiv:/u, "")} />
+    )}
+    {publication.tags.map((tag) => <meta name="citation_keywords" content={displayTag(tag)} />)}
+    <meta name="DC.title" content={publication.title} />
+    {publication.authors.map((author) => <meta name="DC.creator" content={`${author.familyName}, ${author.givenName}`} />)}
+    <meta name="DC.date" content={publication.publicationDate} />
+    <meta name="DC.type" content="Text" />
+    <meta name="DC.format" content="text/html" />
+    <meta name="DC.language" content="en" />
+    <meta name="DC.identifier" content={publication.doi ? `doi:${publication.doi}` : pageUrl} />
+    <link rel="alternate" type="application/x-bibtex" href={publicationAssetUrl(publication, "bib")} title="BibTeX citation" />
+    <link rel="alternate" type="application/x-research-info-systems" href={publicationAssetUrl(publication, "ris")} title="RIS citation" />
+    <link rel="alternate" type="application/vnd.citationstyles.csl+json" href={publicationAssetUrl(publication, "json")} title="CSL JSON citation" />
+  </Fragment>
+
+  <article class="mx-auto w-full max-w-4xl px-6 py-12 sm:py-16" itemscope itemtype="https://schema.org/ScholarlyArticle">
+    <meta itemprop="url" content={pageUrl} />
+    <nav aria-label="Breadcrumb" class="mb-8 text-sm text-neutral-500 dark:text-neutral-400">
+      <a class="underline decoration-dotted underline-offset-4 hover:text-neutral-900 dark:hover:text-white" href="/">
+        Seokhyun Hwang
+      </a>
+      <span aria-hidden="true" class="mx-2">/</span>
+      <a class="underline decoration-dotted underline-offset-4 hover:text-neutral-900 dark:hover:text-white" href="/publications/">
+        Publications
+      </a>
+      <span aria-hidden="true" class="mx-2">/</span>
+      <span aria-current="page">{publication.id}</span>
+    </nav>
+
+    <header class="border-b border-neutral-200 pb-8 dark:border-neutral-700">
+      <p class="mb-3 text-sm font-medium uppercase tracking-[0.12em] text-neutral-500 dark:text-neutral-400">
+        {publication.id} · {publicationKindLabel(publication.publicationKind)} · <time itemprop="datePublished" datetime={publication.publicationDate}>{publication.year}</time>
+      </p>
+      <h1 itemprop="headline" class="text-3xl font-semibold leading-tight tracking-tight text-neutral-900 dark:text-white sm:text-4xl">
+        {publication.title}
+      </h1>
+      <p class="mt-5 text-base leading-7 text-neutral-700 dark:text-neutral-200">
+        {publication.authors.map((author) => author.displayName).join(", ")}
+      </p>
+      <p class="mt-2 text-base italic leading-7 text-neutral-500 dark:text-neutral-400" itemprop="isPartOf">
+        {publication.containerTitle}{publication.volume ? `, ${publication.volume}` : ""}{publication.issue ? `(${publication.issue})` : ""}{publication.pages ? `, ${publication.pages}` : publication.articleNumber ? `, Article ${publication.articleNumber}` : ""}.
+      </p>
+      {publication.status && (
+        <p class="mt-2 text-sm font-medium text-neutral-600 dark:text-neutral-300">Status: {publication.status}</p>
+      )}
+      {publication.award && (
+        <p class="mt-2 text-sm font-medium text-amber-700 dark:text-amber-300">Award: {publication.award}</p>
+      )}
+      <div class="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+        {externalUrl && (
+          <a class="font-medium underline decoration-dotted underline-offset-4 hover:text-neutral-900 dark:text-neutral-200" href={externalUrl} target="_blank" rel="noopener noreferrer">
+            {publication.doi ? `DOI: ${publication.doi}` : publication.preprint ?? "Publisher page"}
+          </a>
+        )}
+        <a class="underline decoration-dotted underline-offset-4 hover:text-neutral-900 dark:text-neutral-200" href={publicationAssetUrl(publication, "bib")}>BibTeX</a>
+        <a class="underline decoration-dotted underline-offset-4 hover:text-neutral-900 dark:text-neutral-200" href={publicationAssetUrl(publication, "ris")}>RIS</a>
+        <a class="underline decoration-dotted underline-offset-4 hover:text-neutral-900 dark:text-neutral-200" href={publicationAssetUrl(publication, "json")}>CSL JSON</a>
+      </div>
+    </header>
+
+    <section aria-labelledby="abstract-heading" class="py-9">
+      <h2 id="abstract-heading" class="text-xl font-semibold text-neutral-900 dark:text-white">Abstract</h2>
+      <p itemprop="abstract" class="mt-4 text-base leading-8 text-neutral-700 dark:text-neutral-200">
+        {publication.abstract}
+      </p>
+    </section>
+
+    <section aria-labelledby="topics-heading" class="border-t border-neutral-200 py-7 dark:border-neutral-700">
+      <h2 id="topics-heading" class="text-sm font-semibold uppercase tracking-[0.12em] text-neutral-500 dark:text-neutral-400">
+        Topics and format
+      </h2>
+      <ul class="mt-4 flex flex-wrap gap-2" aria-label="Publication topics">
+        {publication.tags.map((tag) => (
+          <li class="rounded-full border border-neutral-300 px-3 py-1 text-xs text-neutral-700 dark:border-neutral-600 dark:text-neutral-200">
+            {displayTag(tag)}
+          </li>
+        ))}
+      </ul>
+    </section>
+  </article>
+</Layout>

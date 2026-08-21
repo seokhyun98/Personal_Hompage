@@ -30,3 +30,26 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  notify-indexnow:
+    needs: deploy
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Submit updated URLs to IndexNow
+        id: indexnow
+        continue-on-error: true
+        run: node scripts/submit-indexnow.mjs
+
+      - name: Report IndexNow notification failure
+        if: steps.indexnow.outcome == 'failure'
+        run: echo "::warning::IndexNow notification failed. The site was deployed successfully; review the preceding step for details."

@@ -24,16 +24,29 @@ const {
 	title = "Seokhyun Hwang",
 	description = defaultDescription,
 	keywords = defaultKeywords,
-	robots = "index, follow",
+	robots = "index, follow, max-snippet:-1, max-image-preview:large",
 	structuredData = [],
+	ogType = "website",
+	ogImage = "/images/profile/profile.jpg",
+	ogImageAlt = "Portrait of Seokhyun Hwang",
+	ogImageWidth,
+	ogImageHeight,
 } = Astro.props;
-const canonicalURL = new URL(Astro.url.pathname || "/", Astro.site);
-const siteUrl = (Astro.site?.toString() ?? "https://www.seokhyunhwang.com").replace(/\/$/, "");
+const siteUrl = (Astro.site?.toString() ?? "https://seokhyunhwang.com").replace(
+	/\/$/,
+	"",
+);
 const homeUrl = `${siteUrl}/`;
+const canonicalURL = new URL(Astro.url.pathname || "/", homeUrl);
 const personId = `${siteUrl}/#person`;
 const websiteId = `${siteUrl}/#website`;
-const ogImage = new URL("/images/profile/profile.jpg", homeUrl);
-const socialProfileUrls = about.socialLinks.map((item) => item.url);
+const ogImageUrl = new URL(ogImage, homeUrl);
+const socialProfileUrls = Array.from(
+	new Set([
+		...about.socialLinks.map((item) => item.url),
+		"https://dblp.org/pid/195/9711",
+	]),
+);
 const pageTitle =
 	typeof title === "string" && title.includes("Seokhyun Hwang")
 		? title
@@ -43,11 +56,28 @@ const personLd = {
 	"@context": "https://schema.org",
 	"@type": "Person",
 	"@id": personId,
-	name: "Seokhyun (Shawn) Hwang",
-	alternateName: ["Seokhyun Hwang", "Shawn Hwang"],
+	name: "Seokhyun Hwang",
+	givenName: "Seokhyun",
+	familyName: "Hwang",
+	additionalName: "Shawn",
+	alternateName: ["Seokhyun (Shawn) Hwang", "Shawn Hwang"],
 	url: homeUrl,
 	image: `${siteUrl}/images/profile/profile.jpg`,
 	email: `mailto:${about.email}`,
+	identifier: [
+		{
+			"@type": "PropertyValue",
+			propertyID: "ORCID",
+			value: "0000-0001-5244-017X",
+			url: "https://orcid.org/0000-0001-5244-017X",
+		},
+		{
+			"@type": "PropertyValue",
+			propertyID: "DBLP",
+			value: "195/9711",
+			url: "https://dblp.org/pid/195/9711",
+		},
+	],
 	jobTitle: "Ph.D. Student in Information Science",
 	affiliation: {
 		"@type": "Organization",
@@ -57,16 +87,21 @@ const personLd = {
 	alumniOf: [
 		{
 			"@type": "CollegeOrUniversity",
-			name: "University of Washington",
-			url: "https://www.washington.edu/",
-		},
-		{
-			"@type": "CollegeOrUniversity",
 			name: "Gwangju Institute of Science and Technology",
 			url: "https://www.gist.ac.kr/en/main.html",
 		},
 	],
-	knowsAbout: ["Human-Computer Interaction", "Virtual Reality", "Augmented Reality", "Haptics", "Wearable Systems"],
+	knowsAbout: [
+		"Human-Computer Interaction",
+		"Virtual Reality",
+		"Augmented Reality",
+		"Haptics",
+		"Wearable Systems",
+		"Human-AI Interaction",
+		"Adaptive User Interfaces",
+		"Assistive Technology",
+		"Electrical Muscle Stimulation",
+	],
 	sameAs: socialProfileUrls,
 };
 
@@ -92,9 +127,9 @@ const defaultStructuredData = [personLd, websiteLd];
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <meta name="keywords" content={Array.isArray(keywords) ? keywords.join(", ") : keywords} />
-    <meta name="author" content="Seokhyun (Shawn) Hwang" />
-    <meta name="creator" content="Seokhyun (Shawn) Hwang" />
-    <meta name="publisher" content="Seokhyun (Shawn) Hwang" />
+    <meta name="author" content="Seokhyun Hwang" />
+    <meta name="creator" content="Seokhyun Hwang" />
+    <meta name="publisher" content="Seokhyun Hwang" />
     <meta name="robots" content={robots} />
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#171717" media="(prefers-color-scheme: dark)" />
@@ -104,14 +139,14 @@ const defaultStructuredData = [personLd, websiteLd];
     {socialProfileUrls.map((url) => <link rel="me" href={url} />)}
 
     <!-- Open Graph / Social -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={ogImage} />
-    <meta property="og:image:alt" content="Portrait of Seokhyun Hwang" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:alt" content={ogImageAlt} />
+    {ogImageWidth && <meta property="og:image:width" content={ogImageWidth} />}
+    {ogImageHeight && <meta property="og:image:height" content={ogImageHeight} />}
     <meta property="og:site_name" content="Seokhyun Hwang" />
     <meta property="og:locale" content="en_US" />
 
@@ -119,7 +154,8 @@ const defaultStructuredData = [personLd, websiteLd];
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
 
     <!-- Sitemap discovery for crawlers -->
     <link rel="sitemap" href="/sitemap-index.xml" type="application/xml" />
@@ -128,6 +164,7 @@ const defaultStructuredData = [personLd, websiteLd];
     {[...defaultStructuredData, ...structuredData].map((data) => (
       <script is:inline type="application/ld+json" set:html={JSON.stringify(data)} />
     ))}
+    <slot name="head" />
 
     <!-- Used to add dark mode right away, adding here prevents any flicker -->
     <script is:inline>

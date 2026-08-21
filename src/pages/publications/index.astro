@@ -1,0 +1,108 @@
+---
+import Layout from "../../layouts/main.astro";
+import {
+	SITE_ORIGIN,
+	absolutePublicationUrl,
+	publicationKindLabel,
+	publicationPath,
+	scholarlyPublications,
+} from "../../lib/scholarly-publications";
+
+const pageUrl = `${SITE_ORIGIN}/publications/`;
+const collectionLd = {
+	"@context": "https://schema.org",
+	"@type": "CollectionPage",
+	"@id": `${pageUrl}#collection`,
+	url: pageUrl,
+	name: "Publications by Seokhyun Hwang",
+	description:
+		"Scholarly publication index for Seokhyun Hwang, with abstracts and citation metadata for HCI, XR, haptics, adaptive interfaces, and assistive systems research.",
+	about: { "@id": `${SITE_ORIGIN}/#person` },
+	mainEntity: {
+		"@type": "ItemList",
+		numberOfItems: scholarlyPublications.length,
+		itemListElement: scholarlyPublications.map((publication, index) => ({
+			"@type": "ListItem",
+			position: index + 1,
+			url: absolutePublicationUrl(publication),
+			name: publication.title,
+		})),
+	},
+};
+---
+
+<Layout
+  title="Publications by Seokhyun Hwang"
+  description="Browse Seokhyun Hwang's scholarly publications with full abstracts, verified citation metadata, DOI links, and BibTeX, RIS, and CSL JSON exports."
+  keywords={[
+    "Seokhyun Hwang publications",
+    "Shawn Hwang publications",
+    "HCI bibliography",
+    "XR research",
+    "haptics research",
+    "adaptive interfaces",
+  ]}
+  structuredData={[collectionLd]}
+>
+  <Fragment slot="head">
+    <link rel="alternate" type="application/x-bibtex" href="/publications.bib" title="Complete BibTeX bibliography" />
+    <link rel="alternate" type="application/x-research-info-systems" href="/publications.ris" title="Complete RIS bibliography" />
+    <link rel="alternate" type="application/vnd.citationstyles.csl+json" href="/publications.json" title="Complete CSL JSON bibliography" />
+  </Fragment>
+
+  <div class="mx-auto w-full max-w-4xl px-6 py-12 sm:py-16">
+    <nav aria-label="Breadcrumb" class="mb-8 text-sm text-neutral-500 dark:text-neutral-400">
+      <a class="underline decoration-dotted underline-offset-4 hover:text-neutral-900 dark:hover:text-white" href="/">
+        Seokhyun Hwang
+      </a>
+      <span aria-hidden="true" class="mx-2">/</span>
+      <span aria-current="page">Publications</span>
+    </nav>
+
+    <header class="border-b border-neutral-200 pb-8 dark:border-neutral-700">
+      <p class="mb-3 text-sm font-medium uppercase tracking-[0.14em] text-neutral-500 dark:text-neutral-400">
+        Scholarly index
+      </p>
+      <h1 class="text-3xl font-semibold tracking-tight text-neutral-900 dark:text-white sm:text-4xl">
+        Publications
+      </h1>
+      <p class="mt-4 max-w-2xl text-base leading-7 text-neutral-600 dark:text-neutral-300">
+        Full abstracts and machine-readable citation metadata for {scholarlyPublications.length} publications.
+      </p>
+      <div class="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+        <a class="underline decoration-dotted underline-offset-4 hover:text-neutral-900 dark:text-neutral-200" href="/publications.bib">
+          BibTeX
+        </a>
+        <a class="underline decoration-dotted underline-offset-4 hover:text-neutral-900 dark:text-neutral-200" href="/publications.ris">
+          RIS
+        </a>
+        <a class="underline decoration-dotted underline-offset-4 hover:text-neutral-900 dark:text-neutral-200" href="/publications.json">
+          CSL JSON
+        </a>
+      </div>
+    </header>
+
+    <ol class="divide-y divide-neutral-200 dark:divide-neutral-700">
+      {scholarlyPublications.map((publication) => (
+        <li class="py-7">
+          <article>
+            <p class="mb-2 text-xs font-medium uppercase tracking-[0.12em] text-neutral-500 dark:text-neutral-400">
+              {publication.id} · {publicationKindLabel(publication.publicationKind)} · <time datetime={publication.publicationDate}>{publication.year}</time>
+            </p>
+            <h2 class="text-lg font-semibold leading-snug text-neutral-900 dark:text-white sm:text-xl">
+              <a class="hover:underline hover:decoration-dotted hover:underline-offset-4" href={publicationPath(publication)}>
+                {publication.title}
+              </a>
+            </h2>
+            <p class="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
+              {publication.authors.map((author) => author.displayName).join(", ")}
+            </p>
+            <p class="mt-1 text-sm italic leading-6 text-neutral-500 dark:text-neutral-400">
+              {publication.containerTitle}
+            </p>
+          </article>
+        </li>
+      ))}
+    </ol>
+  </div>
+</Layout>

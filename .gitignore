@@ -20,5 +20,9 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
+# local-only source and historical documents (not deployed or committed)
+/archive/
+/source-documents/
+
 # jetbrains setting folder
 .idea/

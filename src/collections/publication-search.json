@@ -1,0 +1,1740 @@
+{
+	"schemaVersion": 1,
+	"meta": {
+		"description": "Supplemental metadata for scholarly discovery routes and citation exports.",
+		"canonicalCitationSource": "src/collections/publications.json",
+		"abstractSource": "author-provided publication abstract collection",
+		"inferenceNotes": [
+			"Homepage titles and abbreviated citation strings remain canonical for visible detail-page citations.",
+			"Dates, DOI values, full author display names, container titles, volumes, issues, and pages come from verified bibliographic records where available.",
+			"Family/given-name segmentation is inferred by treating the final token of each verified display name as the family name.",
+			"Records without a verified day-level publication date use the homepage venue year and explicitly report year-level precision.",
+			"A single LaTeX-style percent escape in the c.14 source abstract is normalized from 20\\% to 20% for HTML and citation output."
+		]
+	},
+	"entries": [
+		{
+			"id": "c.15",
+			"slug": "closed-loop-cpr-training-glove",
+			"abstract": "Cardiopulmonary resuscitation (CPR) is a critical life-saving procedure, and effective training benefits from self-directed practice beyond instructor-led sessions. In this paper, we propose a closed-loop CPR training glove that integrates a high-resolution tactile sensing array and vibrotactile actuators for self-directed practice. The tactile sensing array measures distributed pressures across the palm and dorsum to enable real-time estimation of compression rate, force, and hand pose. Based on these estimations, the glove delivers immediate haptic feedback to guide the user for proper CPR, reducing reliance on external audio-visual displays. We quantified the tactile sensor performance by measuring wide-range sensitivity (≈ 0.85 over 0- 600 N), computing hysteresis (56.04%), testing stability (11.05% drift over 300 cycles), and estimating global signal-to-noise ratio (18.90 ± 2.41 dB at 600 N). Our closed-loop pipeline provides continuous modeling and feedback of key performance metrics essential for high-quality CPR. Our lightweight statistical models achieve >92% accuracy for force estimation and hand pose classification within sub-millisecond inference time. Our user study (N=8) showed that haptic feedback reduced visual distraction compared to audio-visual cues, though simplified patterns were required for reliable perception under dynamic load. These results highlight the potential of tactile sensing and haptic glove for CPR self-training.",
+			"year": 2026,
+			"publicationDate": "2026",
+			"publicationDatePrecision": "year",
+			"publicationDateSource": "conference year",
+			"publicationKind": "conference-paper-accepted",
+			"publicationKindSource": "verified bibliographic record",
+			"containerTitle": "2026 IEEE International Conference on Robotics and Automation (ICRA)",
+			"containerTitleSource": "verified bibliographic record",
+			"externalUrl": "https://arxiv.org/abs/2603.05793",
+			"preprint": "arXiv:2603.05793",
+			"preprintUrl": "https://arxiv.org/abs/2603.05793",
+			"preprintDate": "2026-03-06",
+			"preprintSource": "verified bibliographic record",
+			"authors": [
+				{
+					"familyName": "Moon",
+					"givenName": "Jaeyoung",
+					"displayName": "Jaeyoung Moon",
+					"order": 1,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Ma",
+					"givenName": "Mingzhuo",
+					"displayName": "Mingzhuo Ma",
+					"order": 2,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Yang",
+					"givenName": "Qifeng",
+					"displayName": "Qifeng Yang",
+					"order": 3,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Choi",
+					"givenName": "Youjin",
+					"displayName": "Youjin Choi",
+					"order": 4,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Hwang",
+					"givenName": "Seokhyun",
+					"displayName": "Seokhyun Hwang",
+					"order": 5,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Burden",
+					"givenName": "Samuel",
+					"displayName": "Samuel Burden",
+					"order": 6,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "Kyung-Joong",
+					"displayName": "Kyung-Joong Kim",
+					"order": 7,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Luo",
+					"givenName": "Yiyue",
+					"displayName": "Yiyue Luo",
+					"order": 8,
+					"namePartsInferred": true
+				}
+			],
+			"authorSource": "verified bibliographic records"
+		},
+		{
+			"id": "c.14",
+			"slug": "adaptive-in-car-touchscreen-framework",
+			"abstract": "Although in-car touchscreens expand interaction possibilities, they risk compromising driver safety and vigilance. We propose a data- and expert-informed framework for designing adaptive touchscreens that respond to a driver’s usage profile and cognitive state, maximizing usability while mitigating safety risks. First, in a driving simulator study, we find that cognitive load slows touchscreen button selections by 20% and produced shorter, more frequent off-road glances. We also find that enlarging buttons improves selection speeds by 0.3 seconds but at the cost of requiring more display pages. Next, these findings informed a co-design session with expert in-cabin designers, generating guidelines for adaptive interfaces that balance usability and safety. These guidelines form the basis of our Profile-State Adaptive (PSA) framework, which integrates driver profiles with cognitive states to guide interface adaptations. We then extend the framework to include a quantitative Time-Cost model as well as design patterns for adaptive layouts across usage profiles and cognitive demands.",
+			"year": 2026,
+			"publicationDate": "2026-04-13",
+			"publicationDatePrecision": "day",
+			"publicationDateSource": "verified bibliographic record",
+			"publicationKind": "conference-paper",
+			"publicationKindSource": "verified bibliographic record",
+			"containerTitle": "Proceedings of the 2026 CHI Conference on Human Factors in Computing Systems",
+			"containerTitleSource": "verified bibliographic record",
+			"doi": "10.1145/3772318.3790434",
+			"doiSource": "verified publisher metadata",
+			"externalUrl": "https://doi.org/10.1145/3772318.3790434",
+			"pages": "1-23",
+			"authors": [
+				{
+					"familyName": "Hwang",
+					"givenName": "Seokhyun",
+					"displayName": "Seokhyun Hwang",
+					"order": 1,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Shen",
+					"givenName": "Xiyuan",
+					"displayName": "Xiyuan Shen",
+					"order": 2,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Filipowicz",
+					"givenName": "Alexandre L. S.",
+					"displayName": "Alexandre L. S. Filipowicz",
+					"order": 3,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Best",
+					"givenName": "Andrew",
+					"displayName": "Andrew Best",
+					"order": 4,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Costa",
+					"givenName": "Jean",
+					"displayName": "Jean Costa",
+					"order": 5,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Carter",
+					"givenName": "Scott",
+					"displayName": "Scott Carter",
+					"order": 6,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Fogarty",
+					"givenName": "James",
+					"displayName": "James Fogarty",
+					"order": 7,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Wobbrock",
+					"givenName": "Jacob O.",
+					"displayName": "Jacob O. Wobbrock",
+					"order": 8,
+					"namePartsInferred": true
+				}
+			],
+			"authorSource": "verified bibliographic records"
+		},
+		{
+			"id": "c.13",
+			"slug": "touchscreens-in-motion",
+			"abstract": "This study investigates the interplay between a driver's cognitive load, touchscreen interactions, and driving performance. Using an N-back task to induce four levels of cognitive load, we measured physiological responses (pupil diameter, electrodermal activity), subjective workload (NASA-TLX), touchscreen performance (Fitts' law), and driving metrics (lateral deviation, throttle control). Our results reveal significant mutual performance degradation, with touchscreen pointing throughput decreasing by over 58.1% during driving conditions and lateral driving deviation increasing by 41.9% when touchscreen interactions were introduced. Under high cognitive load, participants demonstrated a 20.2% increase in pointing movement time, 16.6% decreased pointing throughput, and 26.3% reduced off-road glance durations. We identified a prevalent \"hand-before-eye\" phenomenon where ballistic hand movements frequently preceded visual attention shifts. These findings quantify the impact of cognitive load on multitasking performance and demonstrate how drivers adapt their visual attention and motor-visual coordination when cognitive resources are constrained.",
+			"year": 2025,
+			"publicationDate": "2025-09-27",
+			"publicationDatePrecision": "day",
+			"publicationDateSource": "verified bibliographic record",
+			"publicationKind": "conference-paper",
+			"publicationKindSource": "verified bibliographic record",
+			"containerTitle": "Proceedings of the 38th Annual ACM Symposium on User Interface Software and Technology",
+			"containerTitleSource": "verified bibliographic record",
+			"doi": "10.1145/3746059.3747683",
+			"doiSource": "verified publisher metadata",
+			"externalUrl": "https://doi.org/10.1145/3746059.3747683",
+			"pages": "1-21",
+			"authors": [
+				{
+					"familyName": "Shen",
+					"givenName": "Xiyuan",
+					"displayName": "Xiyuan Shen",
+					"order": 1,
+					"namePartsInferred": true,
+					"equalContribution": true
+				},
+				{
+					"familyName": "Hwang",
+					"givenName": "Seokhyun",
+					"displayName": "Seokhyun Hwang",
+					"order": 2,
+					"namePartsInferred": true,
+					"equalContribution": true
+				},
+				{
+					"familyName": "Kong",
+					"givenName": "Junhan",
+					"displayName": "Junhan Kong",
+					"order": 3,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Filipowicz",
+					"givenName": "Alexandre L. S.",
+					"displayName": "Alexandre L. S. Filipowicz",
+					"order": 4,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Best",
+					"givenName": "Andrew",
+					"displayName": "Andrew Best",
+					"order": 5,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Costa",
+					"givenName": "Jean",
+					"displayName": "Jean Costa",
+					"order": 6,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Carter",
+					"givenName": "Scott",
+					"displayName": "Scott Carter",
+					"order": 7,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Fogarty",
+					"givenName": "James",
+					"displayName": "James Fogarty",
+					"order": 8,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Wobbrock",
+					"givenName": "Jacob O.",
+					"displayName": "Jacob O. Wobbrock",
+					"order": 9,
+					"namePartsInferred": true
+				}
+			],
+			"authorSource": "verified bibliographic records"
+		},
+		{
+			"id": "c.12",
+			"slug": "contextual-ehmi-multi-road-user-conflicts",
+			"abstract": "As autonomous vehicles (AVs) become more prevalent, mixed-traffic environments involving pedestrians, cyclists, and manual vehicle drivers pose significant challenges for ensuring safe and effective interactions. External Human-Machine Interfaces (eHMIs) have emerged as a solution, particularly context-based eHMIs, which provide specific information such as Whom, When, and Where, showing potential for improving communication in complex scenarios. However, their impact on road user behavior and safety in interactions involving multiple road users remains insufficiently explored. This study addresses this gap by examining how contextual eHMIs affect crossing performance and subjective feelings during multi-user conflict scenarios. Using a virtual reality-based multi-agent simulation, 42 participants were equally divided into three groups---pedestrians, cyclists, and manual vehicle drivers---to make crossing decisions during interactions with an AV. Our findings demonstrated that providing contextual information in AV-multi-road user interactions significantly enhanced participants' crossing performance and improved their perceived safety, trust, and clarity. These findings highlight the potential of context-based eHMIs to facilitate safer and more intuitive interactions in mixed-traffic environments.",
+			"year": 2025,
+			"publicationDate": "2025-09-03",
+			"publicationDatePrecision": "day",
+			"publicationDateSource": "verified bibliographic record",
+			"publicationKind": "journal-article",
+			"publicationKindSource": "verified bibliographic record",
+			"containerTitle": "Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies",
+			"containerTitleSource": "verified bibliographic record",
+			"doi": "10.1145/3749473",
+			"doiSource": "verified publisher metadata",
+			"externalUrl": "https://doi.org/10.1145/3749473",
+			"volume": "9",
+			"issue": "3",
+			"pages": "1-37",
+			"authors": [
+				{
+					"familyName": "Kang",
+					"givenName": "Yumin",
+					"displayName": "Yumin Kang",
+					"order": 1,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Park",
+					"givenName": "Jeongju",
+					"displayName": "Jeongju Park",
+					"order": 2,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Hwang",
+					"givenName": "Seokhyun",
+					"displayName": "Seokhyun Hwang",
+					"order": 3,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Seong",
+					"givenName": "Minwoo",
+					"displayName": "Minwoo Seong",
+					"order": 4,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "Gwangbin",
+					"displayName": "Gwangbin Kim",
+					"order": 5,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "SeungJun",
+					"displayName": "SeungJun Kim",
+					"order": 6,
+					"namePartsInferred": true
+				}
+			],
+			"authorSource": "verified bibliographic records"
+		},
+		{
+			"id": "j.3",
+			"slug": "red-shoes-multisensory-redirected-walking",
+			"abstract": "A major challenge in virtual reality (VR) is enabling users to navigate expansive virtual environments within confined real-world spaces. Although redirected walking (RDW) addresses this by manipulating users’ walking paths, it is hindered by visual-vestibular inconsistencies, leading to reduced immersion, discomfort, and constrained detection thresholds (DTs). We introduce ReD Shoes, redirecting shoes for VR locomotion with dynamically adjustable inclination designed to enhance multisensory integration by providing haptic feedback directly to the feet. This feedback mitigates visual-vestibular inconsistencies by enhancing proprioceptive cues and aligning tactile sensations with visual stimuli, thereby improving self-motion perception, presence, and gait stability. We conducted two experiments with 30 participants: 10 in a pilot study to optimize inclination parameters and 20 in a main study to evaluate the DT, gait stability, and user experience under No Inclination, Low Inclination (1 cm), and High Inclination (1.5 cm) conditions. Low Inclination considerably expanded the DT (43.64%), enhanced the user’s feel of presence, and maintained walking stability through effective multisensory alignment. In comparison, High Inclination showed a smaller DT expansion (33.86%), increased discomfort, reduced stability, and aggravated oculomotor symptoms due to intensified sensory conflicts. This study demonstrates the use of ReD Shoes in addressing key RDW limitations by enhancing DT, stability, and user presence through active haptic feedback. Our findings offer insights for developing advanced VR mobility solutions, supporting adaptive haptic footwear that improves RDW functionality and extends immersive VR applications in gaming, training, and rehabilitation.",
+			"year": 2025,
+			"publicationDate": "2025-09-18",
+			"publicationDatePrecision": "day",
+			"publicationDateSource": "verified bibliographic record",
+			"publicationKind": "journal-article",
+			"publicationKindSource": "verified bibliographic record",
+			"containerTitle": "Virtual Reality",
+			"containerTitleSource": "verified bibliographic record",
+			"doi": "10.1007/s10055-025-01234-w",
+			"doiSource": "verified publisher metadata",
+			"externalUrl": "https://link.springer.com/article/10.1007/s10055-025-01234-w",
+			"volume": "29",
+			"issue": "4",
+			"articleNumber": "158",
+			"authors": [
+				{
+					"familyName": "Ataya",
+					"givenName": "Aya",
+					"displayName": "Aya Ataya",
+					"order": 1,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Elsharkawy",
+					"givenName": "Ahmed",
+					"displayName": "Ahmed Elsharkawy",
+					"order": 2,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Lee",
+					"givenName": "Jieun",
+					"displayName": "Jieun Lee",
+					"order": 3,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Hwang",
+					"givenName": "Seokhyun",
+					"displayName": "Seokhyun Hwang",
+					"order": 4,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Seong",
+					"givenName": "Minwoo",
+					"displayName": "Minwoo Seong",
+					"order": 5,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "SeungJun",
+					"displayName": "SeungJun Kim",
+					"order": 6,
+					"namePartsInferred": true
+				}
+			],
+			"authorSource": "verified bibliographic records"
+		},
+		{
+			"id": "c.11",
+			"slug": "telepulse",
+			"abstract": "This paper introduces TelePulse, a system integrating biomechanical simulation with electrical muscle stimulation (EMS) to provide precise haptic feedback for robot teleoperation tasks in virtual reality (VR). TelePulse has two components: a physical simulation part that calculates joint torques based on real-time force data from remote manipulators, and an electrical stimulation part that converts these torques into muscle stimulation. Two experiments were conducted to evaluate the system. The first experiment assessed the accuracy of EMS generated through biomechanical simulations by comparing it with electromyography (EMG) data during force-directed tasks, while the second experiment evaluated the impact of TelePulse on teleoperation performance during sanding and drilling tasks. The results suggest that TelePulse provided more accurate stimulation across all arm muscles, thereby enhancing task performance and user experience in the teleoperation environment. In this paper, we discuss the effect of TelePulse on teleoperation, its limitations, and areas for future improvement.",
+			"year": 2025,
+			"publicationDate": "2025-04-25",
+			"publicationDatePrecision": "day",
+			"publicationDateSource": "verified bibliographic record",
+			"publicationKind": "conference-paper",
+			"publicationKindSource": "verified bibliographic record",
+			"containerTitle": "Proceedings of the 2025 CHI Conference on Human Factors in Computing Systems",
+			"containerTitleSource": "verified bibliographic record",
+			"doi": "10.1145/3706598.3713767",
+			"doiSource": "verified publisher metadata",
+			"externalUrl": "https://doi.org/10.1145/3706598.3713767",
+			"pages": "1-26",
+			"authors": [
+				{
+					"familyName": "Hwang",
+					"givenName": "Seokhyun",
+					"displayName": "Seokhyun Hwang",
+					"order": 1,
+					"namePartsInferred": true,
+					"equalContribution": true
+				},
+				{
+					"familyName": "Kang",
+					"givenName": "Seongjun",
+					"displayName": "Seongjun Kang",
+					"order": 2,
+					"namePartsInferred": true,
+					"equalContribution": true
+				},
+				{
+					"familyName": "Oh",
+					"givenName": "Jeongseok",
+					"displayName": "Jeongseok Oh",
+					"order": 3,
+					"namePartsInferred": true,
+					"equalContribution": true
+				},
+				{
+					"familyName": "Park",
+					"givenName": "Jeongju",
+					"displayName": "Jeongju Park",
+					"order": 4,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Shin",
+					"givenName": "Semoo",
+					"displayName": "Semoo Shin",
+					"order": 5,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Luo",
+					"givenName": "Yiyue",
+					"displayName": "Yiyue Luo",
+					"order": 6,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "DelPreto",
+					"givenName": "Joseph",
+					"displayName": "Joseph DelPreto",
+					"order": 7,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Lee",
+					"givenName": "Sangbeom",
+					"displayName": "Sangbeom Lee",
+					"order": 8,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Lee",
+					"givenName": "Kyoobin",
+					"displayName": "Kyoobin Lee",
+					"order": 9,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Matusik",
+					"givenName": "Wojciech",
+					"displayName": "Wojciech Matusik",
+					"order": 10,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Rus",
+					"givenName": "Daniela",
+					"displayName": "Daniela Rus",
+					"order": 11,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "SeungJun",
+					"displayName": "SeungJun Kim",
+					"order": 12,
+					"namePartsInferred": true
+				}
+			],
+			"authorSource": "verified bibliographic records"
+		},
+		{
+			"id": "c.10",
+			"slug": "in-car-vr-active-locomotion",
+			"abstract": "We explore the feasibility of active user-applied locomotion in virtual reality (VR) within in-car environments, diverging from previous in-car VR research that synchronized virtual motion with the car’s movement. Through a two-step study, we examined the effects of locomotion methods on user experience in dynamic vehicle environments and evaluated contextual cues designed to mitigate sensory mismatch caused by vehicle motion. The first study evaluated five locomotion methods, identifying joystick-based navigation as the most suitable for in-car use due to its low physical demand and stability. The second study focused on designing and testing contextual cues that translate physical sensations of vehicle motion into virtual effects without limiting the user’s freedom of movement, with results demonstrating their effectiveness in reducing motion sickness and enhancing presence. We conclude with initial insights and design considerations for expanding upon our findings in regards to enabling active locomotion in in-car VR.",
+			"year": 2025,
+			"publicationDate": "2025-04-25",
+			"publicationDatePrecision": "day",
+			"publicationDateSource": "verified bibliographic record",
+			"publicationKind": "conference-paper",
+			"publicationKindSource": "verified bibliographic record",
+			"containerTitle": "Proceedings of the 2025 CHI Conference on Human Factors in Computing Systems",
+			"containerTitleSource": "verified bibliographic record",
+			"doi": "10.1145/3706598.3713373",
+			"doiSource": "verified publisher metadata",
+			"externalUrl": "https://doi.org/10.1145/3706598.3713373",
+			"pages": "1-19",
+			"authors": [
+				{
+					"familyName": "Gim",
+					"givenName": "Bocheon",
+					"displayName": "Bocheon Gim",
+					"order": 1,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Hwang",
+					"givenName": "Seokhyun",
+					"displayName": "Seokhyun Hwang",
+					"order": 2,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kang",
+					"givenName": "Seongjun",
+					"displayName": "Seongjun Kang",
+					"order": 3,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "Gwangbin",
+					"displayName": "Gwangbin Kim",
+					"order": 4,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Yeo",
+					"givenName": "Dohyeon",
+					"displayName": "Dohyeon Yeo",
+					"order": 5,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "SeungJun",
+					"displayName": "SeungJun Kim",
+					"order": 6,
+					"namePartsInferred": true
+				}
+			],
+			"authorSource": "verified bibliographic records"
+		},
+		{
+			"id": "c.9",
+			"slug": "adaptive-walker",
+			"abstract": "In this paper, we present an adaptive walker system designed to address limitations in current intelligent walker technologies. While recent advancements have been made in this field, existing systems often struggle to seamlessly interpret user intent for speed control and lack adaptability across diverse scenarios and terrain. Our proposed solution incorporates high-resolution tactile sensors, deep learning algorithms, IMU sensors, and linear motors to dynamically adjust to the user's intentions and terrain changes. The system is capable of predicting the user's desired speed with an error margin of only 20.99%, relying solely on tactile input from hand and arm contact points. Additionally, it maintains the walker's horizontal stability with an error of less than 1 degree by adjusting leg lengths in response to variations in ground angle. This adaptive walker enhances user safety and comfort, particularly for individuals with reduced strength or cognitive abilities, and offers reliable assistance on uneven terrain such as uphill and downhill paths.",
+			"year": 2025,
+			"publicationDate": "2025-05-19",
+			"publicationDatePrecision": "day",
+			"publicationDateSource": "verified bibliographic record",
+			"publicationKind": "conference-paper",
+			"publicationKindSource": "verified bibliographic record",
+			"containerTitle": "2025 IEEE International Conference on Robotics and Automation (ICRA)",
+			"containerTitleSource": "verified bibliographic record",
+			"doi": "10.1109/ICRA55743.2025.11127691",
+			"doiSource": "verified publisher metadata",
+			"externalUrl": "https://ieeexplore.ieee.org/abstract/document/11127691",
+			"pages": "734-740",
+			"authors": [
+				{
+					"familyName": "Choi",
+					"givenName": "Yunho",
+					"displayName": "Yunho Choi",
+					"order": 1,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Hwang",
+					"givenName": "Seokhyun",
+					"displayName": "Seokhyun Hwang",
+					"order": 2,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Moon",
+					"givenName": "JaeYoung",
+					"displayName": "JaeYoung Moon",
+					"order": 3,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Lee",
+					"givenName": "Hosu",
+					"displayName": "Hosu Lee",
+					"order": 4,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Yeo",
+					"givenName": "Dohyeon",
+					"displayName": "Dohyeon Yeo",
+					"order": 5,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Seong",
+					"givenName": "Minwoo",
+					"displayName": "Minwoo Seong",
+					"order": 6,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Luo",
+					"givenName": "Yiyue",
+					"displayName": "Yiyue Luo",
+					"order": 7,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "SeungJun",
+					"displayName": "SeungJun Kim",
+					"order": 8,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Matusik",
+					"givenName": "Wojciech",
+					"displayName": "Wojciech Matusik",
+					"order": 9,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Rus",
+					"givenName": "Daniela",
+					"displayName": "Daniela Rus",
+					"order": 10,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "Kyung-Joong",
+					"displayName": "Kyung-Joong Kim",
+					"order": 11,
+					"namePartsInferred": true
+				}
+			],
+			"authorSource": "verified bibliographic records"
+		},
+		{
+			"id": "c.8",
+			"slug": "flip-pelt",
+			"abstract": "This study introduces \"Flip-Pelt,\" a motor-driven peltier device designed to provide rapid thermal stimulation and congruent pressure feedback in virtual reality (VR) environments. Our system incorporates eight motor-driven peltier elements, allowing for the flipping of preheated or cooled elements to the opposite side. In evaluating the Flip-Pelt device, we assess user ability to distinguish between heat/cold sources by their patterns and stiffness, and its impact on enhancing haptic experiences in VR content that involves contact with various thermal sources. Our findings demonstrate that rapid thermal stimulation and congruent pressure feedback provided by Flip-Pelt enhance the recognition accuracy of thermal patterns and the stiffness of virtual objects. These features also improve haptic experiences in VR scenarios through their temporal congruency between tactile and thermal stimuli. Additionally, we discuss the scalability of the Flip-Pelt system to other body parts by proposing design prototypes.",
+			"year": 2024,
+			"publicationDate": "2024-10-11",
+			"publicationDatePrecision": "day",
+			"publicationDateSource": "verified bibliographic record",
+			"publicationKind": "conference-paper",
+			"publicationKindSource": "verified bibliographic record",
+			"containerTitle": "Proceedings of the 37th Annual ACM Symposium on User Interface Software and Technology",
+			"containerTitleSource": "verified bibliographic record",
+			"doi": "10.1145/3654777.3676363",
+			"doiSource": "verified publisher metadata",
+			"externalUrl": "https://doi.org/10.1145/3654777.3676363",
+			"pages": "1-15",
+			"authors": [
+				{
+					"familyName": "Kang",
+					"givenName": "Seongjun",
+					"displayName": "Seongjun Kang",
+					"order": 1,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "Gwangbin",
+					"displayName": "Gwangbin Kim",
+					"order": 2,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Hwang",
+					"givenName": "Seokhyun",
+					"displayName": "Seokhyun Hwang",
+					"order": 3,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Park",
+					"givenName": "Jeongju",
+					"displayName": "Jeongju Park",
+					"order": 4,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Elsharkawy",
+					"givenName": "Ahmed Ibrahim Ahmed Mohamed",
+					"displayName": "Ahmed Ibrahim Ahmed Mohamed Elsharkawy",
+					"order": 5,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "SeungJun",
+					"displayName": "SeungJun Kim",
+					"order": 6,
+					"namePartsInferred": true
+				}
+			],
+			"authorSource": "verified bibliographic records"
+		},
+		{
+			"id": "w.4",
+			"slug": "teleoperation-ems-framework",
+			"abstract": "Teleoperation, the remote manual control of robots, is primarily used in high-precision and safety-critical environments such as surgery, space exploration, and deep-sea exploration. Despite being a widely utilized technology, teleoperation relies on human cognitive abilities, leading to significant cognitive load for operators. To address this challenge, we propose a concept of a VR teleoperation haptic system that combines biomechanical simulation and electrical muscle stimulation to provide force feedback in a lightweight, wearable form by mimicking natural force generation without the need for external actuators. Our system is divided into two main components: the physical simulation part, which calculates the joint torques to replicate forces from the manipulator, and the electrical stimulation part, which translates torques into muscle stimulations. Through this integration, we expect our system to bridge the gulf of execution and evaluation, reducing cognitive load and enhancing teleoperation performance. This paper aims to discuss the detailed framework of our system and potential future research directions.",
+			"year": 2024,
+			"publicationDate": "2024-10-05",
+			"publicationDatePrecision": "day",
+			"publicationDateSource": "verified bibliographic record",
+			"publicationKind": "conference-companion-paper",
+			"publicationKindSource": "verified bibliographic record",
+			"containerTitle": "Companion of the 2024 ACM International Joint Conference on Pervasive and Ubiquitous Computing",
+			"containerTitleSource": "verified bibliographic record",
+			"doi": "10.1145/3675094.3678380",
+			"doiSource": "verified publisher metadata",
+			"externalUrl": "https://doi.org/10.1145/3675094.3678380",
+			"pages": "826-831",
+			"authors": [
+				{
+					"familyName": "Hwang",
+					"givenName": "Seokhyun",
+					"displayName": "Seokhyun Hwang",
+					"order": 1,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kang",
+					"givenName": "Seongjun",
+					"displayName": "Seongjun Kang",
+					"order": 2,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Oh",
+					"givenName": "Jeongseok",
+					"displayName": "Jeongseok Oh",
+					"order": 3,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Park",
+					"givenName": "Jeongju",
+					"displayName": "Jeongju Park",
+					"order": 4,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Shin",
+					"givenName": "Semoo",
+					"displayName": "Semoo Shin",
+					"order": 5,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Luo",
+					"givenName": "Yiyue",
+					"displayName": "Yiyue Luo",
+					"order": 6,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "DelPreto",
+					"givenName": "Joseph",
+					"displayName": "Joseph DelPreto",
+					"order": 7,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Matusik",
+					"givenName": "Wojciech",
+					"displayName": "Wojciech Matusik",
+					"order": 8,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Rus",
+					"givenName": "Daniela",
+					"displayName": "Daniela Rus",
+					"order": 9,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "SeungJun",
+					"displayName": "SeungJun Kim",
+					"order": 10,
+					"namePartsInferred": true
+				}
+			],
+			"authorSource": "verified bibliographic records"
+		},
+		{
+			"id": "w.3",
+			"slug": "adaptive-in-vehicle-vr-posture",
+			"abstract": "The rise of autonomous vehicles (AVs) has promoted the adoption of in-vehicle virtual reality (VR) for creating immersive experiences. However, these experiences can trigger motion sickness (MS) due to visual-vestibular mismatches. Traditional techniques, such as visual matching and scene manipulation, address MS but often neglect the impact of body posture changes. This study examines the effects of interactive VR tasks on passenger body posture during MS-inducing events, including turns and vertical displacements. Our findings reveal significant variations in user body postures relative to conditions with event-based designed interactive VR tasks, resulting in a reduction of MS symptoms. Specifically, participants engaged in interactive VR tasks showed improved posture alignment and body stability. These insights offer practical guidelines for developing adaptive VR content that proactively manages posture to alleviate MS, thereby enhancing passenger comfort in in-vehicle VR applications.",
+			"year": 2024,
+			"publicationDate": "2024-10-05",
+			"publicationDatePrecision": "day",
+			"publicationDateSource": "verified bibliographic record",
+			"publicationKind": "conference-companion-paper",
+			"publicationKindSource": "verified bibliographic record",
+			"containerTitle": "Companion of the 2024 ACM International Joint Conference on Pervasive and Ubiquitous Computing",
+			"containerTitleSource": "verified bibliographic record",
+			"doi": "10.1145/3675094.3678381",
+			"doiSource": "verified publisher metadata",
+			"externalUrl": "https://doi.org/10.1145/3675094.3678381",
+			"pages": "832-836",
+			"authors": [
+				{
+					"familyName": "Elsharkawy",
+					"givenName": "Ahmed",
+					"displayName": "Ahmed Elsharkawy",
+					"order": 1,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Ataya",
+					"givenName": "Aya",
+					"displayName": "Aya Ataya",
+					"order": 2,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Yeo",
+					"givenName": "Dohyeon",
+					"displayName": "Dohyeon Yeo",
+					"order": 3,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Seong",
+					"givenName": "Minwoo",
+					"displayName": "Minwoo Seong",
+					"order": 4,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Hwang",
+					"givenName": "Seokhyun",
+					"displayName": "Seokhyun Hwang",
+					"order": 5,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "DelPreto",
+					"givenName": "Joseph",
+					"displayName": "Joseph DelPreto",
+					"order": 6,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Matusik",
+					"givenName": "Wojciech",
+					"displayName": "Wojciech Matusik",
+					"order": 7,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Rus",
+					"givenName": "Daniela",
+					"displayName": "Daniela Rus",
+					"order": 8,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "SeungJun",
+					"displayName": "SeungJun Kim",
+					"order": 9,
+					"namePartsInferred": true
+				}
+			],
+			"authorSource": "verified bibliographic records"
+		},
+		{
+			"id": "c.7",
+			"slug": "timelytale",
+			"abstract": "Explanations in automated vehicles enhance passengers' understanding of vehicle decision-making, mitigating negative experiences by increasing their sense of control. These explanations help maintain situation awareness, even when passengers are not actively driving, and calibrate trust to match vehicle capabilities, enabling safe engagement in non-driving related tasks. While design studies emphasize timing as a crucial factor affecting trust, machine learning practices for explanation generation primarily focus on content rather than delivery timing. This discrepancy could lead to mistimed explanations, causing misunderstandings or unnecessary interruptions. This gap is partly due to alack of datasets capturing passengers' real-world demands and experiences with in-vehicle explanations. We introduce TimelyTale, an approach that records passengers' demands for explanations in automated vehicles. The dataset includes environmental, driving-related, and passenger-specific sensor data for context-aware explanations. Our machine learning analysis identifies proprioceptive and physiological data as key features for predicting passengers' explanation demands, suggesting their potential for generating timely, context-aware explanations. The TimelyTale dataset is available at https://doi.org/10.7910/DVN/CQ8UB0.",
+			"year": 2024,
+			"publicationDate": "2024-08-22",
+			"publicationDatePrecision": "day",
+			"publicationDateSource": "verified bibliographic record",
+			"publicationKind": "journal-article",
+			"publicationKindSource": "verified bibliographic record",
+			"containerTitle": "Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies",
+			"containerTitleSource": "verified bibliographic record",
+			"doi": "10.1145/3678544",
+			"doiSource": "verified publisher metadata",
+			"externalUrl": "https://dl.acm.org/doi/10.1145/3678544",
+			"volume": "8",
+			"issue": "3",
+			"pages": "1-60",
+			"officialTitle": "TimelyTale: A Multimodal Dataset Approach to Assessing Passengers' Explanation Demands in Highly Automated Vehicles",
+			"officialTitleSource": "verified publisher metadata",
+			"authors": [
+				{
+					"familyName": "Kim",
+					"givenName": "Gwangbin",
+					"displayName": "Gwangbin Kim",
+					"order": 1,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Hwang",
+					"givenName": "Seokhyun",
+					"displayName": "Seokhyun Hwang",
+					"order": 2,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Seong",
+					"givenName": "Minwoo",
+					"displayName": "Minwoo Seong",
+					"order": 3,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Yeo",
+					"givenName": "Dohyeon",
+					"displayName": "Dohyeon Yeo",
+					"order": 4,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Rus",
+					"givenName": "Daniela",
+					"displayName": "Daniela Rus",
+					"order": 5,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "SeungJun",
+					"displayName": "SeungJun Kim",
+					"order": 6,
+					"namePartsInferred": true
+				}
+			],
+			"authorSource": "verified bibliographic records"
+		},
+		{
+			"id": "w.2",
+			"slug": "intelligence-walker",
+			"abstract": "This paper focuses on creating an Intelligence walker that provides the best experience to users by utilizing artificial intelligence and sensing technologies (Ambient AI, unobtrusive sensing) that are invisible to humans. Our walker perceives the user’s intentions and surrounding environment using tactile and hidden IMU sensors. Utilizing this, we enable the wheels to roll at the desired speed of the user or change the form of the walker itself to match the surrounding environment. The system enables to control of speed with an average error of 0.046 m/s and measures the surrounding environment’s angle to keep the walker parallel. Our system will undergo usability testing with several general users and some elderly users in the future.",
+			"year": 2024,
+			"publicationDate": "2024",
+			"publicationDatePrecision": "year",
+			"publicationDateSource": "homepage venue text",
+			"publicationKind": "workshop-paper",
+			"publicationKindSource": "verified bibliographic record",
+			"containerTitle": "ICRA 2024 Workshop on Advancing Wearable Devices and Applications through Novel Design, Sensing, Actuation, and AI",
+			"containerTitleSource": "verified bibliographic record",
+			"externalUrl": "https://sites.google.com/view/icra-2024-wearable-workshop/proceedings",
+			"pageCount": 3,
+			"authors": [
+				{
+					"familyName": "Choi",
+					"givenName": "Yunho",
+					"displayName": "Yunho Choi",
+					"order": 1,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Yeo",
+					"givenName": "Dohyeon",
+					"displayName": "Dohyeon Yeo",
+					"order": 2,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Hwang",
+					"givenName": "Seokhyun",
+					"displayName": "Seokhyun Hwang",
+					"order": 3,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Seong",
+					"givenName": "Minwoo",
+					"displayName": "Minwoo Seong",
+					"order": 4,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Moon",
+					"givenName": "JaeYoung",
+					"displayName": "JaeYoung Moon",
+					"order": 5,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Luo",
+					"givenName": "Yiyue",
+					"displayName": "Yiyue Luo",
+					"order": 6,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Matusik",
+					"givenName": "Wojciech",
+					"displayName": "Wojciech Matusik",
+					"order": 7,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Rus",
+					"givenName": "Daniela",
+					"displayName": "Daniela Rus",
+					"order": 8,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "Kyung-Joong",
+					"displayName": "Kyung-Joong Kim",
+					"order": 9,
+					"namePartsInferred": true
+				}
+			],
+			"authorSource": "verified bibliographic records"
+		},
+		{
+			"id": "w.1",
+			"slug": "dual-sided-peltier-elements",
+			"abstract": "This paper introduces a motor-driven Peltier de- vice designed to deliver immediate thermal sensations within extended reality (XR) environments. The system incorporates eight motor-driven Peltier elements, facilitating swift transitions between warm and cool sensations by rotating preheated or cooled elements to opposite sides. A multi-layer structure, comprising aluminum and silicone layers, ensures user comfort and safety while maintaining optimal temperatures for thermal stimuli. Time-temperature characteristic analysis demonstrates the system’s ability to provide warm and cool sensations efficiently, with a dual-sided lifetime of up to 206 seconds at a 2V input. Our system design is adaptable to various body parts and can be synchronized with corresponding visual stimuli to enhance the immersive sensation of virtual object interaction and information delivery.",
+			"year": 2024,
+			"publicationDate": "2024",
+			"publicationDatePrecision": "year",
+			"publicationDateSource": "workshop year",
+			"publicationKind": "workshop-paper",
+			"publicationKindSource": "verified bibliographic record",
+			"containerTitle": "ICRA 2024 Workshop on Advancing Wearable Devices and Applications through Novel Design, Sensing, Actuation, and AI",
+			"containerTitleSource": "verified bibliographic record",
+			"externalUrl": "https://arxiv.org/abs/2405.11807",
+			"preprint": "arXiv:2405.11807",
+			"preprintUrl": "https://arxiv.org/abs/2405.11807",
+			"preprintDate": "2024-05-20",
+			"preprintSource": "verified bibliographic record",
+			"pageCount": 3,
+			"authors": [
+				{
+					"familyName": "Kang",
+					"givenName": "Seongjun",
+					"displayName": "Seongjun Kang",
+					"order": 1,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "Gwangbin",
+					"displayName": "Gwangbin Kim",
+					"order": 2,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Hwang",
+					"givenName": "Seokhyun",
+					"displayName": "Seokhyun Hwang",
+					"order": 3,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Park",
+					"givenName": "Jeongju",
+					"displayName": "Jeongju Park",
+					"order": 4,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Elsharkawy",
+					"givenName": "Ahmed",
+					"displayName": "Ahmed Elsharkawy",
+					"order": 5,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "SeungJun",
+					"displayName": "SeungJun Kim",
+					"order": 6,
+					"namePartsInferred": true
+				}
+			],
+			"authorSource": "verified bibliographic records"
+		},
+		{
+			"id": "c.6",
+			"slug": "watchcap",
+			"abstract": "Individuals with low vision (LV) frequently face challenges in scanning performance, which in turn complicates daily activities requiring visual recognition. Although those with PVL can theoretically compensate for these scanning deficiencies through the use of active head movements, few practical applications have sought to capitalize on this potential, especially during visual recognition tasks. In this paper, we present WatchCap, a novel device that leverages the hanger reflex phenomenon to naturally elicit head movements through stimulation feedback. Our user studies, conducted with both sighted individuals in a simulated environment and people with glaucoma-related PVL, demonstrated that WatchCap's scanning-contingent stimulation enhances visual exploration. This improvement is evidenced by the fixation and saccade-related features and positive feedback from participants, which did not cause discomfort to the users. This study highlights the promise of facilitating head movements to aid those with LVs in visual recognition tasks. Critically, since WatchCap functions independently of predefined or task-specific cues, it has a wide scope of applicability, even in ambient task situations. This independence positions WatchCap to complement existing tools aimed at detailed visual information acquisition, allowing integration with existing tools and facilitating a comprehensive approach to assisting individuals with LV.",
+			"year": 2024,
+			"publicationDate": "2024-05-13",
+			"publicationDatePrecision": "day",
+			"publicationDateSource": "verified bibliographic record",
+			"publicationKind": "journal-article",
+			"publicationKindSource": "verified bibliographic record",
+			"containerTitle": "Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies",
+			"containerTitleSource": "verified bibliographic record",
+			"doi": "10.1145/3659592",
+			"doiSource": "verified publisher metadata",
+			"externalUrl": "https://dl.acm.org/doi/10.1145/3659592",
+			"volume": "8",
+			"issue": "2",
+			"pages": "1-32",
+			"authors": [
+				{
+					"familyName": "Jo",
+					"givenName": "Taewoo",
+					"displayName": "Taewoo Jo",
+					"order": 1,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Yeo",
+					"givenName": "Dohyeon",
+					"displayName": "Dohyeon Yeo",
+					"order": 2,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "Gwangbin",
+					"displayName": "Gwangbin Kim",
+					"order": 3,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Hwang",
+					"givenName": "Seokhyun",
+					"displayName": "Seokhyun Hwang",
+					"order": 4,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "SeungJun",
+					"displayName": "SeungJun Kim",
+					"order": 5,
+					"namePartsInferred": true
+				}
+			],
+			"authorSource": "verified bibliographic records"
+		},
+		{
+			"id": "c.5",
+			"slug": "ergopulse",
+			"abstract": "This study presents ErgoPulse, a system that integrates biomechanical simulation with electrical muscle stimulation (EMS) to provide kinesthetic force feedback to the lower-body in virtual reality (VR). ErgoPulse features two main parts: a biomechanical simulation part that calculates the lower-body joint torques to replicate forces from VR environments, and an EMS part that translates torques into muscle stimulations. In the first experiment, we assessed users’ ability to discern haptic force intensity and direction, and observed variations in perceived resolution based on force direction. The second experiment evaluated ErgoPulse’s ability to increase haptic force accuracy and user presence in both continuous and impulse force VR game environments. The experimental results showed that ErgoPulse’s biomechanical simulation increased the accuracy of force delivery compared to traditional EMS, enhancing the overall user presence. Furthermore, the interviews proposed improvements to the haptic experience by integrating additional stimuli such as temperature, skin stretch, and impact.",
+			"year": 2024,
+			"publicationDate": "2024-05-11",
+			"publicationDatePrecision": "day",
+			"publicationDateSource": "verified bibliographic record",
+			"publicationKind": "conference-paper",
+			"publicationKindSource": "verified bibliographic record",
+			"containerTitle": "Proceedings of the CHI Conference on Human Factors in Computing Systems",
+			"containerTitleSource": "verified bibliographic record",
+			"doi": "10.1145/3613904.3642008",
+			"doiSource": "verified publisher metadata",
+			"externalUrl": "https://dl.acm.org/doi/10.1145/3613904.3642008",
+			"pages": "1-21",
+			"authors": [
+				{
+					"familyName": "Hwang",
+					"givenName": "Seokhyun",
+					"displayName": "Seokhyun Hwang",
+					"order": 1,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Oh",
+					"givenName": "Jeongseok",
+					"displayName": "Jeongseok Oh",
+					"order": 2,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kang",
+					"givenName": "Seongjun",
+					"displayName": "Seongjun Kang",
+					"order": 3,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Seong",
+					"givenName": "Minwoo",
+					"displayName": "Minwoo Seong",
+					"order": 4,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Elsharkawy",
+					"givenName": "Ahmed Ibrahim Ahmed Mohamed",
+					"displayName": "Ahmed Ibrahim Ahmed Mohamed Elsharkawy",
+					"order": 5,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "Seungjun",
+					"displayName": "Seungjun Kim",
+					"order": 6,
+					"namePartsInferred": true
+				}
+			],
+			"authorSource": "verified bibliographic records"
+		},
+		{
+			"id": "c.4",
+			"slug": "sync-vr",
+			"abstract": "Passengers can engage more in nondriving-related tasks owing to recent advancements in autonomous vehicles (AVs), making immersive tools such as virtual reality (VR) appealing; however, motion sickness (MS) remains a significant challenge. We present SYNC-VR, a system that aligns with visual, haptic, and auditory cues and provides proprioceptive feedback to illustrate its effect on MS and presence within the in-vehicle VR. We conducted an experiment with 24 participants using a real vehicle along a route with known MS-triggering events. Using subjective and physiological measures, we assessed participants’ presence and MS under four conditions by gradually varying the level of synchronized input sensations. Results reveal that SYNC-VR reduces MS and increases the sense of presence. Additionally, it emphasizes the impact of our interactive VR content and its role in achieving proprioceptive feedback with haptic feedback through electrical muscle stimulation, introducing an innovative approach to MS mitigation in in-vehicle VR.",
+			"year": 2024,
+			"publicationDate": "2024-05-11",
+			"publicationDatePrecision": "day",
+			"publicationDateSource": "verified bibliographic record",
+			"publicationKind": "conference-paper",
+			"publicationKindSource": "verified bibliographic record",
+			"containerTitle": "Proceedings of the CHI Conference on Human Factors in Computing Systems",
+			"containerTitleSource": "verified bibliographic record",
+			"doi": "10.1145/3613904.3642941",
+			"doiSource": "verified publisher metadata",
+			"externalUrl": "https://dl.acm.org/doi/10.1145/3613904.3642941",
+			"pages": "1-17",
+			"authors": [
+				{
+					"familyName": "Elsharkawy",
+					"givenName": "Ahmed Ibrahim Ahmed Mohamed",
+					"displayName": "Ahmed Ibrahim Ahmed Mohamed Elsharkawy",
+					"order": 1,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Ataya",
+					"givenName": "Aya Abdulnasser Saed",
+					"displayName": "Aya Abdulnasser Saed Ataya",
+					"order": 2,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Yeo",
+					"givenName": "Dohyeon",
+					"displayName": "Dohyeon Yeo",
+					"order": 3,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "An",
+					"givenName": "Eunsol",
+					"displayName": "Eunsol An",
+					"order": 4,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Hwang",
+					"givenName": "Seokhyun",
+					"displayName": "Seokhyun Hwang",
+					"order": 5,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "SeungJun",
+					"displayName": "SeungJun Kim",
+					"order": 6,
+					"namePartsInferred": true
+				}
+			],
+			"authorSource": "verified bibliographic records"
+		},
+		{
+			"id": "p.4",
+			"slug": "gaitway",
+			"abstract": "In VR environments, user’s sense of presence is enhanced through natural locomotion. Redirected Walking (RDW) technology can provide a wider walking area by manipulating the trajectory of the user. Considering that the user’s future position enables a broader application of RDW, research has utilized gaze data combined with past positions to reduce prediction errors. However, in VR content that are replete with creatures and decorations, gaze dispersion may deteriorate the data quality. Thus, we propose an alternative system that utilizes gait data, GaitWay, which correlates directly to user locomotion. This study involved 11 participants navigating a visually distracting three-tiered VR environment while performing designated tasks. We employed a long short-term memory network for GaitWay to forecast positions two seconds ahead and evaluated the prediction accuracy. The findings demonstrated that incorporating gaze data significantly increased errors in highly-distracted settings, whereas GaitWay consistently reduced errors, regardless of the environmental complexity.",
+			"year": 2024,
+			"publicationDate": "2024-05-11",
+			"publicationDatePrecision": "day",
+			"publicationDateSource": "verified bibliographic record",
+			"publicationKind": "extended-abstract",
+			"publicationKindSource": "verified bibliographic record",
+			"containerTitle": "Extended Abstracts of the CHI Conference on Human Factors in Computing Systems",
+			"containerTitleSource": "verified bibliographic record",
+			"doi": "10.1145/3613905.3651073",
+			"doiSource": "verified publisher metadata",
+			"externalUrl": "https://dl.acm.org/doi/10.1145/3613905.3651073",
+			"pages": "1-8",
+			"authors": [
+				{
+					"familyName": "Kim",
+					"givenName": "YoungIn",
+					"displayName": "YoungIn Kim",
+					"order": 1,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Hwang",
+					"givenName": "Seokhyun",
+					"displayName": "Seokhyun Hwang",
+					"order": 2,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Oh",
+					"givenName": "Jeongseok",
+					"displayName": "Jeongseok Oh",
+					"order": 3,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "Seungjun",
+					"displayName": "Seungjun Kim",
+					"order": 4,
+					"namePartsInferred": true
+				}
+			],
+			"authorSource": "verified bibliographic records"
+		},
+		{
+			"id": "p.3",
+			"slug": "curving-the-virtual-route",
+			"abstract": "This study examines the feasibility of user-applied active locomotion in In-Car Virtual Reality (VR), overcoming the passivity in mobility of previous In-Car VR experiences where the virtual movement was synchronized with the real movement of the car. We present the concept of virtual steering gains to quantify the magnitude of user-applied redirection from the real car’s path. Through a user study where participants applied various levels of steering gains in an active virtual driving task, we assessed usability factors through measures of motion sickness, spatial presence, and overall acceptance. Results indicate a range of acceptable steering gains in which active locomotion improves spatial presence without significantly increasing motion sickness. Future works will attempt to further validate a steering gain threshold in which active locomotion in In-Car VR can be applicable.",
+			"year": 2024,
+			"publicationDate": "2024-05-11",
+			"publicationDatePrecision": "day",
+			"publicationDateSource": "verified bibliographic record",
+			"publicationKind": "extended-abstract",
+			"publicationKindSource": "verified bibliographic record",
+			"containerTitle": "Extended Abstracts of the CHI Conference on Human Factors in Computing Systems",
+			"containerTitleSource": "verified bibliographic record",
+			"doi": "10.1145/3613905.3650746",
+			"doiSource": "verified publisher metadata",
+			"externalUrl": "https://dl.acm.org/doi/10.1145/3613905.3650746",
+			"pages": "1-7",
+			"authors": [
+				{
+					"familyName": "Gim",
+					"givenName": "Bocheon",
+					"displayName": "Bocheon Gim",
+					"order": 1,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kang",
+					"givenName": "Seongjun",
+					"displayName": "Seongjun Kang",
+					"order": 2,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "Gwangbin",
+					"displayName": "Gwangbin Kim",
+					"order": 3,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Yeo",
+					"givenName": "Dohyeon",
+					"displayName": "Dohyeon Yeo",
+					"order": 4,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Hwang",
+					"givenName": "Seokhyun",
+					"displayName": "Seokhyun Hwang",
+					"order": 5,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "Seungjun",
+					"displayName": "Seungjun Kim",
+					"order": 6,
+					"namePartsInferred": true
+				}
+			],
+			"authorSource": "verified bibliographic records"
+		},
+		{
+			"id": "j.2",
+			"slug": "multisensory-attractors-for-reorientation",
+			"abstract": "In virtual reality, redirected walking (RDW) enables users to stay within the tracking area while feeling that they are traveling in a virtual space that is larger than the physical space. RDW uses a visual attractor to the user’s sight and scene manipulation for intermittent reorientation. However, repeated usage can hinder the virtual world immersion and weaken the reorientation performance. In this study, we propose using sounds and smells as alternative stimuli to draw the user’s attention implicitly and sustain the attractor’s performance for intermittent reorientation. To achieve this, we integrated visual, auditory, and olfactory attractors into an all-in-one stimulation system. Experiments revealed that the auditory attractor caused the fastest reorientation, the olfactory attractor induced the widest angular difference, and the attractor with the combined auditory and olfactory stimuli induced the largest angular speed, keeping users from noticing the manipulation. The findings demonstrate the potential of nonvisual attractors to reorient users in situations requiring intermittent reorientation.",
+			"year": 2024,
+			"publicationDate": "2024-04-26",
+			"publicationDatePrecision": "day",
+			"publicationDateSource": "verified bibliographic record",
+			"publicationKind": "journal-article",
+			"publicationKindSource": "verified bibliographic record",
+			"containerTitle": "Virtual Reality",
+			"containerTitleSource": "verified bibliographic record",
+			"doi": "10.1007/s10055-024-00997-y",
+			"doiSource": "verified publisher metadata",
+			"externalUrl": "https://doi.org/10.1007/s10055-024-00997-y",
+			"volume": "28",
+			"issue": "2",
+			"articleNumber": "104",
+			"authors": [
+				{
+					"familyName": "Lee",
+					"givenName": "Jieun",
+					"displayName": "Jieun Lee",
+					"order": 1,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Hwang",
+					"givenName": "Seokhyun",
+					"displayName": "Seokhyun Hwang",
+					"order": 2,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "Kyunghwan",
+					"displayName": "Kyunghwan Kim",
+					"order": 3,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "SeungJun",
+					"displayName": "SeungJun Kim",
+					"order": 4,
+					"namePartsInferred": true
+				}
+			],
+			"authorSource": "verified bibliographic records"
+		},
+		{
+			"id": "j.1",
+			"slug": "optical-flow-curvature-thresholds",
+			"abstract": "Virtual reality (VR) locomotion should allow users to move freely in the virtual space while staying within the tracking area in the real space. The redirected walking (RDW) technique enables users to walk naturally in an unlimited virtual space within a limited tracking area by rotating the virtual scene view. However, conflicting visual and vestibular signals during RDW can lead to user discomfort and decreased immersion. To avoid user discomfort, an RDW gain should be within the detection threshold (DT) range. However, a large angle of walking redirection is required when physically avoiding obstacles or escaping from a narrow space, so DT expansion is necessary. In this study, to change the curvature DT range and enhance RDW performance, we proposed an optical flow (OF)-generating vection in a virtual environment. Further, we investigate methods to reduce user discomfort and increase RDW efficiency considering familiar and unfamiliar VR users. The findings showed that the introduction of OF led to a reduction in the DT range for all users, irrespective of the OF’s direction. However, conditions with OF resulted in an extended DT range for users familiar with VR while concurrently diminishing the DT range for those who were VR unfamiliar. To delve further, our analysis indicated that when both the OF and redirecting directions were identical, the RDW performance was robust to VR familiarity, whereas in opposing directions, the DT range increased for VR-familiar users. Our study findings suggested using OF for the RDW technique and extending its applicability in virtual environments.",
+			"year": 2024,
+			"publicationDate": "2024-01-29",
+			"publicationDatePrecision": "day",
+			"publicationDateSource": "verified bibliographic record",
+			"publicationKind": "journal-article",
+			"publicationKindSource": "verified bibliographic record",
+			"containerTitle": "Virtual Reality",
+			"containerTitleSource": "verified bibliographic record",
+			"doi": "10.1007/s10055-023-00935-4",
+			"doiSource": "verified publisher metadata",
+			"externalUrl": "https://doi.org/10.1007/s10055-023-00935-4",
+			"volume": "28",
+			"issue": "1",
+			"articleNumber": "35",
+			"authors": [
+				{
+					"familyName": "Lee",
+					"givenName": "Jieun",
+					"displayName": "Jieun Lee",
+					"order": 1,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Hwang",
+					"givenName": "Seokhyun",
+					"displayName": "Seokhyun Hwang",
+					"order": 2,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Ataya",
+					"givenName": "Aya",
+					"displayName": "Aya Ataya",
+					"order": 3,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "SeungJun",
+					"displayName": "SeungJun Kim",
+					"order": 4,
+					"namePartsInferred": true
+				}
+			],
+			"authorSource": "verified bibliographic records"
+		},
+		{
+			"id": "c.3",
+			"slug": "bone-conduction-redirected-walking",
+			"abstract": "This study explored bone-conduction vibration (BCV) in redirected walking (RDW), a technology for seamless walking in large virtual spaces within confined physical areas, enhancing obstacle avoidance performance using nonelectrical vestibular stimulation without the side effects caused by electrical stimulation. We proposed four different BCV stimulation methods and evaluated their detection threshold (DT) extension performance and user experience in virtual reality (VR) conditions. The DT was successfully expanded from at least 23% to 45% under all BCV conditions while preserving the immersion and presence. Notably, user comfort increased when content sound was used for vestibular stimulation. Under the extended DT condition, a simulation study demonstrated that all BCV stimulation methods facilitated uninterrupted walking over extended distances when applying RDW to users with random movements. Thus, this research established the viability of using BCV in RDW applications and the potential for incorporating content sound into BCV stimulation techniques.",
+			"year": 2023,
+			"publicationDate": "2023-10-16",
+			"publicationDatePrecision": "day",
+			"publicationDateSource": "verified bibliographic record",
+			"publicationKind": "conference-paper",
+			"publicationKindSource": "verified bibliographic record",
+			"containerTitle": "2023 IEEE International Symposium on Mixed and Augmented Reality (ISMAR)",
+			"containerTitleSource": "verified bibliographic record",
+			"doi": "10.1109/ISMAR59233.2023.00135",
+			"doiSource": "verified publisher metadata",
+			"externalUrl": "https://www.computer.org/csdl/proceedings-article/ismar/2023/283800b181/1SBIOSZTWlG",
+			"pages": "1181-1190",
+			"authors": [
+				{
+					"familyName": "Hwang",
+					"givenName": "Seokhyun",
+					"displayName": "Seokhyun Hwang",
+					"order": 1,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "YoungIn",
+					"displayName": "YoungIn Kim",
+					"order": 2,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Seo",
+					"givenName": "Youngseok",
+					"displayName": "Youngseok Seo",
+					"order": 3,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "SeungJun",
+					"displayName": "SeungJun Kim",
+					"order": 4,
+					"namePartsInferred": true
+				}
+			],
+			"authorSource": "verified bibliographic records"
+		},
+		{
+			"id": "c.2",
+			"slug": "virtual-agent-hmi-in-augmented-reality",
+			"abstract": "With the introduction of autonomous vehicles, pedestrians may no longer expect explicit communication from drivers. Despite the anticipated safety benefits of anthropomorphic human–machine interfaces (HMIs) for pedestrian crossings, the impact of different levels of anthropomorphism and communication on pedestrian safety remains insufficiently understood. We proposed a virtual-agent (VA) HMI that mimics driver behavior and investigated pedestrians’ preferences through augmented reality (AR) experiments. Eighteen participants made decisions about crossing after receiving cues about the vehicle’s intentions from VA HMIs. Participants preferred the \"characterized\" VA HMI owing to its aesthetically pleasing design and found the \"eye contact + hand gesture\" combination to be more easily comprehensible. We found that while the degree of anthropomorphism did not significantly affect pedestrians’ crossing decisions, more explicit communication was helpful. Our study provides empirical evidence regarding users’ experiences of HMI in AR and the effectiveness of VA HMIs that imitate driver communication modes.",
+			"year": 2023,
+			"publicationDate": "2023-09-18",
+			"publicationDatePrecision": "day",
+			"publicationDateSource": "verified bibliographic record",
+			"publicationKind": "conference-paper",
+			"publicationKindSource": "verified bibliographic record",
+			"containerTitle": "Proceedings of the 15th International Conference on Automotive User Interfaces and Interactive Vehicular Applications",
+			"containerTitleSource": "verified bibliographic record",
+			"doi": "10.1145/3580585.3606460",
+			"doiSource": "verified publisher metadata",
+			"externalUrl": "https://dl.acm.org/doi/10.1145/3580585.3606460",
+			"pages": "191-201",
+			"authors": [
+				{
+					"familyName": "Kang",
+					"givenName": "Yumin",
+					"displayName": "Yumin Kang",
+					"order": 1,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Choi",
+					"givenName": "SeongA",
+					"displayName": "SeongA Choi",
+					"order": 2,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "An",
+					"givenName": "Eunsol",
+					"displayName": "Eunsol An",
+					"order": 3,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Hwang",
+					"givenName": "Seokhyun",
+					"displayName": "Seokhyun Hwang",
+					"order": 4,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "Seungjun",
+					"displayName": "Seungjun Kim",
+					"order": 5,
+					"namePartsInferred": true
+				}
+			],
+			"authorSource": "verified bibliographic records"
+		},
+		{
+			"id": "c.1",
+			"slug": "vestibular-stimulation-redirected-walking-comparison",
+			"abstract": "Redirected walking (RDW) is a technology that enables users to walk seamlessly in an enormous virtual space within a narrow real space while avoiding collisions with physical elements. Although RDW provides accurate proprioceptive sensations, redirection performance is limited by visual–vestibular inconsistencies. This study aims to support seamless walking in a VR environment by alleviating inconsistencies using four vestibular stimulations: noisy and directional galvanic vestibular stimulation, bone-conduction vibration, and caloric vestibular stimulation. The user study demonstrated that the stimulations successfully enable spatial expansion without impairing immersion and presence. Non-electrical stimulations (bone-conduction vibration and caloric vestibular stimulation) expanded the detection threshold, making them alternatives to electrical stimulations, and direction-based stimulation (directional galvanic vestibular stimulation) improved the user’s gait stability in RDW. Finally, the findings suggested improving the user experience for vestibular stimulation RDW either by lowering audio interference or increasing the synchronization between the RDW gain and the stimulation intensity.",
+			"year": 2023,
+			"publicationDate": "2023-04-19",
+			"publicationDatePrecision": "day",
+			"publicationDateSource": "verified bibliographic record",
+			"publicationKind": "conference-paper",
+			"publicationKindSource": "verified bibliographic record",
+			"containerTitle": "Proceedings of the 2023 CHI Conference on Human Factors in Computing Systems",
+			"containerTitleSource": "verified bibliographic record",
+			"doi": "10.1145/3544548.3580862",
+			"doiSource": "verified publisher metadata",
+			"externalUrl": "https://dl.acm.org/doi/10.1145/3544548.3580862",
+			"pages": "1-18",
+			"authors": [
+				{
+					"familyName": "Hwang",
+					"givenName": "Seokhyun",
+					"displayName": "Seokhyun Hwang",
+					"order": 1,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Lee",
+					"givenName": "Jieun",
+					"displayName": "Jieun Lee",
+					"order": 2,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "Youngin",
+					"displayName": "Youngin Kim",
+					"order": 3,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Seo",
+					"givenName": "Youngseok",
+					"displayName": "Youngseok Seo",
+					"order": 4,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "Seungjun",
+					"displayName": "Seungjun Kim",
+					"order": 5,
+					"namePartsInferred": true
+				}
+			],
+			"authorSource": "verified bibliographic records"
+		},
+		{
+			"id": "p.2",
+			"slug": "reves",
+			"abstract": "Redirected walking (RDW) visually manipulates the movement of the virtual environment (VE) such that the movement of the real environment (RE) and VE are no longer matched 1:1. With RDW, users can overcome the spatial constraints of RE, such as furniture, walls, and columns, and freely move the wider VE using natural gait motion. However, when the intensity of visual manipulations increases, people notice the RDW manipulation owing to visual-vestibular inconsistency, and experience discomfort like motion sickness. To address visual-vestibular inconsistency, we modulated vestibular information in various directions to match the modulation of visual information using galvanic vestibular stimulation (GVS). We proposed a new RDW system—REVES: redirection enhancement using four-pole vestibular electrode stimulation. REVES stimulates the user’s vestibular system according to various visual modulation directions using four-pole GVS based on the proposed algorithm. REVES changed the detection threshold of RDW in three manipulation cases: rotation, translation, and walking direction.",
+			"year": 2022,
+			"publicationDate": "2022-04-27",
+			"publicationDatePrecision": "day",
+			"publicationDateSource": "verified bibliographic record",
+			"publicationKind": "extended-abstract",
+			"publicationKindSource": "verified bibliographic record",
+			"containerTitle": "CHI Conference on Human Factors in Computing Systems Extended Abstracts",
+			"containerTitleSource": "verified bibliographic record",
+			"doi": "10.1145/3491101.3519626",
+			"doiSource": "verified publisher metadata",
+			"externalUrl": "https://dl.acm.org/doi/10.1145/3491101.3519626",
+			"pages": "1-7",
+			"authors": [
+				{
+					"familyName": "Hwang",
+					"givenName": "Seokhyun",
+					"displayName": "Seokhyun Hwang",
+					"order": 1,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Lee",
+					"givenName": "Jieun",
+					"displayName": "Jieun Lee",
+					"order": 2,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "YoungIn",
+					"displayName": "YoungIn Kim",
+					"order": 3,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "SeungJun",
+					"displayName": "SeungJun Kim",
+					"order": 4,
+					"namePartsInferred": true
+				}
+			],
+			"authorSource": "verified bibliographic records"
+		},
+		{
+			"id": "p.1",
+			"slug": "auditory-olfactory-attractors",
+			"abstract": "Redirected walking (RDW) visually manipulates the virtual environment to imperceptibly redirect the walkers to keep them in the tracking area, and offers a larger space than physical space. An attractor is a redirected walking technique that captures the walker's attention and manipulates the walker's trajectory through rotational gain. However, the attractor visually manipulates the walker's virtual environment using a predefined rotational gain, and having to constantly gaze at the attractor or the attractor frequently appearing until the walker's direction matches the desired direction, are problems limiting the application of visual attractors. Moreover, when the walker is unable to recognize or ignores the attractor, reorientation fails. In this study, we designed a human-sense-stimulating attractor that utilizes the auditory and olfactory senses to improve the rotational gain, naturalness, and immersion and decrease the chance of reorientation failure. Although sound and scents are invisible, they can be detected through direction; however, humans cannot recognize the accurate direction of a sound or scent. Based on these characteristics, auditory and olfactory attractors are proposed. We measured the amount of reorientation induced by the auditory and olfactory attractors and calculated the reorientation success rate. Additionally, the naturalness and immersion of the attractor were evaluated. The auditory attractor has a high reorientation success rate, naturalness, and immersion. The olfactory attractor induces more turn changes in the walker than other attractors, and a high number of turn changes leads to a larger rotational gain. Auditory and olfactory-based attractors have the potential to overcome the shortcomings of visual attractors such as the frequent interventions.",
+			"year": 2022,
+			"publicationDate": "2022-04-27",
+			"publicationDatePrecision": "day",
+			"publicationDateSource": "verified bibliographic record",
+			"publicationKind": "extended-abstract",
+			"publicationKindSource": "verified bibliographic record",
+			"containerTitle": "CHI Conference on Human Factors in Computing Systems Extended Abstracts",
+			"containerTitleSource": "verified bibliographic record",
+			"doi": "10.1145/3491101.3519719",
+			"doiSource": "verified publisher metadata",
+			"externalUrl": "https://dl.acm.org/doi/10.1145/3491101.3519719",
+			"pages": "1-7",
+			"authors": [
+				{
+					"familyName": "Lee",
+					"givenName": "Jieun",
+					"displayName": "Jieun Lee",
+					"order": 1,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Hwang",
+					"givenName": "Seokhyun",
+					"displayName": "Seokhyun Hwang",
+					"order": 2,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "Kyunghwan",
+					"displayName": "Kyunghwan Kim",
+					"order": 3,
+					"namePartsInferred": true
+				},
+				{
+					"familyName": "Kim",
+					"givenName": "SeungJun",
+					"displayName": "SeungJun Kim",
+					"order": 4,
+					"namePartsInferred": true
+				}
+			],
+			"authorSource": "verified bibliographic records"
+		}
+	]
+}

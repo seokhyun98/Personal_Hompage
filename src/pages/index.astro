@@ -22,13 +22,33 @@ const homeKeywords = [
 	"haptics",
 	"wearable systems",
 ];
+const profilePageLd = {
+	"@context": "https://schema.org",
+	"@type": "ProfilePage",
+	"@id": "https://seokhyunhwang.com/#profile-page",
+	url: "https://seokhyunhwang.com/",
+	name: "Seokhyun Hwang — Research Profile",
+	description: homeDescription,
+	inLanguage: "en-US",
+	mainEntity: { "@id": "https://seokhyunhwang.com/#person" },
+	isPartOf: { "@id": "https://seokhyunhwang.com/#website" },
+};
 ---
 
 <Layout
   title="Seokhyun Hwang - Ph.D. Student in HCI, VR/AR/XR, Haptics"
   description={homeDescription}
   keywords={homeKeywords}
+  structuredData={[profilePageLd]}
+  ogImageWidth="1026"
+  ogImageHeight="1301"
 >
+  <Fragment slot="head">
+    <link rel="alternate" type="application/x-bibtex" href="/publications.bib" title="Publication bibliography in BibTeX" />
+    <link rel="alternate" type="application/x-research-info-systems" href="/publications.ris" title="Publication bibliography in RIS" />
+    <link rel="alternate" type="application/vnd.citationstyles.csl+json" href="/publications.json" title="Publication bibliography in CSL JSON" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="Machine-readable site summary" />
+  </Fragment>
   <HeroSection />
   <ResearchGoalsSection />
   <PublicationsSection />
