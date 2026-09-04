@@ -1,27 +1,56 @@
 ---
 import publicationsData from "../../collections/publications.json";
+import { getPublicationById } from "../../lib/scholarly-publications";
 
 function highlightAuthor(authors: string) {
-  return authors.split(/(Hwang, S\.\*?)/g).map((part) =>
-    part.match(/^Hwang, S\.\*?$/) ? { type: "highlight" as const, text: part } : { type: "text" as const, text: part }
-  );
+	return authors
+		.split(/(Hwang, S\.\*?)/g)
+		.map((part) =>
+			part.match(/^Hwang, S\.\*?$/)
+				? { type: "highlight" as const, text: part }
+				: { type: "text" as const, text: part },
+		);
 }
 
 function displayTag(tag: string) {
-  return tag === "Poster&Workshop" ? "Poster & Workshop" : tag.replace(/_/g, " ");
+	return tag === "Poster&Workshop"
+		? "Poster & Workshop"
+		: tag.replace(/_/g, " ");
 }
 
-const publicationEntries = publicationsData.entries.filter((item) => item.group === "publication");
-const conferenceJournalEntries = publicationEntries.filter((e) => e.id.startsWith("c.") || e.id.startsWith("j."));
-const posterWorkshopEntries = publicationEntries.filter((e) => e.id.startsWith("w.") || e.id.startsWith("p."));
+function publicationPdfPath(publicationId: string) {
+	const publication = getPublicationById(publicationId);
+	if (!publication)
+		throw new Error(`Missing publication detail page for ${publicationId}.`);
+	return publication.pdf?.path;
+}
 
-const filterGroups = Object.entries(publicationsData.tagGroups).map(([name, tags]) => ({
-  name,
-  tags,
-}));
+const publicationEntries = publicationsData.entries
+	.filter((item) => item.group === "publication")
+	.map((entry) => ({
+		...entry,
+		pdfPath: publicationPdfPath(entry.id),
+	}));
+const conferenceJournalEntries = publicationEntries.filter(
+	(e) => e.id.startsWith("c.") || e.id.startsWith("j."),
+);
+const posterWorkshopEntries = publicationEntries.filter(
+	(e) => e.id.startsWith("w.") || e.id.startsWith("p."),
+);
 
-const patentEntries = publicationsData.entries.filter((item) => item.group === "patent");
-const copyrightEntries = publicationsData.entries.filter((item) => item.group === "copyright");
+const filterGroups = Object.entries(publicationsData.tagGroups).map(
+	([name, tags]) => ({
+		name,
+		tags,
+	}),
+);
+
+const patentEntries = publicationsData.entries.filter(
+	(item) => item.group === "patent",
+);
+const copyrightEntries = publicationsData.entries.filter(
+	(item) => item.group === "copyright",
+);
 ---
 
 <section id="publications" class="relative z-20 w-full max-w-5xl mx-auto mt-14 px-7 xl:px-0">
@@ -80,7 +109,7 @@ const copyrightEntries = publicationsData.entries.filter((item) => item.group ==
               </div>
               {entry.link ? (
                 <h4 class="mt-1 text-base font-semibold text-neutral-900 dark:text-white">
-                  <a href={entry.link} target="_blank" rel="noreferrer" class="hover:underline decoration-dotted underline-offset-2">
+                  <a href={entry.link} target="_blank" rel="noopener noreferrer" class="hover:underline decoration-dotted underline-offset-2">
                     [{entry.id}] {entry.title}
                   </a>
                 </h4>
@@ -102,6 +131,11 @@ const copyrightEntries = publicationsData.entries.filter((item) => item.group ==
               <p class="mt-1 flex flex-wrap items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300">
                 <span class="italic">{entry.venue}</span>
                 {entry.status === "Accepted" && <span class="publication-status-badge inline-block rounded px-1.5 py-0.5 text-xs font-semibold bg-[#b0c4de] text-[#2c3e50] dark:bg-[#4b5563] dark:text-[#f3f4f6]">Coming Soon</span>}
+                {entry.pdfPath && (
+                  <a class="publication-pdf-button" href={entry.pdfPath} target="_blank" rel="noopener noreferrer" type="application/pdf" aria-label={`Open PDF for ${entry.title} in a new tab`}>
+                    PDF
+                  </a>
+                )}
               </p>
               {entry.status && entry.status !== "Accepted" && <p class="mt-1 text-sm font-medium text-neutral-700 dark:text-neutral-200">({entry.status})</p>}
             </div>
@@ -137,7 +171,7 @@ const copyrightEntries = publicationsData.entries.filter((item) => item.group ==
               </div>
               {entry.link ? (
                 <h4 class="mt-1 text-base font-semibold text-neutral-900 dark:text-white">
-                  <a href={entry.link} target="_blank" rel="noreferrer" class="hover:underline decoration-dotted underline-offset-2">
+                  <a href={entry.link} target="_blank" rel="noopener noreferrer" class="hover:underline decoration-dotted underline-offset-2">
                     [{entry.id}] {entry.title}
                   </a>
                 </h4>
@@ -159,6 +193,11 @@ const copyrightEntries = publicationsData.entries.filter((item) => item.group ==
               <p class="mt-1 flex flex-wrap items-center gap-2 text-sm text-neutral-700 dark:text-neutral-300">
                 <span class="italic">{entry.venue}</span>
                 {entry.status === "Accepted" && <span class="publication-status-badge inline-block rounded px-1.5 py-0.5 text-xs font-semibold bg-[#b0c4de] text-[#2c3e50] dark:bg-[#4b5563] dark:text-[#f3f4f6]">Coming Soon</span>}
+                {entry.pdfPath && (
+                  <a class="publication-pdf-button" href={entry.pdfPath} target="_blank" rel="noopener noreferrer" type="application/pdf" aria-label={`Open PDF for ${entry.title} in a new tab`}>
+                    PDF
+                  </a>
+                )}
               </p>
               {entry.status && entry.status !== "Accepted" && <p class="mt-1 text-sm font-medium text-neutral-700 dark:text-neutral-200">({entry.status})</p>}
             </div>
@@ -420,6 +459,41 @@ const copyrightEntries = publicationsData.entries.filter((item) => item.group ==
     font-size: 12px;
     padding: 2px 6px;
     font-weight: 600;
+  }
+
+  .publication-pdf-button {
+    display: inline-flex;
+    min-height: 2rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgb(212 212 212);
+    border-radius: 5px;
+    background: rgb(250 250 250);
+    padding: 0.25rem 0.65rem;
+    color: rgb(64 64 64);
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+  }
+
+  .publication-pdf-button:hover {
+    border-color: rgb(115 115 115);
+    background: rgb(245 245 245);
+    color: rgb(23 23 23);
+  }
+
+  html.dark .publication-pdf-button {
+    border-color: rgb(82 82 82);
+    background: rgb(38 38 38);
+    color: rgb(245 245 245);
+  }
+
+  html.dark .publication-pdf-button:hover {
+    border-color: rgb(163 163 163);
+    background: rgb(64 64 64);
+    color: white;
   }
 
   .publication-filter-bar {

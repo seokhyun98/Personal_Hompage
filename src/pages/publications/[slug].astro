@@ -3,10 +3,12 @@ import Layout from "../../layouts/main.astro";
 import {
 	SITE_ORIGIN,
 	type ScholarlyPublication,
+	absolutePublicationPdfUrl,
 	absolutePublicationUrl,
 	displayTag,
 	publicationAssetUrl,
 	publicationKindLabel,
+	publicationPdfVersionLabel,
 	scholarlyPublications,
 } from "../../lib/scholarly-publications";
 
@@ -19,6 +21,9 @@ export function getStaticPaths() {
 
 const { publication } = Astro.props as { publication: ScholarlyPublication };
 const pageUrl = absolutePublicationUrl(publication);
+const pdf = publication.pdf;
+const absolutePdfUrl = absolutePublicationPdfUrl(publication);
+const pdfSize = pdf ? `${(pdf.bytes / 1_000_000).toFixed(1)} MB` : undefined;
 const description =
 	publication.abstract.length > 300
 		? `${publication.abstract.slice(0, 297).trimEnd()}...`
@@ -121,6 +126,26 @@ const articleLd = {
 		name: displayTag(tag),
 	})),
 	...(publication.award ? { award: publication.award } : {}),
+	...(pdf ? { numberOfPages: pdf.pageCount } : {}),
+	...(absolutePdfUrl && pdf
+		? {
+				encoding: {
+					"@type": "MediaObject",
+					contentUrl: absolutePdfUrl,
+					contentSize: `${pdf.bytes} bytes`,
+					encodingFormat: "application/pdf",
+					name: publicationPdfVersionLabel(pdf.version),
+					sha256: pdf.sha256,
+					isBasedOn: pdf.sourceUrl,
+					...(pdf.license
+						? {
+								license: pdf.licenseUrl ?? pdf.license,
+							}
+						: {}),
+					...(pdf.rightsNote ? { copyrightNotice: pdf.rightsNote } : {}),
+				},
+			}
+		: {}),
 };
 ---
 
@@ -159,6 +184,7 @@ const articleLd = {
     {publication.preprint && (
       <meta name="citation_arxiv_id" content={publication.preprint.replace(/^arXiv:/u, "")} />
     )}
+    {absolutePdfUrl && <meta name="citation_pdf_url" content={absolutePdfUrl} />}
     {publication.tags.map((tag) => <meta name="citation_keywords" content={displayTag(tag)} />)}
     <meta name="DC.title" content={publication.title} />
     {publication.authors.map((author) => <meta name="DC.creator" content={`${author.familyName}, ${author.givenName}`} />)}
@@ -170,6 +196,7 @@ const articleLd = {
     <link rel="alternate" type="application/x-bibtex" href={publicationAssetUrl(publication, "bib")} title="BibTeX citation" />
     <link rel="alternate" type="application/x-research-info-systems" href={publicationAssetUrl(publication, "ris")} title="RIS citation" />
     <link rel="alternate" type="application/vnd.citationstyles.csl+json" href={publicationAssetUrl(publication, "json")} title="CSL JSON citation" />
+    {absolutePdfUrl && <link rel="alternate" type="application/pdf" href={absolutePdfUrl} title={`PDF: ${publication.title}`} />}
   </Fragment>
 
   <article class="mx-auto w-full max-w-4xl px-6 py-12 sm:py-16" itemscope itemtype="https://schema.org/ScholarlyArticle">
@@ -206,6 +233,16 @@ const articleLd = {
         <p class="mt-2 text-sm font-medium text-amber-700 dark:text-amber-300">Award: {publication.award}</p>
       )}
       <div class="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+        {pdf && (
+          <a class="hidden font-medium underline decoration-dotted underline-offset-4 hover:text-neutral-900 dark:text-neutral-200 md:inline" href="#full-paper">
+            Read PDF
+          </a>
+        )}
+        {pdf && (
+          <a class="font-medium underline decoration-dotted underline-offset-4 hover:text-neutral-900 dark:text-neutral-200 md:hidden" href={pdf.path} target="_blank" rel="noopener">
+            Read PDF
+          </a>
+        )}
         {externalUrl && (
           <a class="font-medium underline decoration-dotted underline-offset-4 hover:text-neutral-900 dark:text-neutral-200" href={externalUrl} target="_blank" rel="noopener noreferrer">
             {publication.doi ? `DOI: ${publication.doi}` : publication.preprint ?? "Publisher page"}
@@ -223,6 +260,77 @@ const articleLd = {
         {publication.abstract}
       </p>
     </section>
+
+    {pdf && (
+      <section id="full-paper" aria-labelledby="paper-heading" class="scroll-mt-24 border-t border-neutral-200 py-9 dark:border-neutral-700">
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <h2 id="paper-heading" class="text-xl font-semibold text-neutral-900 dark:text-white">Full paper</h2>
+            <p id="paper-description" class="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+              {publicationPdfVersionLabel(pdf.version)}
+              {pdf.license && (
+                <>
+                  <span aria-hidden="true"> · </span>
+                  {pdf.licenseUrl ? (
+                    <a class="underline decoration-dotted underline-offset-4 hover:text-neutral-900 dark:hover:text-white" href={pdf.licenseUrl} target="_blank" rel="license noopener noreferrer">
+                      {pdf.license}
+                    </a>
+                  ) : pdf.license}
+                </>
+              )}
+              {!pdf.license && pdf.rightsNote && (
+                <>
+                  <span aria-hidden="true"> · </span>
+                  {pdf.rightsUrl ? (
+                    <a class="underline decoration-dotted underline-offset-4 hover:text-neutral-900 dark:hover:text-white" href={pdf.rightsUrl} target="_blank" rel="noopener noreferrer">
+                      {pdf.rightsNote}
+                    </a>
+                  ) : pdf.rightsNote}
+                </>
+              )}
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-x-4 gap-y-2 text-sm">
+            <a class="underline decoration-dotted underline-offset-4 hover:text-neutral-900 dark:text-neutral-200" href={pdf.sourceUrl} target="_blank" rel="noopener noreferrer">
+              Public source
+            </a>
+            <a class="inline-flex items-center rounded-md border border-neutral-300 px-3 py-2 font-medium text-neutral-800 hover:border-neutral-500 hover:bg-neutral-50 dark:border-neutral-600 dark:text-neutral-100 dark:hover:border-neutral-400 dark:hover:bg-neutral-800" href={pdf.path} target="_blank" rel="noopener">
+              Open PDF in new tab · {pdfSize}
+            </a>
+          </div>
+        </div>
+        <div class="mt-5 hidden overflow-hidden rounded-lg border border-neutral-300 bg-neutral-100 dark:border-neutral-700 dark:bg-neutral-900 md:block">
+          <iframe
+            data-pdf-frame
+            data-src={`${pdf.path}#view=FitH`}
+            title={`PDF: ${publication.title}`}
+            aria-describedby="paper-description"
+            loading="lazy"
+            class="h-[78vh] min-h-[38rem] w-full"
+          />
+        </div>
+        <p class="mt-4 text-sm leading-6 text-neutral-500 dark:text-neutral-400 md:hidden">
+          Open the PDF above to read it in your browser's full-screen document viewer.
+        </p>
+        <script is:inline>
+          const desktopPdfQuery = window.matchMedia("(min-width: 768px)");
+
+          function syncPdfFrame() {
+            document.querySelectorAll("iframe[data-pdf-frame]").forEach((frame) => {
+              const source = frame.getAttribute("data-src");
+              if (desktopPdfQuery.matches && source) {
+                if (!frame.hasAttribute("src")) frame.setAttribute("src", source);
+              } else {
+                frame.removeAttribute("src");
+              }
+            });
+          }
+
+          syncPdfFrame();
+          desktopPdfQuery.addEventListener("change", syncPdfFrame);
+        </script>
+      </section>
+    )}
 
     <section aria-labelledby="topics-heading" class="border-t border-neutral-200 py-7 dark:border-neutral-700">
       <h2 id="topics-heading" class="text-sm font-semibold uppercase tracking-[0.12em] text-neutral-500 dark:text-neutral-400">

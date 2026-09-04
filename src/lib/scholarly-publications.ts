@@ -1,3 +1,4 @@
+import publicationPdfData from "../collections/publication-pdfs.json";
 import publicationSearchData from "../collections/publication-search.json";
 import publicationsData from "../collections/publications.json";
 
@@ -18,6 +19,29 @@ export interface ScholarlyAuthor {
 	order: number;
 	namePartsInferred: boolean;
 	equalContribution?: boolean;
+}
+
+export type PublicationPdfVersion =
+	| "version-of-record"
+	| "author-accepted-manuscript"
+	| "preprint";
+
+export interface PublicationPdf {
+	path: string;
+	version: PublicationPdfVersion;
+	sourceUrl: string;
+	license?: string;
+	licenseUrl?: string;
+	rightsNote?: string;
+	rightsUrl?: string;
+	bytes: number;
+	pageCount: number;
+	sha256: string;
+}
+
+interface PublicationPdfRecord extends PublicationPdf {
+	id: string;
+	slug: string;
 }
 
 interface PublicationMedia {
@@ -76,6 +100,7 @@ export interface ScholarlyPublication
 	homepageTitle: string;
 	homepageLink?: string;
 	citationAuthors: string;
+	pdf?: PublicationPdf;
 }
 
 const canonicalEntries = publicationsData.entries.filter(
@@ -83,11 +108,58 @@ const canonicalEntries = publicationsData.entries.filter(
 ) as CanonicalPublication[];
 const supplements = publicationSearchData.entries as SearchSupplement[];
 const supplementById = new Map(supplements.map((entry) => [entry.id, entry]));
+const publicationPdfRecords =
+	publicationPdfData.entries as PublicationPdfRecord[];
+const publicationPdfById = new Map(
+	publicationPdfRecords.map((entry) => [entry.id, entry]),
+);
 
 if (canonicalEntries.length !== supplements.length) {
 	throw new Error(
 		`Publication metadata mismatch: ${canonicalEntries.length} homepage records and ${supplements.length} discovery records.`,
 	);
+}
+
+if (publicationPdfById.size !== publicationPdfRecords.length) {
+	throw new Error("Publication PDF identifiers must be unique.");
+}
+
+for (const pdf of publicationPdfRecords) {
+	const supplement = supplementById.get(pdf.id);
+	if (!supplement) {
+		throw new Error(`PDF metadata refers to unknown publication ${pdf.id}.`);
+	}
+	if (pdf.slug !== supplement.slug) {
+		throw new Error(`PDF slug for ${pdf.id} must match ${supplement.slug}.`);
+	}
+	const expectedPath = `/publications/${pdf.slug}/${pdf.slug}.pdf`;
+	if (pdf.path !== expectedPath) {
+		throw new Error(`PDF path for ${pdf.id} must be ${expectedPath}.`);
+	}
+	if (!Number.isSafeInteger(pdf.bytes) || pdf.bytes <= 0) {
+		throw new Error(`PDF byte size for ${pdf.id} must be a positive integer.`);
+	}
+	if (!Number.isSafeInteger(pdf.pageCount) || pdf.pageCount <= 0) {
+		throw new Error(`PDF page count for ${pdf.id} must be a positive integer.`);
+	}
+	if (!/^[0-9a-f]{64}$/u.test(pdf.sha256)) {
+		throw new Error(`PDF SHA-256 for ${pdf.id} is invalid.`);
+	}
+	if (new URL(pdf.sourceUrl).protocol !== "https:") {
+		throw new Error(`PDF source URL for ${pdf.id} must use HTTPS.`);
+	}
+	if (pdf.licenseUrl && new URL(pdf.licenseUrl).protocol !== "https:") {
+		throw new Error(`PDF license URL for ${pdf.id} must use HTTPS.`);
+	}
+	if (pdf.rightsUrl && new URL(pdf.rightsUrl).protocol !== "https:") {
+		throw new Error(`PDF rights URL for ${pdf.id} must use HTTPS.`);
+	}
+	if (pdf.licenseUrl && !pdf.license) {
+		throw new Error(`PDF license URL for ${pdf.id} requires a label.`);
+	}
+	if (pdf.rightsUrl && !pdf.rightsNote) {
+		throw new Error(`PDF rights URL for ${pdf.id} requires a note.`);
+	}
 }
 
 export const scholarlyPublications: ScholarlyPublication[] =
@@ -99,6 +171,22 @@ export const scholarlyPublications: ScholarlyPublication[] =
 			);
 		}
 
+		const pdfRecord = publicationPdfById.get(publication.id);
+		const pdf = pdfRecord
+			? {
+					path: pdfRecord.path,
+					version: pdfRecord.version,
+					sourceUrl: pdfRecord.sourceUrl,
+					license: pdfRecord.license,
+					licenseUrl: pdfRecord.licenseUrl,
+					rightsNote: pdfRecord.rightsNote,
+					rightsUrl: pdfRecord.rightsUrl,
+					bytes: pdfRecord.bytes,
+					pageCount: pdfRecord.pageCount,
+					sha256: pdfRecord.sha256,
+				}
+			: undefined;
+
 		return {
 			...publication,
 			...supplement,
@@ -106,6 +194,7 @@ export const scholarlyPublications: ScholarlyPublication[] =
 			title: supplement.officialTitle ?? publication.title,
 			homepageLink: publication.link || undefined,
 			citationAuthors: publication.authors,
+			pdf,
 		};
 	});
 
@@ -158,6 +247,30 @@ export function publicationAssetUrl(
 	return origin
 		? new URL(path, `${origin.replace(/\/$/u, "")}/`).toString()
 		: path;
+}
+
+export function absolutePublicationPdfUrl(
+	publication: ScholarlyPublication,
+	origin = SITE_ORIGIN,
+): string | undefined {
+	if (!publication.pdf) return undefined;
+	return new URL(
+		publication.pdf.path,
+		`${origin.replace(/\/$/u, "")}/`,
+	).toString();
+}
+
+export function publicationPdfVersionLabel(
+	version: PublicationPdfVersion,
+): string {
+	switch (version) {
+		case "version-of-record":
+			return "Published paper";
+		case "author-accepted-manuscript":
+			return "Author accepted manuscript";
+		case "preprint":
+			return "Preprint";
+	}
 }
 
 export function displayTag(tag: string): string {

@@ -2,10 +2,12 @@ import type { APIRoute } from "astro";
 import about from "../collections/about.json";
 import {
 	SITE_ORIGIN,
+	absolutePublicationPdfUrl,
 	absolutePublicationUrl,
 	displayTag,
 	publicationAssetUrl,
 	publicationKindLabel,
+	publicationPdfVersionLabel,
 	scholarlyPublications,
 } from "../lib/scholarly-publications";
 
@@ -14,6 +16,7 @@ export const prerender = true;
 function renderPublication(
 	publication: (typeof scholarlyPublications)[number],
 ): string {
+	const pdfUrl = absolutePublicationPdfUrl(publication);
 	const metadata = [
 		`- Local ID: ${publication.id}`,
 		`- Type: ${publicationKindLabel(publication.publicationKind)}`,
@@ -31,6 +34,33 @@ function renderPublication(
 		...(publication.doi ? [`- DOI: https://doi.org/${publication.doi}`] : []),
 		...(publication.preprintUrl
 			? [`- Preprint: ${publication.preprintUrl}`]
+			: []),
+		...(publication.pdf && pdfUrl
+			? [
+					`- Full text PDF: ${pdfUrl}`,
+					`- PDF version: ${publicationPdfVersionLabel(
+						publication.pdf.version,
+					)}`,
+					`- Original public PDF source: ${publication.pdf.sourceUrl}`,
+					...(publication.pdf.license
+						? [
+								`- PDF license: ${publication.pdf.license}${
+									publication.pdf.licenseUrl
+										? ` (${publication.pdf.licenseUrl})`
+										: ""
+								}`,
+							]
+						: []),
+					...(publication.pdf.rightsNote
+						? [
+								`- PDF rights note: ${publication.pdf.rightsNote}${
+									publication.pdf.rightsUrl
+										? ` (${publication.pdf.rightsUrl})`
+										: ""
+								}`,
+							]
+						: []),
+				]
 			: []),
 		`- Topics: ${publication.tags.map(displayTag).join("; ")}`,
 		`- Canonical detail page: ${absolutePublicationUrl(publication)}`,

@@ -5,10 +5,11 @@
 	"scripts": {
 		"dev": "astro dev",
 		"start": "astro dev",
-		"build": "astro check && astro build",
+		"build": "astro check && npm run validate:pdfs && astro build",
 		"preview": "astro preview",
 		"astro": "astro",
-		"check": "biome check --apply-unsafe ."
+		"check": "biome check --apply-unsafe .",
+		"validate:pdfs": "node scripts/validate-publication-pdfs.mjs"
 	},
 	"devDependencies": {
 		"@astrojs/check": "^0.9.6",

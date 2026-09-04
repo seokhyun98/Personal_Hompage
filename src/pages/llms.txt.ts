@@ -2,6 +2,7 @@ import type { APIRoute } from "astro";
 import about from "../collections/about.json";
 import {
 	SITE_ORIGIN,
+	absolutePublicationPdfUrl,
 	absolutePublicationUrl,
 	publicationKindLabel,
 	scholarlyPublications,
@@ -22,13 +23,15 @@ function renderPublicationLine(
 		: publication.preprintUrl
 			? ` Preprint: ${publication.preprintUrl}.`
 			: "";
+	const pdfUrl = absolutePublicationPdfUrl(publication);
+	const fullText = pdfUrl ? ` Full text PDF: ${pdfUrl}.` : "";
 	return `- [${publication.title}](${detailUrl}) (${
 		publication.year
 	}; ${publicationKindLabel(
 		publication.publicationKind,
 	)}). ${publication.authors.map((author) => author.displayName).join(", ")}. ${
 		publication.containerTitle
-	}.${identifier}`;
+	}.${identifier}${fullText}`;
 }
 
 const body = `# Seokhyun Hwang

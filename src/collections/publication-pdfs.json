@@ -1,0 +1,288 @@
+{
+	"schemaVersion": 1,
+	"meta": {
+		"description": "Integrity, provenance, version, license, and web-optimization metadata for publication PDFs hosted by the site.",
+		"fileRoot": "public/publications",
+		"availableCount": 20,
+		"retrieval": {
+			"date": "2026-09-04",
+			"method": "Based on public copies downloaded through public full-text or version links exposed by Google Scholar in the user's Chrome session; larger files are web-optimized derivatives that retain every page, the original searchable text objects, and annotations while downsampling embedded images."
+		},
+		"optimization": {
+			"tool": "PyMuPDF + Pillow",
+			"toolVersion": "PyMuPDF 1.26.4; Pillow 11.3.0",
+			"method": "Direct image XObject downsampling with page content, searchable text, page geometry, and annotations preserved",
+			"targetImageResolutionDpi": 150,
+			"jpegQuality": 86,
+			"maxBytes": 5000000
+		},
+		"unavailable": [
+			{
+				"id": "c.4",
+				"reason": "No public PDF was available from the Google Scholar versions page or the GIST record."
+			},
+			{
+				"id": "w.2",
+				"reason": "No public PDF was found through an exact-title Google Scholar search."
+			},
+			{
+				"id": "c.9",
+				"reason": "The Google Scholar-linked IEEE PDF was a University of Washington Libraries licensed copy with redistribution restrictions; no cleared full-text alternative was available from the other Scholar versions."
+			},
+			{
+				"id": "c.2",
+				"reason": "Google Scholar exposed only the ACM version of record, whose copyright notice requires specific permission for server redistribution."
+			},
+			{
+				"id": "p.2",
+				"reason": "The Google Scholar versions were the restricted ACM version of record, an archival copy of the same file, and a poster rather than the full paper."
+			},
+			{
+				"id": "p.1",
+				"reason": "The Google Scholar versions were publisher-formatted copies whose copyright notice requires specific permission for server redistribution."
+			}
+		]
+	},
+	"entries": [
+		{
+			"id": "c.15",
+			"slug": "closed-loop-cpr-training-glove",
+			"path": "/publications/closed-loop-cpr-training-glove/closed-loop-cpr-training-glove.pdf",
+			"sourceUrl": "https://arxiv.org/pdf/2603.05793",
+			"version": "preprint",
+			"rightsNote": "Author preprint hosted by arXiv",
+			"rightsUrl": "https://arxiv.org/licenses/nonexclusive-distrib/1.0/",
+			"bytes": 2102507,
+			"pageCount": 8,
+			"sha256": "bde5d853063dfcc0fbdc08547932b5d0b2ece64bdfbd0a79c4a5751f8e3d3412"
+		},
+		{
+			"id": "c.14",
+			"slug": "adaptive-in-car-touchscreen-framework",
+			"path": "/publications/adaptive-in-car-touchscreen-framework/adaptive-in-car-touchscreen-framework.pdf",
+			"sourceUrl": "https://dl.acm.org/doi/pdf/10.1145/3772318.3790434",
+			"version": "version-of-record",
+			"license": "CC BY 4.0",
+			"licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+			"bytes": 1794177,
+			"pageCount": 23,
+			"sha256": "4402ab00704f08257809bbcf39ae921e66af147d995b6af7302e1c9132853118"
+		},
+		{
+			"id": "c.13",
+			"slug": "touchscreens-in-motion",
+			"path": "/publications/touchscreens-in-motion/touchscreens-in-motion.pdf",
+			"sourceUrl": "https://dl.acm.org/doi/pdf/10.1145/3746059.3747683",
+			"version": "version-of-record",
+			"license": "CC BY 4.0",
+			"licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+			"bytes": 1603072,
+			"pageCount": 21,
+			"sha256": "95e8982a58fc8745f8b597d9da447f23d6f5f1a501420bdd3bbb39aebcd6dec4"
+		},
+		{
+			"id": "c.12",
+			"slug": "contextual-ehmi-multi-road-user-conflicts",
+			"path": "/publications/contextual-ehmi-multi-road-user-conflicts/contextual-ehmi-multi-road-user-conflicts.pdf",
+			"sourceUrl": "https://dl.acm.org/doi/pdf/10.1145/3749473",
+			"version": "version-of-record",
+			"license": "CC BY-NC-SA 4.0",
+			"licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+			"bytes": 1556458,
+			"pageCount": 37,
+			"sha256": "19a4031c23f605ae30aff46cd9c2e14e19dada24e84eedda1a5446a4e7f2a29d"
+		},
+		{
+			"id": "j.3",
+			"slug": "red-shoes-multisensory-redirected-walking",
+			"path": "/publications/red-shoes-multisensory-redirected-walking/red-shoes-multisensory-redirected-walking.pdf",
+			"sourceUrl": "https://link.springer.com/content/pdf/10.1007/s10055-025-01234-w.pdf",
+			"version": "version-of-record",
+			"license": "CC BY-NC-ND 4.0",
+			"licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+			"bytes": 1884660,
+			"pageCount": 26,
+			"sha256": "ba0218518fe637581365c70182754a8fa31f774948e415fcc30b79214f67e17e"
+		},
+		{
+			"id": "c.11",
+			"slug": "telepulse",
+			"path": "/publications/telepulse/telepulse.pdf",
+			"sourceUrl": "https://dl.acm.org/doi/pdf/10.1145/3706598.3713767",
+			"version": "version-of-record",
+			"license": "CC BY-NC-SA 4.0",
+			"licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+			"bytes": 1912929,
+			"pageCount": 26,
+			"sha256": "2c6a2dc4b98251bad6504635876466341a52717c3a846c48d382f21880078ce0"
+		},
+		{
+			"id": "c.10",
+			"slug": "in-car-vr-active-locomotion",
+			"path": "/publications/in-car-vr-active-locomotion/in-car-vr-active-locomotion.pdf",
+			"sourceUrl": "https://dl.acm.org/doi/pdf/10.1145/3706598.3713373",
+			"version": "version-of-record",
+			"license": "CC BY-NC-SA 4.0",
+			"licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+			"bytes": 1548443,
+			"pageCount": 19,
+			"sha256": "a479e3be4e49974422eb1b941a470869bf3cdfaf3ecd483bdf5f21ecb08a23f0"
+		},
+		{
+			"id": "c.8",
+			"slug": "flip-pelt",
+			"path": "/publications/flip-pelt/flip-pelt.pdf",
+			"sourceUrl": "https://dl.acm.org/doi/pdf/10.1145/3654777.3676363",
+			"version": "version-of-record",
+			"license": "CC BY 4.0",
+			"licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+			"bytes": 1537210,
+			"pageCount": 15,
+			"sha256": "ce879504eeaf880f481be2cd133a7bf9845f57c940db41c39e0417b1cc876119"
+		},
+		{
+			"id": "w.4",
+			"slug": "teleoperation-ems-framework",
+			"path": "/publications/teleoperation-ems-framework/teleoperation-ems-framework.pdf",
+			"sourceUrl": "https://dl.acm.org/doi/pdf/10.1145/3675094.3678380",
+			"version": "version-of-record",
+			"license": "CC BY 4.0",
+			"licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+			"bytes": 1111624,
+			"pageCount": 6,
+			"sha256": "81d6633ee39d743ab64cc0032088abf1d8aa5a4cf503dc2226e79a16354a7ecb"
+		},
+		{
+			"id": "w.3",
+			"slug": "adaptive-in-vehicle-vr-posture",
+			"path": "/publications/adaptive-in-vehicle-vr-posture/adaptive-in-vehicle-vr-posture.pdf",
+			"sourceUrl": "https://dl.acm.org/doi/pdf/10.1145/3675094.3678381",
+			"version": "version-of-record",
+			"license": "CC BY 4.0",
+			"licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+			"bytes": 1332122,
+			"pageCount": 5,
+			"sha256": "985366d7e463b0c8d90242ba9a85eb9a30c0060e4dd8a36b6c5faf5bd27ac01c"
+		},
+		{
+			"id": "c.7",
+			"slug": "timelytale",
+			"path": "/publications/timelytale/timelytale.pdf",
+			"sourceUrl": "https://scholar.gist.ac.kr/bitstream/local/9356/2/3678544%20%281%29_compressed.pdf",
+			"version": "version-of-record",
+			"license": "CC BY 4.0",
+			"licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+			"bytes": 1366041,
+			"pageCount": 60,
+			"sha256": "c2d2e6d03b186cb1335bc6fc3232d5e587d218680956ac429ffbdba37de0a484"
+		},
+		{
+			"id": "w.1",
+			"slug": "dual-sided-peltier-elements",
+			"path": "/publications/dual-sided-peltier-elements/dual-sided-peltier-elements.pdf",
+			"sourceUrl": "https://arxiv.org/pdf/2405.11807",
+			"version": "preprint",
+			"license": "CC BY-NC-ND 4.0",
+			"licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+			"bytes": 285821,
+			"pageCount": 3,
+			"sha256": "5c0a8549de9a3054b46c132c4975453c47819abab4acd06d534087fed81c1f5d"
+		},
+		{
+			"id": "c.6",
+			"slug": "watchcap",
+			"path": "/publications/watchcap/watchcap.pdf",
+			"sourceUrl": "https://dl.acm.org/doi/pdf/10.1145/3659592",
+			"version": "version-of-record",
+			"license": "CC BY 4.0",
+			"licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+			"bytes": 2090856,
+			"pageCount": 32,
+			"sha256": "8b4ab5a987ffb08aabeeb530b5e8da76aad933e7bbf686502b441b012f6c9a04"
+		},
+		{
+			"id": "c.5",
+			"slug": "ergopulse",
+			"path": "/publications/ergopulse/ergopulse.pdf",
+			"sourceUrl": "https://dl.acm.org/doi/pdf/10.1145/3613904.3642008",
+			"version": "version-of-record",
+			"license": "CC BY-NC-SA 4.0",
+			"licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+			"bytes": 1747179,
+			"pageCount": 21,
+			"sha256": "51d618f3955a32ed7699d775276fe984a275b3b6ef5eb0bf14831cf5ecc12a49"
+		},
+		{
+			"id": "p.4",
+			"slug": "gaitway",
+			"path": "/publications/gaitway/gaitway.pdf",
+			"sourceUrl": "https://jeongseokoh.com/assets/paper/gaitway.pdf",
+			"version": "version-of-record",
+			"rightsNote": "Copyright held by the owner/author(s); full notice retained in the PDF",
+			"rightsUrl": "https://www.acm.org/publications/policies/copyright-policy",
+			"bytes": 3940155,
+			"pageCount": 8,
+			"sha256": "d257b1cf989b817344aa412193160efbba3bfe5b8203561f5f808b7bd7e66f32"
+		},
+		{
+			"id": "p.3",
+			"slug": "curving-the-virtual-route",
+			"path": "/publications/curving-the-virtual-route/curving-the-virtual-route.pdf",
+			"sourceUrl": "https://dl.acm.org/doi/pdf/10.1145/3613905.3650746",
+			"version": "version-of-record",
+			"rightsNote": "Copyright held by the owner/author(s); full notice retained in the PDF",
+			"rightsUrl": "https://www.acm.org/publications/policies/copyright-policy",
+			"bytes": 789160,
+			"pageCount": 7,
+			"sha256": "17c6ffd7111c027c6d3a05ab1a9e707d9d90074d9a7d7f50b0849546faaf4d74"
+		},
+		{
+			"id": "j.2",
+			"slug": "multisensory-attractors-for-reorientation",
+			"path": "/publications/multisensory-attractors-for-reorientation/multisensory-attractors-for-reorientation.pdf",
+			"sourceUrl": "https://scholar.gist.ac.kr/bitstream/local/8600/2/Virtual%20Reality%202024%20Evaluation%20of%20Visual%20Auditory%20and%20Olfactory%20Stimulus_Based%20Attractors%20for%20Inter.pdf",
+			"version": "version-of-record",
+			"license": "CC BY 4.0",
+			"licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+			"bytes": 2927670,
+			"pageCount": 18,
+			"sha256": "54155183660694c19b700f104234ee1318a5f4846e244502dce8e287db881b1e"
+		},
+		{
+			"id": "j.1",
+			"slug": "optical-flow-curvature-thresholds",
+			"path": "/publications/optical-flow-curvature-thresholds/optical-flow-curvature-thresholds.pdf",
+			"sourceUrl": "https://link.springer.com/content/pdf/10.1007/s10055-023-00935-4.pdf",
+			"version": "version-of-record",
+			"license": "CC BY 4.0",
+			"licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+			"bytes": 1776317,
+			"pageCount": 15,
+			"sha256": "cf63c9d6aebb374e95c3ac669d7c9031172ff7e311b56a39ec26021ecaf8bcac"
+		},
+		{
+			"id": "c.3",
+			"slug": "bone-conduction-redirected-walking",
+			"path": "/publications/bone-conduction-redirected-walking/bone-conduction-redirected-walking.pdf",
+			"sourceUrl": "https://ieeexplore.ieee.org/iel7/10316350/10316351/10316524.pdf",
+			"version": "version-of-record",
+			"license": "CC BY 4.0",
+			"licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+			"bytes": 858508,
+			"pageCount": 10,
+			"sha256": "625f2fb9ebee18ffb9d8cf999a01a9ad0019f86d0a25d8e3a101e3ec94785c25"
+		},
+		{
+			"id": "c.1",
+			"slug": "vestibular-stimulation-redirected-walking-comparison",
+			"path": "/publications/vestibular-stimulation-redirected-walking-comparison/vestibular-stimulation-redirected-walking-comparison.pdf",
+			"sourceUrl": "https://dl.acm.org/doi/pdf/10.1145/3544548.3580862",
+			"version": "version-of-record",
+			"rightsNote": "Copyright held by the owner/author(s); full notice retained in the PDF",
+			"rightsUrl": "https://www.acm.org/publications/policies/copyright-policy",
+			"bytes": 1481956,
+			"pageCount": 18,
+			"sha256": "93158c6c31c6f398b47ce25b00d1ede85c9c28ea17b97deb81a3c74eea1f0967"
+		}
+	]
+}
