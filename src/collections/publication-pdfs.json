@@ -26,7 +26,7 @@
 				"reason": "No public PDF was found through an exact-title Google Scholar search."
 			},
 			{
-				"id": "c.9",
+				"id": "c.7",
 				"reason": "The Google Scholar-linked IEEE PDF was a University of Washington Libraries licensed copy with redistribution restrictions; no cleared full-text alternative was available from the other Scholar versions."
 			},
 			{
@@ -45,7 +45,7 @@
 	},
 	"entries": [
 		{
-			"id": "c.15",
+			"id": "c.12",
 			"slug": "closed-loop-cpr-training-glove",
 			"path": "/publications/closed-loop-cpr-training-glove/closed-loop-cpr-training-glove.pdf",
 			"sourceUrl": "https://arxiv.org/pdf/2603.05793",
@@ -57,7 +57,7 @@
 			"sha256": "bde5d853063dfcc0fbdc08547932b5d0b2ece64bdfbd0a79c4a5751f8e3d3412"
 		},
 		{
-			"id": "c.14",
+			"id": "c.11",
 			"slug": "adaptive-in-car-touchscreen-framework",
 			"path": "/publications/adaptive-in-car-touchscreen-framework/adaptive-in-car-touchscreen-framework.pdf",
 			"sourceUrl": "https://dl.acm.org/doi/pdf/10.1145/3772318.3790434",
@@ -69,7 +69,7 @@
 			"sha256": "4402ab00704f08257809bbcf39ae921e66af147d995b6af7302e1c9132853118"
 		},
 		{
-			"id": "c.13",
+			"id": "c.10",
 			"slug": "touchscreens-in-motion",
 			"path": "/publications/touchscreens-in-motion/touchscreens-in-motion.pdf",
 			"sourceUrl": "https://dl.acm.org/doi/pdf/10.1145/3746059.3747683",
@@ -81,7 +81,7 @@
 			"sha256": "95e8982a58fc8745f8b597d9da447f23d6f5f1a501420bdd3bbb39aebcd6dec4"
 		},
 		{
-			"id": "c.12",
+			"id": "j.5",
 			"slug": "contextual-ehmi-multi-road-user-conflicts",
 			"path": "/publications/contextual-ehmi-multi-road-user-conflicts/contextual-ehmi-multi-road-user-conflicts.pdf",
 			"sourceUrl": "https://dl.acm.org/doi/pdf/10.1145/3749473",
@@ -93,7 +93,7 @@
 			"sha256": "19a4031c23f605ae30aff46cd9c2e14e19dada24e84eedda1a5446a4e7f2a29d"
 		},
 		{
-			"id": "j.3",
+			"id": "j.6",
 			"slug": "red-shoes-multisensory-redirected-walking",
 			"path": "/publications/red-shoes-multisensory-redirected-walking/red-shoes-multisensory-redirected-walking.pdf",
 			"sourceUrl": "https://link.springer.com/content/pdf/10.1007/s10055-025-01234-w.pdf",
@@ -105,7 +105,7 @@
 			"sha256": "ba0218518fe637581365c70182754a8fa31f774948e415fcc30b79214f67e17e"
 		},
 		{
-			"id": "c.11",
+			"id": "c.9",
 			"slug": "telepulse",
 			"path": "/publications/telepulse/telepulse.pdf",
 			"sourceUrl": "https://dl.acm.org/doi/pdf/10.1145/3706598.3713767",
@@ -117,7 +117,7 @@
 			"sha256": "2c6a2dc4b98251bad6504635876466341a52717c3a846c48d382f21880078ce0"
 		},
 		{
-			"id": "c.10",
+			"id": "c.8",
 			"slug": "in-car-vr-active-locomotion",
 			"path": "/publications/in-car-vr-active-locomotion/in-car-vr-active-locomotion.pdf",
 			"sourceUrl": "https://dl.acm.org/doi/pdf/10.1145/3706598.3713373",
@@ -129,7 +129,7 @@
 			"sha256": "a479e3be4e49974422eb1b941a470869bf3cdfaf3ecd483bdf5f21ecb08a23f0"
 		},
 		{
-			"id": "c.8",
+			"id": "c.6",
 			"slug": "flip-pelt",
 			"path": "/publications/flip-pelt/flip-pelt.pdf",
 			"sourceUrl": "https://dl.acm.org/doi/pdf/10.1145/3654777.3676363",
@@ -165,7 +165,7 @@
 			"sha256": "985366d7e463b0c8d90242ba9a85eb9a30c0060e4dd8a36b6c5faf5bd27ac01c"
 		},
 		{
-			"id": "c.7",
+			"id": "j.4",
 			"slug": "timelytale",
 			"path": "/publications/timelytale/timelytale.pdf",
 			"sourceUrl": "https://scholar.gist.ac.kr/bitstream/local/9356/2/3678544%20%281%29_compressed.pdf",
@@ -189,7 +189,7 @@
 			"sha256": "5c0a8549de9a3054b46c132c4975453c47819abab4acd06d534087fed81c1f5d"
 		},
 		{
-			"id": "c.6",
+			"id": "j.3",
 			"slug": "watchcap",
 			"path": "/publications/watchcap/watchcap.pdf",
 			"sourceUrl": "https://dl.acm.org/doi/pdf/10.1145/3659592",

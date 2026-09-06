@@ -88,7 +88,7 @@
   },
   "entries": [
     {
-      "id": "c.15",
+      "id": "c.12",
       "group": "publication",
       "tags": [
         "Motor",
@@ -99,15 +99,15 @@
       "title": "A Closed-Loop CPR Training Glove with Integrated Tactile Sensing and Haptic Feedback",
       "authors": "Moon, J., Ma, M., Yang, Q., Choi, Y., Hwang, S., Burden, B., Kim, K., Luo, Y.",
       "venue": "2026 IEEE International Conference on Robotics & Automation",
-      "link": "",
-      "status": "Accepted",
+      "link": "https://arxiv.org/abs/2603.05793",
+      "status": "",
       "media": {
         "type": "image",
         "src": "/images/publications/cpr-training-glove.jpeg"
       }
     },
     {
-      "id": "c.14",
+      "id": "c.11",
       "group": "publication",
       "tags": [
         "Cognition",
@@ -127,7 +127,7 @@
       }
     },
     {
-      "id": "c.13",
+      "id": "c.10",
       "group": "publication",
       "tags": [
         "Cognition",
@@ -146,25 +146,7 @@
       }
     },
     {
-      "id": "c.12",
-      "group": "publication",
-      "tags": [
-        "Cognition",
-        "Automotive",
-        "Conference"
-      ],
-      "title": "You're the One Whom I'm Talking To: The Role of Contextual External Human-Machine Interfaces in Multi-Road User Conflict Scenarios",
-      "authors": "Kang, Y., Park, J., Hwang, S., Seong, M., Kim, G., Kim, S.",
-      "venue": "Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies, Vol. 9, No.3",
-      "link": "https://doi.org/10.1145/3749473",
-      "media": {
-        "type": "animated-image",
-        "src": "/images/publications/contextual-ehmi.webp",
-        "poster": "/images/publications/contextual-ehmi-poster.jpg"
-      }
-    },
-    {
-      "id": "j.3",
+      "id": "j.6",
       "group": "publication",
       "tags": [
         "Perception",
@@ -181,7 +163,25 @@
       }
     },
     {
-      "id": "c.11",
+      "id": "j.5",
+      "group": "publication",
+      "tags": [
+        "Cognition",
+        "Automotive",
+        "Journal"
+      ],
+      "title": "You're the One Whom I'm Talking To: The Role of Contextual External Human-Machine Interfaces in Multi-Road User Conflict Scenarios",
+      "authors": "Kang, Y., Park, J., Hwang, S., Seong, M., Kim, G., Kim, S.",
+      "venue": "Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies, Vol. 9, No.3",
+      "link": "https://doi.org/10.1145/3749473",
+      "media": {
+        "type": "animated-image",
+        "src": "/images/publications/contextual-ehmi.webp",
+        "poster": "/images/publications/contextual-ehmi-poster.jpg"
+      }
+    },
+    {
+      "id": "c.9",
       "group": "publication",
       "tags": [
         "Motor",
@@ -202,7 +202,7 @@
       }
     },
     {
-      "id": "c.10",
+      "id": "c.8",
       "group": "publication",
       "tags": [
         "Perception",
@@ -221,7 +221,7 @@
       }
     },
     {
-      "id": "c.9",
+      "id": "c.7",
       "group": "publication",
       "tags": [
         "Motor",
@@ -239,7 +239,7 @@
       }
     },
     {
-      "id": "c.8",
+      "id": "c.6",
       "group": "publication",
       "tags": [
         "Perception",
@@ -293,15 +293,15 @@
       }
     },
     {
-      "id": "c.7",
+      "id": "j.4",
       "group": "publication",
       "tags": [
         "Cognition",
         "Human-AI_Interaction",
         "Automotive",
-        "Conference"
+        "Journal"
       ],
-      "title": "TimelyTale: A Multimodal Dataset Assessing Passenger's Demands for Explanations in Highly Automated Vehicles",
+      "title": "TimelyTale: A Multimodal Dataset Approach to Assessing Passengers' Explanation Demands in Highly Automated Vehicles",
       "authors": "Kim, G., Hwang, S., Seong, M., Yeo, D., Rus, D., Kim, S.",
       "venue": "Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies, Vol. 8, No.3",
       "link": "https://dl.acm.org/doi/10.1145/3678544",
@@ -346,12 +346,12 @@
       }
     },
     {
-      "id": "c.6",
+      "id": "j.3",
       "group": "publication",
       "tags": [
         "Perception",
         "Assistive_&_Health",
-        "Conference"
+        "Journal"
       ],
       "title": "WatchCap: Improving Scanning Efficiency in People with Low Vision through Compensatory Head Movement Stimulation",
       "authors": "Jo, T., Yeo, D., Kim, G., Hwang, S., Kim, S.",
@@ -576,7 +576,7 @@
       "tags": [],
       "title": "Haptic wearable devices for tactile experiences",
       "authors": "Kim, S., Kang, S., Kim, G., Hwang, S., Park, J., Elsharkawy, A.",
-      "venue": "KR Patent App. KR102541073",
+      "venue": "KR Patent. KR102946187B1",
       "link": ""
     },
     {
@@ -584,8 +584,8 @@
       "group": "patent",
       "tags": [],
       "title": "Method and System for Supporting Walking in Virtual Environment",
-      "authors": "Hwang, S., Lee, J., Kim, Y., Seo, Y., Kim, S.",
-      "venue": "US Patent App. US20250159408A1 | KR Patent App. KR20250069327A",
+      "authors": "Kim, S., Hwang, S., Kim, Y., Seo, Y., and Lee, J.",
+      "venue": "US Patent App. US20250159408A1 | KR Patent. KR102916251B1",
       "link": ""
     },
     {

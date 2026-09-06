@@ -36,7 +36,7 @@ function renderPublicationLine(
 
 const body = `# Seokhyun Hwang
 
-> Seokhyun (Shawn) Hwang is a Ph.D. student in Information Science at the University of Washington. His research spans human-computer interaction, human-AI interaction, adaptive interfaces, VR/AR/XR, haptics, wearable systems, automotive interaction, and assistive and health technologies.
+> Seokhyun (Shawn) Hwang is a Ph.D. student in Information Science at the University of Washington. He studies human-adaptive interaction: systems that understand changes in what people can perceive, process, and do, then adapt interfaces, information, and body-level feedback. His work spans human-computer interaction, human-AI interaction, haptics, wearable systems, VR/AR/XR, automotive interaction, and assistive and health technologies.
 
 Canonical site: ${SITE_ORIGIN}/
 Publications index: ${SITE_ORIGIN}/publications/

@@ -5,7 +5,7 @@
   "website": "https://seokhyunhwang.com",
   "cvLink": "/cv.pdf",
   "profileImage": "/images/profile/profile.jpg",
-  "bio": "Hi there! My name is Seokhyun (Shawn) Hwang, and I am a Ph.D. student in Information Science at the University of Washington in the ACE Lab (Advisor: Jacob O. Wobbrock). I completed my Master's degree in Intelligent Robotics at GIST HCIS Lab (Advisor: SeungJun Kim). I work on Human-Computer Interaction, VR/AR/XR, haptics, and wearable systems.",
+  "bio": "Hi there! My name is Seokhyun (Shawn) Hwang, and I am a Ph.D. student in Information Science at the University of Washington in the ACE Lab (Advisor: Jacob O. Wobbrock). I completed my Master's degree in Intelligent Robotics at GIST HCIS Lab (Advisor: SeungJun Kim). I study human-adaptive interaction: systems that understand changes in what people can perceive, process, and do, then adapt interfaces, information, and body-level feedback accordingly.",
   "socialLinks": [
     {
       "label": "Google Scholar",
@@ -59,7 +59,7 @@
     {
       "title": "Best Paper, CHI 2025",
       "date": "May 2025",
-      "detail": "Top 1% of conference papers [c.11]"
+      "detail": "Top 1% of conference papers [c.9]"
     },
     {
       "title": "Special Recognitions, ACM TEI",
@@ -173,13 +173,13 @@
     {
       "label": "Conference Reviewer",
       "items": [
-        "CHI (4 in 2026, 4 in 2025); CHI EA (1 in 2026, 2 in 2024, 1 in 2023); TEI (1 in 2025 Recognition for an outstanding review); VRST (1 in 2024); UIST (1 in 2026, 1 in 2023 Recognition for an outstanding review); EuroHaptics (2 in 2026); IMWUT (1 in 2026)"
+        "CHI (4 in 2026, 4 in 2025); CHI EA (1 in 2026, 2 in 2024, 1 in 2023); TEI (1 in 2025 Recognition for an outstanding review); VRST (1 in 2024); UIST (1 in 2026, 1 in 2023 Recognition for an outstanding review); EuroHaptics (2 in 2026)"
       ]
     },
     {
       "label": "Journal Reviewer",
       "items": [
-        "International Journal of Human–Computer Interaction (3 in 2024, 5 in 2025, 5 in 2026; incl. multi-round reviews)"
+        "IMWUT (1 in 2026, 1 in 2024 Recognition for an outstanding review); International Journal of Human–Computer Interaction (3 in 2024, 5 in 2025, 5 in 2026; incl. multi-round reviews)"
       ]
     }
   ],

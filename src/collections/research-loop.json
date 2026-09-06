@@ -51,9 +51,9 @@
           "title": "Multisensory Feedback",
           "caption": "Coordinate visual, vestibular, tactile, thermal, auditory, and olfactory cues.",
           "works": [
-            { "name": "In-Car VR Adaptation", "refs": ["c.4", "c.10"] },
-            { "name": "Flip-Pelt", "refs": ["c.8"] },
-            { "name": "ReD Shoes", "refs": ["j.3"] }
+            { "name": "In-Car VR Adaptation", "refs": ["c.4", "c.8"] },
+            { "name": "Flip-Pelt", "refs": ["c.6"] },
+            { "name": "ReD Shoes", "refs": ["j.6"] }
           ]
         },
         {
@@ -62,9 +62,9 @@
           "title": "Comfort & Access",
           "caption": "Evaluate presence, sickness, stability, and visual exploration—not only technical range.",
           "works": [
-            { "name": "WatchCap", "refs": ["c.6"] },
-            { "name": "In-Car VR Adaptation", "refs": ["c.4", "c.10"] },
-            { "name": "ReD Shoes", "refs": ["j.3"] }
+            { "name": "WatchCap", "refs": ["j.3"] },
+            { "name": "In-Car VR Adaptation", "refs": ["c.4", "c.8"] },
+            { "name": "ReD Shoes", "refs": ["j.6"] }
           ]
         }
       ]
@@ -82,8 +82,8 @@
           "title": "Load & Demand",
           "caption": "Measure how workload, context, and information needs change touch, gaze, and behavior.",
           "works": [
-            { "name": "Touchscreens in Motion", "refs": ["c.13"] },
-            { "name": "TimelyTale", "refs": ["c.7"] }
+            { "name": "Touchscreens in Motion", "refs": ["c.10"] },
+            { "name": "TimelyTale", "refs": ["j.4"] }
           ]
         },
         {
@@ -92,8 +92,8 @@
           "title": "Adaptive UI & Information",
           "caption": "Adapt layout, timing, and contextual communication to the person and the moment.",
           "works": [
-            { "name": "Adaptive Touchscreen", "refs": ["c.14"] },
-            { "name": "Contextual eHMI", "refs": ["c.2", "c.12"] }
+            { "name": "Adaptive Touchscreen", "refs": ["c.11"] },
+            { "name": "Contextual eHMI", "refs": ["c.2", "j.5"] }
           ]
         },
         {
@@ -102,9 +102,9 @@
           "title": "Attention & Trust",
           "caption": "Account for distraction, safety, clarity, and trust when deciding whether adaptation helps.",
           "works": [
-            { "name": "Touchscreens in Motion", "refs": ["c.13"] },
-            { "name": "Contextual eHMI", "refs": ["c.12"] },
-            { "name": "Adaptive Touchscreen", "refs": ["c.14"] }
+            { "name": "Touchscreens in Motion", "refs": ["c.10"] },
+            { "name": "Contextual eHMI", "refs": ["j.5"] },
+            { "name": "Adaptive Touchscreen", "refs": ["c.11"] }
           ]
         }
       ]
@@ -122,7 +122,7 @@
           "title": "Intent & Biomechanics",
           "caption": "Model movement intent and person-specific joint and muscle demands.",
           "works": [
-            { "name": "Adaptive Walker", "refs": ["c.9"] },
+            { "name": "Adaptive Walker", "refs": ["c.7"] },
             { "name": "GaitWay", "refs": ["p.4"] },
             { "name": "ErgoPulse", "refs": ["c.5"] }
           ]
@@ -133,9 +133,9 @@
           "title": "Haptics & Assistance",
           "caption": "Translate task forces and sensed performance into stimulation, guidance, or device support.",
           "works": [
-            { "name": "ErgoPulse + TelePulse", "refs": ["c.5", "c.11"] },
-            { "name": "Adaptive Walker", "refs": ["c.9"] },
-            { "name": "CPR Glove", "refs": ["c.15"] }
+            { "name": "ErgoPulse + TelePulse", "refs": ["c.5", "c.9"] },
+            { "name": "Adaptive Walker", "refs": ["c.7"] },
+            { "name": "CPR Glove", "refs": ["c.12"] }
           ]
         },
         {
@@ -144,9 +144,9 @@
           "title": "Performance & Safety",
           "caption": "Test task accuracy, movement quality, distraction, stability, and the cost of physical intervention.",
           "works": [
-            { "name": "Adaptive Walker", "refs": ["c.9"] },
-            { "name": "TelePulse", "refs": ["c.11"] },
-            { "name": "CPR Glove", "refs": ["c.15"] }
+            { "name": "Adaptive Walker", "refs": ["c.7"] },
+            { "name": "TelePulse", "refs": ["c.9"] },
+            { "name": "CPR Glove", "refs": ["c.12"] }
           ]
         }
       ]

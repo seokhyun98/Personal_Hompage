@@ -9,19 +9,19 @@
 			"Dates, DOI values, full author display names, container titles, volumes, issues, and pages come from verified bibliographic records where available.",
 			"Family/given-name segmentation is inferred by treating the final token of each verified display name as the family name.",
 			"Records without a verified day-level publication date use the homepage venue year and explicitly report year-level precision.",
-			"A single LaTeX-style percent escape in the c.14 source abstract is normalized from 20\\% to 20% for HTML and citation output."
+			"A single LaTeX-style percent escape in the c.11 source abstract is normalized from 20\\% to 20% for HTML and citation output."
 		]
 	},
 	"entries": [
 		{
-			"id": "c.15",
+			"id": "c.12",
 			"slug": "closed-loop-cpr-training-glove",
 			"abstract": "Cardiopulmonary resuscitation (CPR) is a critical life-saving procedure, and effective training benefits from self-directed practice beyond instructor-led sessions. In this paper, we propose a closed-loop CPR training glove that integrates a high-resolution tactile sensing array and vibrotactile actuators for self-directed practice. The tactile sensing array measures distributed pressures across the palm and dorsum to enable real-time estimation of compression rate, force, and hand pose. Based on these estimations, the glove delivers immediate haptic feedback to guide the user for proper CPR, reducing reliance on external audio-visual displays. We quantified the tactile sensor performance by measuring wide-range sensitivity (≈ 0.85 over 0- 600 N), computing hysteresis (56.04%), testing stability (11.05% drift over 300 cycles), and estimating global signal-to-noise ratio (18.90 ± 2.41 dB at 600 N). Our closed-loop pipeline provides continuous modeling and feedback of key performance metrics essential for high-quality CPR. Our lightweight statistical models achieve >92% accuracy for force estimation and hand pose classification within sub-millisecond inference time. Our user study (N=8) showed that haptic feedback reduced visual distraction compared to audio-visual cues, though simplified patterns were required for reliable perception under dynamic load. These results highlight the potential of tactile sensing and haptic glove for CPR self-training.",
 			"year": 2026,
 			"publicationDate": "2026",
 			"publicationDatePrecision": "year",
 			"publicationDateSource": "conference year",
-			"publicationKind": "conference-paper-accepted",
+			"publicationKind": "conference-paper",
 			"publicationKindSource": "verified bibliographic record",
 			"containerTitle": "2026 IEEE International Conference on Robotics and Automation (ICRA)",
 			"containerTitleSource": "verified bibliographic record",
@@ -91,7 +91,7 @@
 			"authorSource": "verified bibliographic records"
 		},
 		{
-			"id": "c.14",
+			"id": "c.11",
 			"slug": "adaptive-in-car-touchscreen-framework",
 			"abstract": "Although in-car touchscreens expand interaction possibilities, they risk compromising driver safety and vigilance. We propose a data- and expert-informed framework for designing adaptive touchscreens that respond to a driver’s usage profile and cognitive state, maximizing usability while mitigating safety risks. First, in a driving simulator study, we find that cognitive load slows touchscreen button selections by 20% and produced shorter, more frequent off-road glances. We also find that enlarging buttons improves selection speeds by 0.3 seconds but at the cost of requiring more display pages. Next, these findings informed a co-design session with expert in-cabin designers, generating guidelines for adaptive interfaces that balance usability and safety. These guidelines form the basis of our Profile-State Adaptive (PSA) framework, which integrates driver profiles with cognitive states to guide interface adaptations. We then extend the framework to include a quantitative Time-Cost model as well as design patterns for adaptive layouts across usage profiles and cognitive demands.",
 			"year": 2026,
@@ -167,7 +167,7 @@
 			"authorSource": "verified bibliographic records"
 		},
 		{
-			"id": "c.13",
+			"id": "c.10",
 			"slug": "touchscreens-in-motion",
 			"abstract": "This study investigates the interplay between a driver's cognitive load, touchscreen interactions, and driving performance. Using an N-back task to induce four levels of cognitive load, we measured physiological responses (pupil diameter, electrodermal activity), subjective workload (NASA-TLX), touchscreen performance (Fitts' law), and driving metrics (lateral deviation, throttle control). Our results reveal significant mutual performance degradation, with touchscreen pointing throughput decreasing by over 58.1% during driving conditions and lateral driving deviation increasing by 41.9% when touchscreen interactions were introduced. Under high cognitive load, participants demonstrated a 20.2% increase in pointing movement time, 16.6% decreased pointing throughput, and 26.3% reduced off-road glance durations. We identified a prevalent \"hand-before-eye\" phenomenon where ballistic hand movements frequently preceded visual attention shifts. These findings quantify the impact of cognitive load on multitasking performance and demonstrate how drivers adapt their visual attention and motor-visual coordination when cognitive resources are constrained.",
 			"year": 2025,
@@ -252,7 +252,7 @@
 			"authorSource": "verified bibliographic records"
 		},
 		{
-			"id": "c.12",
+			"id": "j.5",
 			"slug": "contextual-ehmi-multi-road-user-conflicts",
 			"abstract": "As autonomous vehicles (AVs) become more prevalent, mixed-traffic environments involving pedestrians, cyclists, and manual vehicle drivers pose significant challenges for ensuring safe and effective interactions. External Human-Machine Interfaces (eHMIs) have emerged as a solution, particularly context-based eHMIs, which provide specific information such as Whom, When, and Where, showing potential for improving communication in complex scenarios. However, their impact on road user behavior and safety in interactions involving multiple road users remains insufficiently explored. This study addresses this gap by examining how contextual eHMIs affect crossing performance and subjective feelings during multi-user conflict scenarios. Using a virtual reality-based multi-agent simulation, 42 participants were equally divided into three groups---pedestrians, cyclists, and manual vehicle drivers---to make crossing decisions during interactions with an AV. Our findings demonstrated that providing contextual information in AV-multi-road user interactions significantly enhanced participants' crossing performance and improved their perceived safety, trust, and clarity. These findings highlight the potential of context-based eHMIs to facilitate safer and more intuitive interactions in mixed-traffic environments.",
 			"year": 2025,
@@ -316,7 +316,7 @@
 			"authorSource": "verified bibliographic records"
 		},
 		{
-			"id": "j.3",
+			"id": "j.6",
 			"slug": "red-shoes-multisensory-redirected-walking",
 			"abstract": "A major challenge in virtual reality (VR) is enabling users to navigate expansive virtual environments within confined real-world spaces. Although redirected walking (RDW) addresses this by manipulating users’ walking paths, it is hindered by visual-vestibular inconsistencies, leading to reduced immersion, discomfort, and constrained detection thresholds (DTs). We introduce ReD Shoes, redirecting shoes for VR locomotion with dynamically adjustable inclination designed to enhance multisensory integration by providing haptic feedback directly to the feet. This feedback mitigates visual-vestibular inconsistencies by enhancing proprioceptive cues and aligning tactile sensations with visual stimuli, thereby improving self-motion perception, presence, and gait stability. We conducted two experiments with 30 participants: 10 in a pilot study to optimize inclination parameters and 20 in a main study to evaluate the DT, gait stability, and user experience under No Inclination, Low Inclination (1 cm), and High Inclination (1.5 cm) conditions. Low Inclination considerably expanded the DT (43.64%), enhanced the user’s feel of presence, and maintained walking stability through effective multisensory alignment. In comparison, High Inclination showed a smaller DT expansion (33.86%), increased discomfort, reduced stability, and aggravated oculomotor symptoms due to intensified sensory conflicts. This study demonstrates the use of ReD Shoes in addressing key RDW limitations by enhancing DT, stability, and user presence through active haptic feedback. Our findings offer insights for developing advanced VR mobility solutions, supporting adaptive haptic footwear that improves RDW functionality and extends immersive VR applications in gaming, training, and rehabilitation.",
 			"year": 2025,
@@ -380,7 +380,7 @@
 			"authorSource": "verified bibliographic records"
 		},
 		{
-			"id": "c.11",
+			"id": "c.9",
 			"slug": "telepulse",
 			"abstract": "This paper introduces TelePulse, a system integrating biomechanical simulation with electrical muscle stimulation (EMS) to provide precise haptic feedback for robot teleoperation tasks in virtual reality (VR). TelePulse has two components: a physical simulation part that calculates joint torques based on real-time force data from remote manipulators, and an electrical stimulation part that converts these torques into muscle stimulation. Two experiments were conducted to evaluate the system. The first experiment assessed the accuracy of EMS generated through biomechanical simulations by comparing it with electromyography (EMG) data during force-directed tasks, while the second experiment evaluated the impact of TelePulse on teleoperation performance during sanding and drilling tasks. The results suggest that TelePulse provided more accurate stimulation across all arm muscles, thereby enhancing task performance and user experience in the teleoperation environment. In this paper, we discuss the effect of TelePulse on teleoperation, its limitations, and areas for future improvement.",
 			"year": 2025,
@@ -487,7 +487,7 @@
 			"authorSource": "verified bibliographic records"
 		},
 		{
-			"id": "c.10",
+			"id": "c.8",
 			"slug": "in-car-vr-active-locomotion",
 			"abstract": "We explore the feasibility of active user-applied locomotion in virtual reality (VR) within in-car environments, diverging from previous in-car VR research that synchronized virtual motion with the car’s movement. Through a two-step study, we examined the effects of locomotion methods on user experience in dynamic vehicle environments and evaluated contextual cues designed to mitigate sensory mismatch caused by vehicle motion. The first study evaluated five locomotion methods, identifying joystick-based navigation as the most suitable for in-car use due to its low physical demand and stability. The second study focused on designing and testing contextual cues that translate physical sensations of vehicle motion into virtual effects without limiting the user’s freedom of movement, with results demonstrating their effectiveness in reducing motion sickness and enhancing presence. We conclude with initial insights and design considerations for expanding upon our findings in regards to enabling active locomotion in in-car VR.",
 			"year": 2025,
@@ -549,7 +549,7 @@
 			"authorSource": "verified bibliographic records"
 		},
 		{
-			"id": "c.9",
+			"id": "c.7",
 			"slug": "adaptive-walker",
 			"abstract": "In this paper, we present an adaptive walker system designed to address limitations in current intelligent walker technologies. While recent advancements have been made in this field, existing systems often struggle to seamlessly interpret user intent for speed control and lack adaptability across diverse scenarios and terrain. Our proposed solution incorporates high-resolution tactile sensors, deep learning algorithms, IMU sensors, and linear motors to dynamically adjust to the user's intentions and terrain changes. The system is capable of predicting the user's desired speed with an error margin of only 20.99%, relying solely on tactile input from hand and arm contact points. Additionally, it maintains the walker's horizontal stability with an error of less than 1 degree by adjusting leg lengths in response to variations in ground angle. This adaptive walker enhances user safety and comfort, particularly for individuals with reduced strength or cognitive abilities, and offers reliable assistance on uneven terrain such as uphill and downhill paths.",
 			"year": 2025,
@@ -646,7 +646,7 @@
 			"authorSource": "verified bibliographic records"
 		},
 		{
-			"id": "c.8",
+			"id": "c.6",
 			"slug": "flip-pelt",
 			"abstract": "This study introduces \"Flip-Pelt,\" a motor-driven peltier device designed to provide rapid thermal stimulation and congruent pressure feedback in virtual reality (VR) environments. Our system incorporates eight motor-driven peltier elements, allowing for the flipping of preheated or cooled elements to the opposite side. In evaluating the Flip-Pelt device, we assess user ability to distinguish between heat/cold sources by their patterns and stiffness, and its impact on enhancing haptic experiences in VR content that involves contact with various thermal sources. Our findings demonstrate that rapid thermal stimulation and congruent pressure feedback provided by Flip-Pelt enhance the recognition accuracy of thermal patterns and the stiffness of virtual objects. These features also improve haptic experiences in VR scenarios through their temporal congruency between tactile and thermal stimuli. Additionally, we discuss the scalability of the Flip-Pelt system to other body parts by proposing design prototypes.",
 			"year": 2024,
@@ -881,7 +881,7 @@
 			"authorSource": "verified bibliographic records"
 		},
 		{
-			"id": "c.7",
+			"id": "j.4",
 			"slug": "timelytale",
 			"abstract": "Explanations in automated vehicles enhance passengers' understanding of vehicle decision-making, mitigating negative experiences by increasing their sense of control. These explanations help maintain situation awareness, even when passengers are not actively driving, and calibrate trust to match vehicle capabilities, enabling safe engagement in non-driving related tasks. While design studies emphasize timing as a crucial factor affecting trust, machine learning practices for explanation generation primarily focus on content rather than delivery timing. This discrepancy could lead to mistimed explanations, causing misunderstandings or unnecessary interruptions. This gap is partly due to alack of datasets capturing passengers' real-world demands and experiences with in-vehicle explanations. We introduce TimelyTale, an approach that records passengers' demands for explanations in automated vehicles. The dataset includes environmental, driving-related, and passenger-specific sensor data for context-aware explanations. Our machine learning analysis identifies proprioceptive and physiological data as key features for predicting passengers' explanation demands, suggesting their potential for generating timely, context-aware explanations. The TimelyTale dataset is available at https://doi.org/10.7910/DVN/CQ8UB0.",
 			"year": 2024,
@@ -1092,7 +1092,7 @@
 			"authorSource": "verified bibliographic records"
 		},
 		{
-			"id": "c.6",
+			"id": "j.3",
 			"slug": "watchcap",
 			"abstract": "Individuals with low vision (LV) frequently face challenges in scanning performance, which in turn complicates daily activities requiring visual recognition. Although those with PVL can theoretically compensate for these scanning deficiencies through the use of active head movements, few practical applications have sought to capitalize on this potential, especially during visual recognition tasks. In this paper, we present WatchCap, a novel device that leverages the hanger reflex phenomenon to naturally elicit head movements through stimulation feedback. Our user studies, conducted with both sighted individuals in a simulated environment and people with glaucoma-related PVL, demonstrated that WatchCap's scanning-contingent stimulation enhances visual exploration. This improvement is evidenced by the fixation and saccade-related features and positive feedback from participants, which did not cause discomfort to the users. This study highlights the promise of facilitating head movements to aid those with LVs in visual recognition tasks. Critically, since WatchCap functions independently of predefined or task-specific cues, it has a wide scope of applicability, even in ambient task situations. This independence positions WatchCap to complement existing tools aimed at detailed visual information acquisition, allowing integration with existing tools and facilitating a comprehensive approach to assisting individuals with LV.",
 			"year": 2024,
